@@ -3,6 +3,10 @@ package stream.test;
 import org.junit.Test;
 import stream.dto.UserCourseDto;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
@@ -17,6 +21,13 @@ import java.util.stream.*;
  * 创建流
  * 中间操作
  * 终止操作
+ *
+ * @see Collectors
+ * @see IntStream
+ * @see LongStream
+ * @see DoubleStream
+ *
+ *
  */
 public class StreanTest {
 
@@ -47,205 +58,114 @@ public class StreanTest {
      * 中间操作
      * Stream<T> filter(Predicate<? super T> predicate);
      * 返回所有符合predicate(断言型接口，返回boolean)条件的数据流
+     * 原始Stream转换成一个新的Stream,这个新生成的Stream中的元素只保留符合条件。
+     *
+     * 常用于 筛选某些数据
      */
     @Test
     public void filterTest(){
         this.getSource().stream().filter(dto->dto.getClassId()>35).forEach(dto->{
             System.out.println(dto);
         });
+        List<UserCourseDto> collect = this.getSource().stream().filter(dto -> dto.getClassId() > 35).collect(Collectors.toList());
+    }
+
+
+    /**
+     * 中间操作
+     * Function<? super T, ? extends R> mapper(函数型接口，入参为T，返回值为R)
+     * 针对源数据，按照一定的规则进行提取元素，一般为数据源对象中拥有返回值得方法
+     * ps:
+     *  List<UserCourseDto>  即UserCourseDto该对象中 拥有返回值的方法
+     *
+     *  常用于 提取对象中某个属性，与distance连用 起到 返回值中不存在相同数据
+     */
+    //<R> Stream<R> map(Function<? super T, ? extends R> mapper);
+    @Test
+    public void mapTest(){
+        this.getSource().stream().map(UserCourseDto::getUserId).forEach(id->System.out.println(id));
+        List<Long> userIds = this.getSource().stream().map(UserCourseDto::getUserId).collect(Collectors.toList());
     }
 
     /**
-     * Returns a stream consisting of the results of applying the given
-     * function to the elements of this stream.
+     *ToIntFunction<? super T> mapper 入参为T，返回值类型为int
+     * 针对源数据，按照一定的规则进行提取元素，一般为数据源对象中拥有返回值为int的方法,可以免除自动装箱/拆箱的额外消耗；
+     * 原始Stream转换成一个新的Stream，这个新生成的Stream中的元素都是int类型。
      *
-     * <p>This is an <a href="package-summary.html#StreamOps">intermediate
-     * operation</a>.
-     *
-     * @param <R> The element type of the new stream
-     * @param mapper a <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *               <a href="package-summary.html#Statelessness">stateless</a>
-     *               function to apply to each element
-     * @return the new stream
-     *//*
-    <R> Stream<R> map(Function<? super T, ? extends R> mapper);
+     * 常用于 提取对象中某个属性，与distance连用 起到 返回值中不存在相同数据（当返回值明确为int或Integer时  使用）
+     */
+    //IntStream mapToInt(ToIntFunction<? super T> mapper);
+    @Test
+    public void mapToTntTest(){
+        this.getSource().stream().mapToInt(dto->{
+            return Integer.parseInt(dto.getClassId()+"");
+        }).forEach(id->{
+            System.out.println(id);
+        });
+        OptionalInt max = this.getSource().stream().mapToInt(dto -> {
+            return Integer.parseInt(dto.getClassId() + "");
+        }).max();
+        System.out.println("------------"+max.getAsInt());
+        List<Integer> collect = this.getSource().stream().mapToInt(dto -> {
+            return Integer.parseInt(dto.getClassId() + "");
+        }).boxed().collect(Collectors.toList());
+    }
 
-    *//**
-     * Returns an {@code IntStream} consisting of the results of applying the
-     * given function to the elements of this stream.
+    /**
+     * ToLongFunction<? super T> mapper 入参为T，返回值类型为Long
+     * 针对源数据，按照一定的规则进行提取元素，一般为数据源对象中拥有返回值为Long的方法,可以免除自动装箱/拆箱的额外消耗；
+     * 原始Stream转换成一个新的Stream，这个新生成的Stream中的元素都是long类型。
      *
-     * <p>This is an <a href="package-summary.html#StreamOps">
-     *     intermediate operation</a>.
-     *
-     * @param mapper a <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *               <a href="package-summary.html#Statelessness">stateless</a>
-     *               function to apply to each element
-     * @return the new stream
-     *//*
-    IntStream mapToInt(ToIntFunction<? super T> mapper);
+     * 常用于 提取对象中某个属性，与distance连用 起到 返回值中不存在相同数据（当返回值明确为long或Long时  使用）
+     */
+    //LongStream mapToLong(ToLongFunction<? super T> mapper);
+    @Test
+    public void mapToLongTest(){
+        //与mapToInt 类似
+        LongStream longStream = this.getSource().stream().mapToLong(UserCourseDto::getUserId);
+    }
 
-    *//**
-     * Returns a {@code LongStream} consisting of the results of applying the
-     * given function to the elements of this stream.
+    /**
+     * ToDoubleFunction<? super T> mapper mapper 入参为T，返回值类型为double
+     * 针对源数据，按照一定的规则进行提取元素，一般为数据源对象中拥有返回值为double的方法,可以免除自动装箱/拆箱的额外消耗；
+     * 原始Stream转换成一个新的Stream，这个新生成的Stream中的元素都是double类型。
      *
-     * <p>This is an <a href="package-summary.html#StreamOps">intermediate
-     * operation</a>.
-     *
-     * @param mapper a <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *               <a href="package-summary.html#Statelessness">stateless</a>
-     *               function to apply to each element
-     * @return the new stream
-     *//*
-    LongStream mapToLong(ToLongFunction<? super T> mapper);
+     * 常用于 提取对象中某个属性，与distance连用 起到 返回值中不存在相同数据（当返回值明确为double或Double时  使用）
+     */
+    //DoubleStream mapToDouble(ToDoubleFunction<? super T> mapper);
+    @Test
+    public void mapToDoubleTest(){
+        //与mapToInt 类似
+    }
 
-    *//**
-     * Returns a {@code DoubleStream} consisting of the results of applying the
-     * given function to the elements of this stream.
-     *
-     * <p>This is an <a href="package-summary.html#StreamOps">intermediate
-     * operation</a>.
-     *
-     * @param mapper a <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *               <a href="package-summary.html#Statelessness">stateless</a>
-     *               function to apply to each element
-     * @return the new stream
-     *//*
-    DoubleStream mapToDouble(ToDoubleFunction<? super T> mapper);
 
-    *//**
-     * Returns a stream consisting of the results of replacing each element of
-     * this stream with the contents of a mapped stream produced by applying
-     * the provided mapping function to each element.  Each mapped stream is
-     * {@link java.util.stream.BaseStream#close() closed} after its contents
-     * have been placed into this stream.  (If a mapped stream is {@code null}
-     * an empty stream is used, instead.)
-     *
-     * <p>This is an <a href="package-summary.html#StreamOps">intermediate
-     * operation</a>.
-     *
-     * @apiNote
-     * The {@code flatMap()} operation has the effect of applying a one-to-many
-     * transformation to the elements of the stream, and then flattening the
-     * resulting elements into a new stream.
-     *
-     * <p><b>Examples.</b>
-     *
-     * <p>If {@code orders} is a stream of purchase orders, and each purchase
-     * order contains a collection of line items, then the following produces a
-     * stream containing all the line items in all the orders:
-     * <pre>{@code
-     *     orders.flatMap(order -> order.getLineItems().stream())...
-     * }</pre>
-     *
-     * <p>If {@code path} is the path to a file, then the following produces a
-     * stream of the {@code words} contained in that file:
-     * <pre>{@code
-     *     Stream<String> lines = Files.lines(path, StandardCharsets.UTF_8);
-     *     Stream<String> words = lines.flatMap(line -> Stream.of(line.split(" +")));
-     * }</pre>
-     * The {@code mapper} function passed to {@code flatMap} splits a line,
-     * using a simple regular expression, into an array of words, and then
-     * creates a stream of words from that array.
-     *
-     * @param <R> The element type of the new stream
-     * @param mapper a <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *               <a href="package-summary.html#Statelessness">stateless</a>
-     *               function to apply to each element which produces a stream
-     *               of new values
-     * @return the new stream
-     *//*
-    <R> Stream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper);
+    /**
+     * 暂时不太清楚
+     * 常用于 list<list<>>
+     */
+    //<R> Stream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper);
+    @Test
+    public void flatMapTest(){
+        /*List<String> lsits = Arrays.asList("hello","world");
+        List<String> collect = lsits.stream().map(str -> str.split("")).flatMap(str -> Arrays.stream(str)).collect(Collectors.toList());
+        collect.forEach(str-> System.out.println(str));*/
 
-    *//**
-     * Returns an {@code IntStream} consisting of the results of replacing each
-     * element of this stream with the contents of a mapped stream produced by
-     * applying the provided mapping function to each element.  Each mapped
-     * stream is {@link java.util.stream.BaseStream#close() closed} after its
-     * contents have been placed into this stream.  (If a mapped stream is
-     * {@code null} an empty stream is used, instead.)
-     *
-     * <p>This is an <a href="package-summary.html#StreamOps">intermediate
-     * operation</a>.
-     *
-     * @param mapper a <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *               <a href="package-summary.html#Statelessness">stateless</a>
-     *               function to apply to each element which produces a stream
-     *               of new values
-     * @return the new stream
-     * @see #flatMap(Function)
-     *//*
-    IntStream flatMapToInt(Function<? super T, ? extends IntStream> mapper);
+        this.getSource().stream().flatMap(dto->Stream.of(dto.getUserId())).forEach(o-> System.out.println(o));
+    }
 
-    *//**
-     * Returns an {@code LongStream} consisting of the results of replacing each
-     * element of this stream with the contents of a mapped stream produced by
-     * applying the provided mapping function to each element.  Each mapped
-     * stream is {@link java.util.stream.BaseStream#close() closed} after its
-     * contents have been placed into this stream.  (If a mapped stream is
-     * {@code null} an empty stream is used, instead.)
-     *
-     * <p>This is an <a href="package-summary.html#StreamOps">intermediate
-     * operation</a>.
-     *
-     * @param mapper a <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *               <a href="package-summary.html#Statelessness">stateless</a>
-     *               function to apply to each element which produces a stream
-     *               of new values
-     * @return the new stream
-     * @see #flatMap(Function)
-     *//*
-    LongStream flatMapToLong(Function<? super T, ? extends LongStream> mapper);
 
-    *//**
-     * Returns an {@code DoubleStream} consisting of the results of replacing
-     * each element of this stream with the contents of a mapped stream produced
-     * by applying the provided mapping function to each element.  Each mapped
-     * stream is {@link java.util.stream.BaseStream#close() closed} after its
-     * contents have placed been into this stream.  (If a mapped stream is
-     * {@code null} an empty stream is used, instead.)
-     *
-     * <p>This is an <a href="package-summary.html#StreamOps">intermediate
-     * operation</a>.
-     *
-     * @param mapper a <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *               <a href="package-summary.html#Statelessness">stateless</a>
-     *               function to apply to each element which produces a stream
-     *               of new values
-     * @return the new stream
-     * @see #flatMap(Function)
-     *//*
-    DoubleStream flatMapToDouble(Function<? super T, ? extends DoubleStream> mapper);
+    //IntStream flatMapToInt(Function<? super T, ? extends IntStream> mapper);
 
-    *//**
-     * Returns a stream consisting of the distinct elements (according to
-     * {@link Object#equals(Object)}) of this stream.
-     *
-     * <p>For ordered streams, the selection of distinct elements is stable
-     * (for duplicated elements, the element appearing first in the encounter
-     * order is preserved.)  For unordered streams, no stability guarantees
-     * are made.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">stateful
-     * intermediate operation</a>.
-     *
-     * @apiNote
-     * Preserving stability for {@code distinct()} in parallel pipelines is
-     * relatively expensive (requires that the operation act as a full barrier,
-     * with substantial buffering overhead), and stability is often not needed.
-     * Using an unordered stream source (such as {@link #generate(Supplier)})
-     * or removing the ordering constraint with {@link #unordered()} may result
-     * in significantly more efficient execution for {@code distinct()} in parallel
-     * pipelines, if the semantics of your situation permit.  If consistency
-     * with encounter order is required, and you are experiencing poor performance
-     * or memory utilization with {@code distinct()} in parallel pipelines,
-     * switching to sequential execution with {@link #sequential()} may improve
-     * performance.
-     *
-     * @return the new stream
-     *//*
-    Stream<T> distinct();
+    //LongStream flatMapToLong(Function<? super T, ? extends LongStream> mapper);
 
-    *//**
+    //DoubleStream flatMapToDouble(Function<? super T, ? extends DoubleStream> mapper);
+
+    /**
+     *
+     */
+    //Stream<T> distinct();
+
+    /**
      * Returns a stream consisting of the elements of this stream, sorted
      * according to natural order.  If the elements of this stream are not
      * {@code Comparable}, a {@code java.lang.ClassCastException} may be thrown
@@ -1031,7 +951,7 @@ public class StreanTest {
 
     @Test
     public void stremtest(){
-        //this.getSource().stream().collect();
+        //this.getSource().stream().collect(Collectors.groupingBy(UserCourseDto::getClassId));
 
     }
 }
