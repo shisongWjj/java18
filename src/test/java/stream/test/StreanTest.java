@@ -3,10 +3,6 @@ package stream.test;
 import org.junit.Test;
 import stream.dto.UserCourseDto;
 
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
@@ -88,6 +84,7 @@ public class StreanTest {
     }
 
     /**
+     * 中间操作
      *ToIntFunction<? super T> mapper 入参为T，返回值类型为int
      * 针对源数据，按照一定的规则进行提取元素，一般为数据源对象中拥有返回值为int的方法,可以免除自动装箱/拆箱的额外消耗；
      * 原始Stream转换成一个新的Stream，这个新生成的Stream中的元素都是int类型。
@@ -112,6 +109,7 @@ public class StreanTest {
     }
 
     /**
+     * 中间操作
      * ToLongFunction<? super T> mapper 入参为T，返回值类型为Long
      * 针对源数据，按照一定的规则进行提取元素，一般为数据源对象中拥有返回值为Long的方法,可以免除自动装箱/拆箱的额外消耗；
      * 原始Stream转换成一个新的Stream，这个新生成的Stream中的元素都是long类型。
@@ -126,6 +124,7 @@ public class StreanTest {
     }
 
     /**
+     * 中间操作
      * ToDoubleFunction<? super T> mapper mapper 入参为T，返回值类型为double
      * 针对源数据，按照一定的规则进行提取元素，一般为数据源对象中拥有返回值为double的方法,可以免除自动装箱/拆箱的额外消耗；
      * 原始Stream转换成一个新的Stream，这个新生成的Stream中的元素都是double类型。
@@ -140,6 +139,7 @@ public class StreanTest {
 
 
     /**
+     * 中间操作
      * 暂时不太清楚
      * 常用于 list<list<>>
      */
@@ -161,27 +161,34 @@ public class StreanTest {
     //DoubleStream flatMapToDouble(Function<? super T, ? extends DoubleStream> mapper);
 
     /**
+     * 中间操作
+     * 原始Stream转换成一个新的Stream，这个新生成的Stream中的元素将去除相同值的元素（如果是对象 则hashcode和equals相同）
      *
+     * 常用于 去除相同的元素
      */
     //Stream<T> distinct();
+    @Test
+    public void distinctTest(){
+        List<Long> collect = this.getSource().stream().map(UserCourseDto::getCompanyId).distinct().collect(Collectors.toList());
+        this.getSource().stream().map(UserCourseDto::getCompanyId).distinct().forEach(companyId->{
+            System.out.println(companyId);
+        });
+    }
 
     /**
-     * Returns a stream consisting of the elements of this stream, sorted
-     * according to natural order.  If the elements of this stream are not
-     * {@code Comparable}, a {@code java.lang.ClassCastException} may be thrown
-     * when the terminal operation is executed.
+     * 中间操作
+     *原始Stream转换成一个新的Stream，这个新生成的Stream中的元素默认按升序排序
      *
-     * <p>For ordered streams, the sort is stable.  For unordered streams, no
-     * stability guarantees are made.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">stateful
-     * intermediate operation</a>.
-     *
-     * @return the new stream
-     *//*
-    Stream<T> sorted();
+     * 常用于 对数字的排序
+     */
+    //Stream<T> sorted();
+    @Test
+    public void sortedTest(){
+        this.getSource().stream().map(UserCourseDto::getUserId).sorted().forEach(userId-> System.out.println(userId));
+    }
 
-    *//**
+
+    /**
      * Returns a stream consisting of the elements of this stream, sorted
      * according to the provided {@code Comparator}.
      *
