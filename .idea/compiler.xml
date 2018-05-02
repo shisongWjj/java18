@@ -9,7 +9,7 @@
         <module name="java18" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8">
       <module name="java18" target="1.8" />
     </bytecodeTargetLevel>
   </component>
