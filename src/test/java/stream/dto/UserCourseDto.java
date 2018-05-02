@@ -1,6 +1,6 @@
 package stream.dto;
 
-public class UserCourseDto {
+public class UserCourseDto/* implements Comparable<UserCourseDto>*/{
 
     private Long courseId;
     private Long recruitId;
@@ -69,4 +69,11 @@ public class UserCourseDto {
                 ", userId=" + userId +
                 '}';
     }
+
+
+   /* @Override
+    public int compareTo(UserCourseDto o) {
+        int i = (int)(this.getClassId() - o.getClassId());//先按照年龄排序
+        return i;
+    }*/
 }

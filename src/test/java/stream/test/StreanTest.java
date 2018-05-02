@@ -18,6 +18,39 @@ import java.util.stream.*;
  * 中间操作
  * 终止操作
  *
+ * 流的构成
+ * 当我们使用一个流的时候，通常包括三个基本步骤：
+ * 获取一个数据源（source）→ 数据转换→执行操作获取想要的结果，每次转换原有 Stream 对象不改变，返回一个新的 Stream 对象（可以有多次转换），这就允许对其操作可以像链条一样排列，变成一个管道，如下图所示。
+ *
+ * 有多种方式生成 Stream Source：
+ 从 Collection 和数组
+ Collection.stream()
+ Collection.parallelStream()
+ Arrays.stream(T array) or Stream.of()
+ 从 BufferedReader
+ java.io.BufferedReader.lines()
+ 静态工厂
+ java.util.stream.IntStream.range()
+ java.nio.file.Files.walk()
+ 自己构建
+ java.util.Spliterator
+ 其它
+ Random.ints()
+ BitSet.stream()
+ Pattern.splitAsStream(java.lang.CharSequence)
+ JarFile.stream()
+ *
+ *
+ * 流的操作类型分为两种：
+ Intermediate：一个流可以后面跟随零个或多个 intermediate 操作。其目的主要是打开流，做出某种程度的数据映射/过滤，然后返回一个新的流，交给下一个操作使用。这类操作都是惰性化的（lazy），就是说，仅仅调用到这类方法，并没有真正开始流的遍历。
+ Terminal：一个流只能有一个 terminal 操作，当这个操作执行后，流就被使用“光”了，无法再被操作。所以这必定是流的最后一个操作。Terminal 操作的执行，才会真正开始流的遍历，并且会生成一个结果，或者一个 side effect。
+ 在对于一个 Stream 进行多次转换操作 (Intermediate 操作)，每次都对 Stream 的每个元素进行转换，而且是执行多次，这样时间复杂度就是 N（转换次数）个 for 循环里把所有操作都做掉的总和吗？其实不是这样的，转换操作都是 lazy 的，多个转换操作只会在 Terminal 操作的时候融合起来，一次循环完成。我们可以这样简单的理解，Stream 里有个操作函数的集合，每次转换操作就是把转换函数放入这个集合中，在 Terminal 操作的时候循环 Stream 对应的集合，然后对每个元素执行所有的函数。
+ 还有一种操作被称为 short-circuiting。用以指：
+ 对于一个 intermediate 操作，如果它接受的是一个无限大（infinite/unbounded）的 Stream，但返回一个有限的新 Stream。
+ 对于一个 terminal 操作，如果它接受的是一个无限大的 Stream，但能在有限的时间计算出结果。
+ 当操作一个无限大的 Stream，而又希望在有限时间内完成操作，则在管道内拥有一个 short-circuiting 操作是必要非充分条件。
+
+
  * @see Collectors
  * @see IntStream
  * @see LongStream
@@ -140,7 +173,7 @@ public class StreanTest {
 
     /**
      * 中间操作
-     * 暂时不太清楚
+     * flatMap 把 input Stream 中的层级结构扁平化，就是将最底层元素抽出来放到一起，最终 output 的新 Stream 里面已经没有 List 了，都是直接的数字
      * 常用于 list<list<>>
      */
     //<R> Stream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper);
@@ -178,6 +211,7 @@ public class StreanTest {
     /**
      * 中间操作
      *原始Stream转换成一个新的Stream，这个新生成的Stream中的元素默认按升序排序
+     * 注意 对象不能直接进行sorted 除非实现了Comparable类中的compareTo
      *
      * 常用于 对数字的排序
      */
@@ -185,114 +219,99 @@ public class StreanTest {
     @Test
     public void sortedTest(){
         this.getSource().stream().map(UserCourseDto::getUserId).sorted().forEach(userId-> System.out.println(userId));
+        this.getSource().stream().map(UserCourseDto::getUserId).sorted().collect(Collectors.toList());
+        this.getSource().stream().sorted().forEach(dto->System.out.println(dto));
     }
 
+    /**
+     *  中间操作
+     * Comparator<? super T> comparator 排序规则
+     * 原始Stream转换成一个新的Stream，这个新生成的Stream中的元素会按照comparator的排序规则进行排序
+     *
+     * 常用于 对集合的排序
+     */
+    //Stream<T> sorted(Comparator<? super T> comparator);
+    @Test
+    public void sortedComparatorTest(){
+        this.getSource().stream().sorted((o1,o2)->{
+            return (int)(o1.getClassId()-o2.getClassId());
+        }).forEach(dto->System.out.println(dto));
+    }
 
     /**
-     * Returns a stream consisting of the elements of this stream, sorted
-     * according to the provided {@code Comparator}.
-     *
-     * <p>For ordered streams, the sort is stable.  For unordered streams, no
-     * stability guarantees are made.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">stateful
-     * intermediate operation</a>.
-     *
-     * @param comparator a <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *                   <a href="package-summary.html#Statelessness">stateless</a>
-     *                   {@code Comparator} to be used to compare stream elements
-     * @return the new stream
-     *//*
-    Stream<T> sorted(Comparator<? super T> comparator);
+     *  中间操作
+     * Stream.of("one", "two", "three", "four")
+     .filter(e -> e.length() > 3)
+     .peek(e -> System.out.println("Filtered value: " + e))
+     .map(String::toUpperCase)
+     .peek(e -> System.out.println("Mapped value: " + e))
+     .collect(Collectors.toList());
+     * Consumer<? super T> action  消费型
+     * peek 对每个元素执行操作并返回一个新的 Stream
+     * 该方法与forEach的作用相似， 只是peek是中间操作  而forEach是终止操作
+     */
+    //Stream<T> peek(Consumer<? super T> action);
+    @Test
+    public void peekTest(){
+        /*Stream.of("one", "two", "three", "four")
+                .filter(e -> e.length() > 3)
+                .peek(e -> System.out.println("Filtered value: " + e))
+                .map(String::toUpperCase)
+                .peek(e -> System.out.println("Mapped value: " + e))
+                .collect(Collectors.toList());*/
+        /*Stream.of("one", "two", "three", "four")
+                .filter(e -> e.length() > 3)
+                .peek(e -> System.out.println("Filtered value: " + e))
+                .map(String::toUpperCase)
+                .peek(e -> System.out.println("Mapped value: " + e))
+                .forEach(str->System.out.println(str));*/
+        List<String> str = new ArrayList<>();
+        Stream.of("one", "two", "three", "four")
+                //.filter(e -> e.length() > 3)
+                .peek(e -> {
+                    if (e.length()>2){
+                        if(e.length()>3){
+                            return;
+                        }
+                        str.add(e);
+                    }
+                })
+                .peek(e -> System.out.println("Mapped value: " + e))
+                .forEach(str1->System.out.println(str1));
+        System.out.println(str);
+    }
 
-    *//**
-     * Returns a stream consisting of the elements of this stream, additionally
-     * performing the provided action on each element as elements are consumed
-     * from the resulting stream.
+    /**
+     *  中间操作
+     * 原始Stream转换成一个新的Stream，这个新生成的Stream中的元素只保留前maxSize位
      *
-     * <p>This is an <a href="package-summary.html#StreamOps">intermediate
-     * operation</a>.
-     *
-     * <p>For parallel stream pipelines, the action may be called at
-     * whatever time and in whatever thread the element is made available by the
-     * upstream operation.  If the action modifies shared state,
-     * it is responsible for providing the required synchronization.
-     *
-     * @apiNote This method exists mainly to support debugging, where you want
-     * to see the elements as they flow past a certain point in a pipeline:
-     * <pre>{@code
-     *     Stream.of("one", "two", "three", "four")
-     *         .filter(e -> e.length() > 3)
-     *         .peek(e -> System.out.println("Filtered value: " + e))
-     *         .map(String::toUpperCase)
-     *         .peek(e -> System.out.println("Mapped value: " + e))
-     *         .collect(Collectors.toList());
-     * }</pre>
-     *
-     * @param action a <a href="package-summary.html#NonInterference">
-     *                 non-interfering</a> action to perform on the elements as
-     *                 they are consumed from the stream
-     * @return the new stream
-     *//*
-    Stream<T> peek(Consumer<? super T> action);
+     * limit  不存在越界
+     * 与skip 方法 可实现分页功能
+     */
+    //Stream<T> limit(long maxSize);
+    @Test
+    public void limitTest(){
+        List<UserCourseDto> collect = this.getSource().stream().limit(20).collect(Collectors.toList());
+        System.out.println(this.getSource().size());
+        System.out.println(collect.size());
+        this.getSource().stream().limit(this.getSource().size() + 1).forEach(dto->System.out.println(dto));
+    }
 
-    *//**
-     * Returns a stream consisting of the elements of this stream, truncated
-     * to be no longer than {@code maxSize} in length.
+    /**
+     *中间操作
+     * 原始Stream转换成一个新的Stream，这个新生成的Stream中的元素会跳过n位数据
      *
-     * <p>This is a <a href="package-summary.html#StreamOps">short-circuiting
-     * stateful intermediate operation</a>.
-     *
-     * @apiNote
-     * While {@code limit()} is generally a cheap operation on sequential
-     * stream pipelines, it can be quite expensive on ordered parallel pipelines,
-     * especially for large values of {@code maxSize}, since {@code limit(n)}
-     * is constrained to return not just any <em>n</em> elements, but the
-     * <em>first n</em> elements in the encounter order.  Using an unordered
-     * stream source (such as {@link #generate(Supplier)}) or removing the
-     * ordering constraint with {@link #unordered()} may result in significant
-     * speedups of {@code limit()} in parallel pipelines, if the semantics of
-     * your situation permit.  If consistency with encounter order is required,
-     * and you are experiencing poor performance or memory utilization with
-     * {@code limit()} in parallel pipelines, switching to sequential execution
-     * with {@link #sequential()} may improve performance.
-     *
-     * @param maxSize the number of elements the stream should be limited to
-     * @return the new stream
-     * @throws IllegalArgumentException if {@code maxSize} is negative
-     *//*
-    Stream<T> limit(long maxSize);
+     * skip  不存在越界
+     * 与limit 方法 可实现分页功能
+     */
+    //Stream<T> skip(long n);
+    @Test
+    public void skipTest(){
+        this.getSource().stream().skip(20).collect(Collectors.toList());
+        this.getSource().stream().skip(17).forEach(dto->System.out.println(dto));
+    }
 
-    *//**
-     * Returns a stream consisting of the remaining elements of this stream
-     * after discarding the first {@code n} elements of the stream.
-     * If this stream contains fewer than {@code n} elements then an
-     * empty stream will be returned.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">stateful
-     * intermediate operation</a>.
-     *
-     * @apiNote
-     * While {@code skip()} is generally a cheap operation on sequential
-     * stream pipelines, it can be quite expensive on ordered parallel pipelines,
-     * especially for large values of {@code n}, since {@code skip(n)}
-     * is constrained to skip not just any <em>n</em> elements, but the
-     * <em>first n</em> elements in the encounter order.  Using an unordered
-     * stream source (such as {@link #generate(Supplier)}) or removing the
-     * ordering constraint with {@link #unordered()} may result in significant
-     * speedups of {@code skip()} in parallel pipelines, if the semantics of
-     * your situation permit.  If consistency with encounter order is required,
-     * and you are experiencing poor performance or memory utilization with
-     * {@code skip()} in parallel pipelines, switching to sequential execution
-     * with {@link #sequential()} may improve performance.
-     *
-     * @param n the number of leading elements to skip
-     * @return the new stream
-     * @throws IllegalArgumentException if {@code n} is negative
-     *//*
-    Stream<T> skip(long n);
-
-    *//**
+    /**
      * Performs an action for each element of this stream.
      *
      * <p>This is a <a href="package-summary.html#StreamOps">terminal
