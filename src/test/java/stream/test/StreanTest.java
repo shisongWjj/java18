@@ -3,6 +3,7 @@ package stream.test;
 import org.junit.Test;
 import stream.dto.UserCourseDto;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
@@ -55,7 +56,8 @@ import java.util.stream.*;
  * @see IntStream
  * @see LongStream
  * @see DoubleStream
- *
+ * @see Optional
+ * @see Collector
  *
  */
 public class StreanTest {
@@ -312,141 +314,83 @@ public class StreanTest {
     }
 
     /**
-     * Performs an action for each element of this stream.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">terminal
-     * operation</a>.
-     *
-     * <p>The behavior of this operation is explicitly nondeterministic.
-     * For parallel stream pipelines, this operation does <em>not</em>
-     * guarantee to respect the encounter order of the stream, as doing so
-     * would sacrifice the benefit of parallelism.  For any given element, the
-     * action may be performed at whatever time and in whatever thread the
-     * library chooses.  If the action accesses shared state, it is
-     * responsible for providing the required synchronization.
-     *
-     * @param action a <a href="package-summary.html#NonInterference">
-     *               non-interfering</a> action to perform on the elements
-     *//*
-    void forEach(Consumer<? super T> action);
+     *  终止操作
+     * Consumer<? super T> action  消费型
+     * 对源数据进行循环操作  没有返回值
+     * 该方法与peek的作用相似， 只是peek是中间操作  而forEach是终止操作
+     */
+    //void forEach(Consumer<? super T> action);
+    @Test
+    public void forEachTest(){
+        this.getSource().stream().forEach(dto->System.out.println(dto));
+    }
 
-    *//**
-     * Performs an action for each element of this stream, in the encounter
-     * order of the stream if the stream has a defined encounter order.
+    /**
+     * 与forEach的区别
+     * 其实两者完成的功能类似，主要区别在并行处理上，forEach是并行处理的，forEachOrder是按顺序处理的，显然前者速度更快。
      *
-     * <p>This is a <a href="package-summary.html#StreamOps">terminal
-     * operation</a>.
-     *
-     * <p>This operation processes the elements one at a time, in encounter
-     * order if one exists.  Performing the action for one element
-     * <a href="../concurrent/package-summary.html#MemoryVisibility"><i>happens-before</i></a>
-     * performing the action for subsequent elements, but for any given element,
-     * the action may be performed in whatever thread the library chooses.
-     *
-     * @param action a <a href="package-summary.html#NonInterference">
-     *               non-interfering</a> action to perform on the elements
-     * @see #forEach(Consumer)
-     *//*
-    void forEachOrdered(Consumer<? super T> action);
+     * 在Stream中存在两种顺序：
+     （1）encounter order：如果集合本身有序（比如：list），返回的结果就按集合的顺序；
+     （2）thread order ：在并行情况下，集合被分成几部分分别在不同的线程中执行，有可能处于后面的元素先处理，这种线程顺序也称为时间顺序。
+     以下代码中forEach打印的结果是乱序的，forEachOrdered是有顺序的。
+     */
+    //void forEachOrdered(Consumer<? super T> action);
+    @Test
+    public void forEachOrderedTest(){
+        //this.getSource().stream().forEachOrdered(dto->System.out.println(dto));
 
-    *//**
-     * Returns an array containing the elements of this stream.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">terminal
-     * operation</a>.
-     *
-     * @return an array containing the elements of this stream
-     *//*
-    Object[] toArray();
+        //Stream.of("AAA","BBB","CCC").parallel().forEach(s->System.out.println("Output:"+s));
+        //Stream.of("AAA","BBB","CCC").parallel().forEachOrdered(s->System.out.println("Output:"+s));
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
+        list.stream().parallel().forEach(x -> System.out.print(x));
+        System.out.println("");
+        list.stream().parallel().forEachOrdered(x -> System.out.print(x));
+    }
 
-    *//**
-     * Returns an array containing the elements of this stream, using the
-     * provided {@code generator} function to allocate the returned array, as
-     * well as any additional arrays that might be required for a partitioned
-     * execution or for resizing.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">terminal
-     * operation</a>.
-     *
-     * @apiNote
-     * The generator function takes an integer, which is the size of the
-     * desired array, and produces an array of the desired size.  This can be
-     * concisely expressed with an array constructor reference:
-     * <pre>{@code
-     *     Person[] men = people.stream()
-     *                          .filter(p -> p.getGender() == MALE)
-     *                          .toArray(Person[]::new);
-     * }</pre>
-     *
-     * @param <A> the element type of the resulting array
-     * @param generator a function which produces a new array of the desired
-     *                  type and the provided length
-     * @return an array containing the elements in this stream
-     * @throws ArrayStoreException if the runtime type of the array returned
-     * from the array generator is not a supertype of the runtime type of every
-     * element in this stream
-     *//*
-    <A> A[] toArray(IntFunction<A[]> generator);
+    /**
+     * 将Stream转为数组
+     */
+    //Object[] toArray();
+    @Test
+    public void toArrayTest(){
+        Object[] objects = this.getSource().stream().map(UserCourseDto::getClassId).toArray();
+        System.out.println(objects);
+    }
 
-    *//**
-     * Performs a <a href="package-summary.html#Reduction">reduction</a> on the
-     * elements of this stream, using the provided identity value and an
-     * <a href="package-summary.html#Associativity">associative</a>
-     * accumulation function, and returns the reduced value.  This is equivalent
-     * to:
-     * <pre>{@code
-     *     T result = identity;
-     *     for (T element : this stream)
-     *         result = accumulator.apply(result, element)
+    /**
+     * 将Stream转为数组  可以设定返回类型
+     */
+    //<A> A[] toArray(IntFunction<A[]> generator);
+    @Test
+    public void toArrayDtoTest(){
+        UserCourseDto[] userCourseDtos = this.getSource().stream().toArray(UserCourseDto[]::new);
+        System.out.println(userCourseDtos);
+    }
+
+    /**
+     * 终止操作
+     * reduce 方法相当于以下代码
+     *      T result = identity;//赋予一个初始值
+     *     for (T element : this stream) //循环遍历Stream或数据源
+     *         result = accumulator.apply(result, element)// 针对每个元素 与初始值进行操作  并返回新的result
      *     return result;
-     * }</pre>
      *
-     * but is not constrained to execute sequentially.
+     * 聚合函数
      *
-     * <p>The {@code identity} value must be an identity for the accumulator
-     * function. This means that for all {@code t},
-     * {@code accumulator.apply(identity, t)} is equal to {@code t}.
-     * The {@code accumulator} function must be an
-     * <a href="package-summary.html#Associativity">associative</a> function.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">terminal
-     * operation</a>.
-     *
-     * @apiNote Sum, min, max, average, and string concatenation are all special
-     * cases of reduction. Summing a stream of numbers can be expressed as:
-     *
-     * <pre>{@code
-     *     Integer sum = integers.reduce(0, (a, b) -> a+b);
-     * }</pre>
-     *
-     * or:
-     *
-     * <pre>{@code
-     *     Integer sum = integers.reduce(0, Integer::sum);
-     * }</pre>
-     *
-     * <p>While this may seem a more roundabout way to perform an aggregation
-     * compared to simply mutating a running total in a loop, reduction
-     * operations parallelize more gracefully, without needing additional
-     * synchronization and with greatly reduced risk of data races.
-     *
-     * @param identity the identity value for the accumulating function
-     * @param accumulator an <a href="package-summary.html#Associativity">associative</a>,
-     *                    <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *                    <a href="package-summary.html#Statelessness">stateless</a>
-     *                    function for combining two values
-     * @return the result of the reduction
-     *//*
-    T reduce(T identity, BinaryOperator<T> accumulator);
+     * @return
+     */
+    //T reduce(T identity, BinaryOperator<T> accumulator);
+    @Test
+    public void reduceTest(){
+        Long reduce = this.getSource().stream().map(UserCourseDto::getClassId).reduce(20L, (a, b) -> a + b);
+        System.out.println(reduce);//741
+        Long reduce1 = this.getSource().stream().map(UserCourseDto::getClassId).reduce(0L, (a, b) -> a + b);
+        System.out.println(reduce1);//721  相差20
+    }
 
-    *//**
-     * Performs a <a href="package-summary.html#Reduction">reduction</a> on the
-     * elements of this stream, using an
-     * <a href="package-summary.html#Associativity">associative</a> accumulation
-     * function, and returns an {@code Optional} describing the reduced value,
-     * if any. This is equivalent to:
-     * <pre>{@code
-     *     boolean foundAny = false;
+    /**
+     * 终止操作
+     * boolean foundAny = false;
      *     T result = null;
      *     for (T element : this stream) {
      *         if (!foundAny) {
@@ -457,383 +401,286 @@ public class StreanTest {
      *             result = accumulator.apply(result, element);
      *     }
      *     return foundAny ? Optional.of(result) : Optional.empty();
-     * }</pre>
-     *
-     * but is not constrained to execute sequentially.
-     *
-     * <p>The {@code accumulator} function must be an
-     * <a href="package-summary.html#Associativity">associative</a> function.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">terminal
-     * operation</a>.
-     *
-     * @param accumulator an <a href="package-summary.html#Associativity">associative</a>,
-     *                    <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *                    <a href="package-summary.html#Statelessness">stateless</a>
-     *                    function for combining two values
-     * @return an {@link Optional} describing the result of the reduction
-     * @throws NullPointerException if the result of the reduction is null
-     * @see #reduce(Object, BinaryOperator)
-     * @see #min(Comparator)
-     * @see #max(Comparator)
-     *//*
-    Optional<T> reduce(BinaryOperator<T> accumulator);
+     */
+    //Optional<T> reduce(BinaryOperator<T> accumulator);
+    @Test
+    public void reduceTest1(){
+        Optional<Long> reduce = this.getSource().stream().map(UserCourseDto::getClassId).reduce((a, b) -> a + b);
+        Long aLong = reduce.get();
+        System.out.println(aLong);//721  结果和 Long reduce1 = this.getSource().stream().map(UserCourseDto::getClassId).reduce(0L, (a, b) -> a + b);一致
 
-    *//**
-     * Performs a <a href="package-summary.html#Reduction">reduction</a> on the
-     * elements of this stream, using the provided identity, accumulation and
-     * combining functions.  This is equivalent to:
-     * <pre>{@code
+    }
+
+    /**
+     * 终止操作
      *     U result = identity;
      *     for (T element : this stream)
      *         result = accumulator.apply(result, element)
      *     return result;
-     * }</pre>
      *
-     * but is not constrained to execute sequentially.
-     *
-     * <p>The {@code identity} value must be an identity for the combiner
-     * function.  This means that for all {@code u}, {@code combiner(identity, u)}
-     * is equal to {@code u}.  Additionally, the {@code combiner} function
-     * must be compatible with the {@code accumulator} function; for all
-     * {@code u} and {@code t}, the following must hold:
-     * <pre>{@code
      *     combiner.apply(u, accumulator.apply(identity, t)) == accumulator.apply(u, t)
-     * }</pre>
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">terminal
-     * operation</a>.
-     *
-     * @apiNote Many reductions using this form can be represented more simply
-     * by an explicit combination of {@code map} and {@code reduce} operations.
-     * The {@code accumulator} function acts as a fused mapper and accumulator,
-     * which can sometimes be more efficient than separate mapping and reduction,
-     * such as when knowing the previously reduced value allows you to avoid
-     * some computation.
-     *
-     * @param <U> The type of the result
-     * @param identity the identity value for the combiner function
-     * @param accumulator an <a href="package-summary.html#Associativity">associative</a>,
-     *                    <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *                    <a href="package-summary.html#Statelessness">stateless</a>
-     *                    function for incorporating an additional element into a result
-     * @param combiner an <a href="package-summary.html#Associativity">associative</a>,
-     *                    <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *                    <a href="package-summary.html#Statelessness">stateless</a>
-     *                    function for combining two values, which must be
-     *                    compatible with the accumulator function
-     * @return the result of the reduction
-     * @see #reduce(BinaryOperator)
-     * @see #reduce(Object, BinaryOperator)
-     *//*
-    <U> U reduce(U identity,
+     */
+    /*<U> U reduce(U identity,
                  BiFunction<U, ? super T, U> accumulator,
-                 BinaryOperator<U> combiner);
+                 BinaryOperator<U> combiner);*/
+    @Test
+    public void reduceTest2(){
+        Long reduce = this.getSource().stream().map(UserCourseDto::getClassId).reduce(20l, (a, b) -> a - b, (a, b) -> a - b);
+        System.out.println(reduce);
+    }
 
-    *//**
-     * Performs a <a href="package-summary.html#MutableReduction">mutable
-     * reduction</a> operation on the elements of this stream.  A mutable
-     * reduction is one in which the reduced value is a mutable result container,
-     * such as an {@code ArrayList}, and elements are incorporated by updating
-     * the state of the result rather than by replacing the result.  This
-     * produces a result equivalent to:
-     * <pre>{@code
+    /**
+     * 终止操作
      *     R result = supplier.get();
      *     for (T element : this stream)
      *         accumulator.accept(result, element);
      *     return result;
-     * }</pre>
-     *
-     * <p>Like {@link #reduce(Object, BinaryOperator)}, {@code collect} operations
-     * can be parallelized without requiring additional synchronization.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">terminal
-     * operation</a>.
-     *
-     * @apiNote There are many existing classes in the JDK whose signatures are
-     * well-suited for use with method references as arguments to {@code collect()}.
-     * For example, the following will accumulate strings into an {@code ArrayList}:
-     * <pre>{@code
      *     List<String> asList = stringStream.collect(ArrayList::new, ArrayList::add,
      *                                                ArrayList::addAll);
-     * }</pre>
-     *
-     * <p>The following will take a stream of strings and concatenates them into a
-     * single string:
-     * <pre>{@code
      *     String concat = stringStream.collect(StringBuilder::new, StringBuilder::append,
      *                                          StringBuilder::append)
      *                                 .toString();
-     * }</pre>
-     *
-     * @param <R> type of the result
-     * @param supplier a function that creates a new result container. For a
-     *                 parallel execution, this function may be called
-     *                 multiple times and must return a fresh value each time.
-     * @param accumulator an <a href="package-summary.html#Associativity">associative</a>,
-     *                    <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *                    <a href="package-summary.html#Statelessness">stateless</a>
-     *                    function for incorporating an additional element into a result
-     * @param combiner an <a href="package-summary.html#Associativity">associative</a>,
-     *                    <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *                    <a href="package-summary.html#Statelessness">stateless</a>
-     *                    function for combining two values, which must be
-     *                    compatible with the accumulator function
-     * @return the result of the reduction
-     *//*
-    <R> R collect(Supplier<R> supplier,
+     */
+    /*<R> R collect(Supplier<R> supplier,
                   BiConsumer<R, ? super T> accumulator,
-                  BiConsumer<R, R> combiner);
+                  BiConsumer<R, R> combiner);*/
+    @Test
+    public void collectTest(){
+        ArrayList<Object> collect = this.getSource().stream().map(UserCourseDto::getUserId).collect(ArrayList::new, ArrayList::add, ArrayList::retainAll);
+        System.out.println(collect);
+    }
 
-    *//**
-     * Performs a <a href="package-summary.html#MutableReduction">mutable
-     * reduction</a> operation on the elements of this stream using a
-     * {@code Collector}.  A {@code Collector}
-     * encapsulates the functions used as arguments to
-     * {@link #collect(Supplier, BiConsumer, BiConsumer)}, allowing for reuse of
-     * collection strategies and composition of collect operations such as
-     * multiple-level grouping or partitioning.
-     *
-     * <p>If the stream is parallel, and the {@code Collector}
-     * is {@link Collector.Characteristics#CONCURRENT concurrent}, and
-     * either the stream is unordered or the collector is
-     * {@link Collector.Characteristics#UNORDERED unordered},
-     * then a concurrent reduction will be performed (see {@link Collector} for
-     * details on concurrent reduction.)
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">terminal
-     * operation</a>.
-     *
-     * <p>When executed in parallel, multiple intermediate results may be
-     * instantiated, populated, and merged so as to maintain isolation of
-     * mutable data structures.  Therefore, even when executed in parallel
-     * with non-thread-safe data structures (such as {@code ArrayList}), no
-     * additional synchronization is needed for a parallel reduction.
-     *
-     * @apiNote
-     * The following will accumulate strings into an ArrayList:
-     * <pre>{@code
+    /**
+     *终止操作
      *     List<String> asList = stringStream.collect(Collectors.toList());
-     * }</pre>
      *
-     * <p>The following will classify {@code Person} objects by city:
-     * <pre>{@code
      *     Map<String, List<Person>> peopleByCity
      *         = personStream.collect(Collectors.groupingBy(Person::getCity));
-     * }</pre>
      *
-     * <p>The following will classify {@code Person} objects by state and city,
-     * cascading two {@code Collector}s together:
-     * <pre>{@code
      *     Map<String, Map<String, List<Person>>> peopleByStateAndCity
      *         = personStream.collect(Collectors.groupingBy(Person::getState,
      *                                                      Collectors.groupingBy(Person::getCity)));
-     * }</pre>
-     *
-     * @param <R> the type of the result
-     * @param <A> the intermediate accumulation type of the {@code Collector}
-     * @param collector the {@code Collector} describing the reduction
-     * @return the result of the reduction
-     * @see #collect(Supplier, BiConsumer, BiConsumer)
-     * @see Collectors
-     *//*
-    <R, A> R collect(Collector<? super T, A, R> collector);
+     */
+    //<R, A> R collect(Collector<? super T, A, R> collector);
+    @Test
+    public void collectTest1(){
+        //详见collectorsTest
+    }
 
-    *//**
-     * Returns the minimum element of this stream according to the provided
-     * {@code Comparator}.  This is a special case of a
-     * <a href="package-summary.html#Reduction">reduction</a>.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">terminal operation</a>.
-     *
-     * @param comparator a <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *                   <a href="package-summary.html#Statelessness">stateless</a>
-     *                   {@code Comparator} to compare elements of this stream
-     * @return an {@code Optional} describing the minimum element of this stream,
-     * or an empty {@code Optional} if the stream is empty
-     * @throws NullPointerException if the minimum element is null
-     *//*
-    Optional<T> min(Comparator<? super T> comparator);
 
-    *//**
-     * Returns the maximum element of this stream according to the provided
-     * {@code Comparator}.  This is a special case of a
-     * <a href="package-summary.html#Reduction">reduction</a>.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">terminal
-     * operation</a>.
-     *
-     * @param comparator a <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *                   <a href="package-summary.html#Statelessness">stateless</a>
-     *                   {@code Comparator} to compare elements of this stream
-     * @return an {@code Optional} describing the maximum element of this stream,
-     * or an empty {@code Optional} if the stream is empty
-     * @throws NullPointerException if the maximum element is null
-     *//*
-    Optional<T> max(Comparator<? super T> comparator);
+    /**
+     * 终止操作
+     * Comparator<? super T> comparator 比较
+     *获取最小的值 通过comparator比较来获取
+     */
+    //Optional<T> min(Comparator<? super T> comparator);
+    @Test
+    public void minTest(){
+        Optional<Long> min = this.getSource().stream().map(UserCourseDto::getClassId).min((a, b) -> a.compareTo(b));
+        System.out.println(min.get());
+        Optional<Long> min1 = this.getSource().stream().map(UserCourseDto::getClassId).min(Comparator.naturalOrder());
+        System.out.println(min1.get());
+        Optional<Long> min2 = this.getSource().stream().map(UserCourseDto::getClassId).min(Long::compareTo);
+        System.out.println(min2.get());
 
-    *//**
-     * Returns the count of elements in this stream.  This is a special case of
-     * a <a href="package-summary.html#Reduction">reduction</a> and is
-     * equivalent to:
-     * <pre>{@code
-     *     return mapToLong(e -> 1L).sum();
-     * }</pre>
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">terminal operation</a>.
-     *
-     * @return the count of elements in this stream
-     *//*
-    long count();
+        Optional<UserCourseDto> min3 = this.getSource().stream().min((a, b) -> a.getClassId().compareTo(b.getClassId()));
+        System.out.println(min3.get());
 
-    *//**
-     * Returns whether any elements of this stream match the provided
-     * predicate.  May not evaluate the predicate on all elements if not
-     * necessary for determining the result.  If the stream is empty then
-     * {@code false} is returned and the predicate is not evaluated.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">short-circuiting
-     * terminal operation</a>.
-     *
-     * @apiNote
-     * This method evaluates the <em>existential quantification</em> of the
-     * predicate over the elements of the stream (for some x P(x)).
-     *
-     * @param predicate a <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *                  <a href="package-summary.html#Statelessness">stateless</a>
-     *                  predicate to apply to elements of this stream
-     * @return {@code true} if any elements of the stream match the provided
-     * predicate, otherwise {@code false}
-     *//*
-    boolean anyMatch(Predicate<? super T> predicate);
+    }
 
-    *//**
-     * Returns whether all elements of this stream match the provided predicate.
-     * May not evaluate the predicate on all elements if not necessary for
-     * determining the result.  If the stream is empty then {@code true} is
-     * returned and the predicate is not evaluated.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">short-circuiting
-     * terminal operation</a>.
-     *
-     * @apiNote
-     * This method evaluates the <em>universal quantification</em> of the
-     * predicate over the elements of the stream (for all x P(x)).  If the
-     * stream is empty, the quantification is said to be <em>vacuously
-     * satisfied</em> and is always {@code true} (regardless of P(x)).
-     *
-     * @param predicate a <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *                  <a href="package-summary.html#Statelessness">stateless</a>
-     *                  predicate to apply to elements of this stream
-     * @return {@code true} if either all elements of the stream match the
-     * provided predicate or the stream is empty, otherwise {@code false}
-     *//*
-    boolean allMatch(Predicate<? super T> predicate);
 
-    *//**
-     * Returns whether no elements of this stream match the provided predicate.
-     * May not evaluate the predicate on all elements if not necessary for
-     * determining the result.  If the stream is empty then {@code true} is
-     * returned and the predicate is not evaluated.
+    /**
+     * 终止操作
+     *Comparator<? super T> comparator 比较
+     *获取最大的值 通过comparator比较来获取
      *
-     * <p>This is a <a href="package-summary.html#StreamOps">short-circuiting
-     * terminal operation</a>.
-     *
-     * @apiNote
-     * This method evaluates the <em>universal quantification</em> of the
-     * negated predicate over the elements of the stream (for all x ~P(x)).  If
-     * the stream is empty, the quantification is said to be vacuously satisfied
-     * and is always {@code true}, regardless of P(x).
-     *
-     * @param predicate a <a href="package-summary.html#NonInterference">non-interfering</a>,
-     *                  <a href="package-summary.html#Statelessness">stateless</a>
-     *                  predicate to apply to elements of this stream
-     * @return {@code true} if either no elements of the stream match the
-     * provided predicate or the stream is empty, otherwise {@code false}
-     *//*
-    boolean noneMatch(Predicate<? super T> predicate);
+     * @see StreanTest#minTest()
+     */
+    //Optional<T> max(Comparator<? super T> comparator);
+    @Test
+    public void maxTest(){
+    }
 
-    *//**
-     * Returns an {@link Optional} describing the first element of this stream,
-     * or an empty {@code Optional} if the stream is empty.  If the stream has
-     * no encounter order, then any element may be returned.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">short-circuiting
-     * terminal operation</a>.
-     *
-     * @return an {@code Optional} describing the first element of this stream,
-     * or an empty {@code Optional} if the stream is empty
-     * @throws NullPointerException if the element selected is null
-     *//*
-    Optional<T> findFirst();
+    /**
+     *终止操作
+     * 获取总数
+     */
+    //long count();
+    @Test
+    public void countTest(){
+        long count = this.getSource().stream().count();
+        System.out.println(count);
+        int size = this.getSource().size();
+        System.out.println(size);
+    }
 
-    *//**
-     * Returns an {@link Optional} describing some element of the stream, or an
-     * empty {@code Optional} if the stream is empty.
-     *
-     * <p>This is a <a href="package-summary.html#StreamOps">short-circuiting
-     * terminal operation</a>.
-     *
-     * <p>The behavior of this operation is explicitly nondeterministic; it is
-     * free to select any element in the stream.  This is to allow for maximal
-     * performance in parallel operations; the cost is that multiple invocations
-     * on the same source may not return the same result.  (If a stable result
-     * is desired, use {@link #findFirst()} instead.)
-     *
-     * @return an {@code Optional} describing some element of this stream, or an
-     * empty {@code Optional} if the stream is empty
-     * @throws NullPointerException if the element selected is null
-     * @see #findFirst()
-     *//*
-    Optional<T> findAny();
+    /**
+     * 终止操作
+     * Predicate<? super T> predicate
+     * Stream中只要有一个满足条件 则最终返回true
+     */
+    //boolean anyMatch(Predicate<? super T> predicate);
+    @Test
+    public void anyMatchTest(){
+        boolean b = this.getSource().stream().anyMatch(dto -> dto.getClassId() > 20);
+        boolean b1 = this.getSource().stream().anyMatch(dto -> dto.getClassId() > 30);
+        boolean b2 = this.getSource().stream().anyMatch(dto -> dto.getClassId() > 40);
+        System.out.println(b);
+        System.out.println(b1);
+        System.out.println(b2);
+    }
 
-    // Static factories
+    /**
+     * 终止操作
+     * Predicate<? super T> predicate
+     * Stream中要全部满足条件 则最终返回true
+     */
+    //boolean allMatch(Predicate<? super T> predicate);
+    @Test
+    public void allMatchTest(){
+        boolean b = this.getSource().stream().allMatch(dto -> dto.getClassId() > 20);
+        boolean b1 = this.getSource().stream().allMatch(dto -> dto.getClassId() > 30);
+        boolean b2 = this.getSource().stream().allMatch(dto -> dto.getClassId() > 40);
+        System.out.println(b);
+        System.out.println(b1);
+        System.out.println(b2);
+    }
 
-    *//**
-     * Returns a builder for a {@code Stream}.
-     *
-     * @param <T> type of elements
-     * @return a stream builder
+    /**
+     * 终止操作
+     * Predicate<? super T> predicate
+     * Stream中要全部不满足条件 则最终返回true  与allMatch  相反
+     */
+    //boolean noneMatch(Predicate<? super T> predicate);
+    @Test
+    public void noneMatchTest(){
+        boolean b = this.getSource().stream().noneMatch(dto -> dto.getClassId() > 20);
+        boolean b1 = this.getSource().stream().noneMatch(dto -> dto.getClassId() > 30);
+        boolean b2 = this.getSource().stream().noneMatch(dto -> dto.getClassId() > 40);
+        boolean b3 = this.getSource().stream().noneMatch(dto -> dto.getClassId() > 100);
+        System.out.println(b);
+        System.out.println(b1);
+        System.out.println(b2);
+        System.out.println(b3);
+    }
+
+    /**
+     * 终止操作
+     * 获取stream中的第一个元素
+     */
+    //Optional<T> findFirst();
+    @Test
+    public void findFirstTest(){
+        Optional<UserCourseDto> first = this.getSource().stream().findFirst();
+        System.out.println(first.get());
+        Optional<Long> first1 = this.getSource().stream().map(UserCourseDto::getUserId).findFirst();
+        System.out.println(first1.get());
+
+        Consumer<Object> runnable = System.out::println;
+        runnable.accept("以下的测试不是并行流");
+        for (int i =0 ;i<10;i++){
+            Optional<Long> any = this.getSource().stream().map(UserCourseDto::getClassId).findFirst();
+            System.out.println(any.get());
+        }
+        runnable.accept("以下的测试是并行流");
+        for (int i =0 ;i<10;i++){
+            Optional<Long> any = this.getSource().stream().map(UserCourseDto::getClassId).parallel().findFirst();
+            System.out.println(any.get());
+        }
+    }
+
+    /**
+     * 终止操作
+     * 获取stream中的第一个元素
+     * 当不是并行流的时候  和findFirst一样
+     * 当是并行流的时候  findFirst还是获取一直获取第一个
+     *                   而findAny则会随机获取
+     */
+    //Optional<T> findAny();
+    @Test
+    public void findAnyTest(){
+        //错误示例
+        //当第一次循环的时候 执行longStream.findAny()的时候  Stream流就已经结束了 ，所以当第二次执行的时候 流已经不存在了
+        /*Stream<Long> longStream = this.getSource().stream().map(UserCourseDto::getClassId);
+        for (int i =0 ;i<10;i++){
+            Optional<Long> any = longStream.findAny();
+            System.out.println(any.get());
+        }*/
+        Consumer<Object> runnable = System.out::println;
+        runnable.accept("以下的测试不是并行流");
+        for (int i =0 ;i<10;i++){
+            Optional<Long> any = this.getSource().stream().map(UserCourseDto::getClassId).findAny();
+            System.out.println(any.get());
+        }
+        runnable.accept("以下的测试是并行流");
+        for (int i =0 ;i<10;i++){
+            Optional<Long> any = this.getSource().stream().map(UserCourseDto::getClassId).parallel().findAny();
+            System.out.println(any.get());
+        }
+    }
+
+    /**
+     * 创建流
+     * 与java.util.stream.Stream.Builder 中的方法一起使用
      *//*
     public static<T> Stream.Builder<T> builder() {
         return new Streams.StreamBuilderImpl<>();
+    }*/
+    @Test
+    public void builderTest(){
+        Stream<Object> build = Stream.builder().add("abc").add("fsdfsd").add(123123).build();
+        List<Object> collect = build.collect(Collectors.toList());
+        System.out.println(collect);
     }
 
-    *//**
-     * Returns an empty sequential {@code Stream}.
-     *
-     * @param <T> the type of stream elements
-     * @return an empty sequential stream
-     *//*
-    public static<T> Stream<T> empty() {
+    /**
+     * 创建流
+     * 创建一个空的流
+     */
+    /*public static<T> Stream<T> empty() {
         return StreamSupport.stream(Spliterators.<T>emptySpliterator(), false);
+    }*/
+    @Test
+    public void emptyTest(){
+        List<Object> collect = Stream.empty().collect(Collectors.toList());
+        System.out.println(collect);
     }
 
-    *//**
-     * Returns a sequential {@code Stream} containing a single element.
-     *
-     * @param t the single element
-     * @param <T> the type of stream elements
-     * @return a singleton sequential stream
-     *//*
-    public static<T> Stream<T> of(T t) {
+    /**
+     * 创建流
+     * 创建一个有数据的流 参数只有1个
+     * 当不传入参数时 相当于empty()
+     */
+    /*public static<T> Stream<T> of(T t) {
         return StreamSupport.stream(new Streams.StreamBuilderImpl<>(t), false);
+    }*/
+    @Test
+    public void ofTest(){
+        Stream.of().forEach(str->System.out.println(str));
+        List<Object> collect = Stream.of().collect(Collectors.toList());
+        List<Object> collect1 = Stream.of("ABC").collect(Collectors.toList());
+        System.out.println(collect);
+        System.out.println(collect1);
     }
 
-    *//**
-     * Returns a sequential ordered stream whose elements are the specified values.
-     *
-     * @param <T> the type of stream elements
-     * @param values the elements of the new stream
-     * @return the new stream
-     *//*
-    @SafeVarargs
-    @SuppressWarnings("varargs") // Creating a stream from an array is safe
-    public static<T> Stream<T> of(T... values) {
+    /**
+     * 创建流
+     * 创建一个有数据的流 参数可以是多个
+     * 当不传入参数时 相当于empty()
+     */
+   /* public static<T> Stream<T> of(T... values) {
         return Arrays.stream(values);
+    }*/
+    @Test
+    public void ofTest1(){
+        Stream.of().forEach(str->System.out.println(str));
+        List<Object> collect = Stream.of().collect(Collectors.toList());
+        List<Object> collect1 = Stream.of("ABC",12312).collect(Collectors.toList());
+        System.out.println(collect);
+        System.out.println(collect1);
     }
 
-    *//**
+    /**
      * Returns an infinite sequential ordered {@code Stream} produced by iterative
      * application of a function {@code f} to an initial element {@code seed},
      * producing a {@code Stream} consisting of {@code seed}, {@code f(seed)},
@@ -915,23 +762,11 @@ public class StreanTest {
         return stream.onClose(Streams.composedClose(a, b));
     }
 
-    *//**
-     * A mutable builder for a {@code Stream}.  This allows the creation of a
-     * {@code Stream} by generating elements individually and adding them to the
-     * {@code Builder} (without the copying overhead that comes from using
-     * an {@code ArrayList} as a temporary buffer.)
-     *
-     * <p>A stream builder has a lifecycle, which starts in a building
-     * phase, during which elements can be added, and then transitions to a built
-     * phase, after which elements may not be added.  The built phase begins
-     * when the {@link #build()} method is called, which creates an ordered
-     * {@code Stream} whose elements are the elements that were added to the stream
-     * builder, in the order they were added.
-     *
-     * @param <T> the type of stream elements
-     * @see Stream#builder()
-     * @since 1.8
-     *//*
+    */
+    /**
+     * 该接口中的方法和Stream类中的builder()方法一起使用 最后返回一个Stream
+     */
+    /*
     public interface Builder<T> extends Consumer<T> {
 
         *//**
@@ -943,37 +778,20 @@ public class StreanTest {
         @Override
         void accept(T t);
 
-        *//**
-         * Adds an element to the stream being built.
+        */
+
+        /**
          *
-         * @implSpec
-         * The default implementation behaves as if:
-         * <pre>{@code
-         *     accept(t)
-         *     return this;
-         * }</pre>
-         *
-         * @param t the element to add
-         * @return {@code this} builder
-         * @throws IllegalStateException if the builder has already transitioned to
-         * the built state
-         *//*
-        default Stream.Builder<T> add(T t) {
+         * 和 Stream.Builder<T> builder() 一起使用  添加元素
+         */
+        /*default Stream.Builder<T> add(T t) {
             accept(t);
             return this;
-        }
+        }*/
 
-        *//**
-         * Builds the stream, transitioning this builder to the built state.
-         * An {@code IllegalStateException} is thrown if there are further attempts
-         * to operate on the builder after it has entered the built state.
-         *
-         * @return the built stream
-         * @throws IllegalStateException if the builder has already transitioned to
-         * the built state
-         *//*
+        /*
         Stream<T> build();
-     */
+    }*/
 
     @Test
     public void stremtest(){
