@@ -76,4 +76,28 @@ public class UserCourseDto/* implements Comparable<UserCourseDto>*/{
         int i = (int)(this.getClassId() - o.getClassId());//先按照年龄排序
         return i;
     }*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserCourseDto that = (UserCourseDto) o;
+
+        if (!courseId.equals(that.courseId)) return false;
+        if (!recruitId.equals(that.recruitId)) return false;
+        if (!companyId.equals(that.companyId)) return false;
+        if (!classId.equals(that.classId)) return false;
+        return userId.equals(that.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = courseId.hashCode();
+        result = 31 * result + recruitId.hashCode();
+        result = 31 * result + companyId.hashCode();
+        result = 31 * result + classId.hashCode();
+        result = 31 * result + userId.hashCode();
+        return result;
+    }
 }
