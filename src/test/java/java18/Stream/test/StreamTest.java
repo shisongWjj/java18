@@ -780,7 +780,7 @@ public class StreamTest {
 
     @Test
     public void stremtest(){
-        //this.getSource().java18().collect(Collectors.groupingBy(UserCourseDto::getClassId));
+        this.getSource().stream().collect(Collectors.groupingBy(UserCourseDto::getClassId));
 
     }
 }
