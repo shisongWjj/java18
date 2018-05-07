@@ -1,4 +1,4 @@
-package stream;
+package java18;
 
 public class aaaa {
 }

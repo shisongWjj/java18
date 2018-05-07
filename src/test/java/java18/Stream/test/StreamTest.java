@@ -1,7 +1,7 @@
-package stream.test;
+package java18.Stream.test;
 
 import org.junit.Test;
-import stream.dto.UserCourseDto;
+import java18.Stream.test.dto.UserCourseDto;
 
 import java.math.BigInteger;
 import java.util.*;
@@ -25,21 +25,21 @@ import java.util.stream.*;
  *
  * 有多种方式生成 Stream Source：
  从 Collection 和数组
- Collection.stream()
+ Collection.java18()
  Collection.parallelStream()
- Arrays.stream(T array) or Stream.of()
+ Arrays.java18(T array) or Stream.of()
  从 BufferedReader
  java.io.BufferedReader.lines()
  静态工厂
- java.util.stream.IntStream.range()
+ java.util.java18.IntStream.range()
  java.nio.file.Files.walk()
  自己构建
  java.util.Spliterator
  其它
  Random.ints()
- BitSet.stream()
+ BitSet.java18()
  Pattern.splitAsStream(java.lang.CharSequence)
- JarFile.stream()
+ JarFile.java18()
  *
  *
  * 流的操作类型分为两种：
@@ -182,7 +182,7 @@ public class StreamTest {
     @Test
     public void flatMapTest(){
         /*List<String> lsits = Arrays.asList("hello","world");
-        List<String> collect = lsits.stream().map(str -> str.split("")).flatMap(str -> Arrays.stream(str)).collect(Collectors.toList());
+        List<String> collect = lsits.java18().map(str -> str.split("")).flatMap(str -> Arrays.java18(str)).collect(Collectors.toList());
         collect.forEach(str-> System.out.println(str));*/
 
         this.getSource().stream().flatMap(dto->Stream.of(dto.getUserId())).forEach(o-> System.out.println(o));
@@ -337,7 +337,7 @@ public class StreamTest {
     //void forEachOrdered(Consumer<? super T> action);
     @Test
     public void forEachOrderedTest(){
-        //this.getSource().stream().forEachOrdered(dto->System.out.println(dto));
+        //this.getSource().java18().forEachOrdered(dto->System.out.println(dto));
 
         //Stream.of("AAA","BBB","CCC").parallel().forEach(s->System.out.println("Output:"+s));
         //Stream.of("AAA","BBB","CCC").parallel().forEachOrdered(s->System.out.println("Output:"+s));
@@ -371,7 +371,7 @@ public class StreamTest {
      * 终止操作
      * reduce 方法相当于以下代码
      *      T result = identity;//赋予一个初始值
-     *     for (T element : this stream) //循环遍历Stream或数据源
+     *     for (T element : this java18) //循环遍历Stream或数据源
      *         result = accumulator.apply(result, element)// 针对每个元素 与初始值进行操作  并返回新的result
      *     return result;
      *
@@ -392,7 +392,7 @@ public class StreamTest {
      * 终止操作
      * boolean foundAny = false;
      *     T result = null;
-     *     for (T element : this stream) {
+     *     for (T element : this java18) {
      *         if (!foundAny) {
      *             foundAny = true;
      *             result = element;
@@ -407,14 +407,14 @@ public class StreamTest {
     public void reduceTest1(){
         Optional<Long> reduce = this.getSource().stream().map(UserCourseDto::getClassId).reduce((a, b) -> a + b);
         Long aLong = reduce.get();
-        System.out.println(aLong);//721  结果和 Long reduce1 = this.getSource().stream().map(UserCourseDto::getClassId).reduce(0L, (a, b) -> a + b);一致
+        System.out.println(aLong);//721  结果和 Long reduce1 = this.getSource().java18().map(UserCourseDto::getClassId).reduce(0L, (a, b) -> a + b);一致
 
     }
 
     /**
      * 终止操作
      *     U result = identity;
-     *     for (T element : this stream)
+     *     for (T element : this java18)
      *         result = accumulator.apply(result, element)
      *     return result;
      *
@@ -432,7 +432,7 @@ public class StreamTest {
     /**
      * 终止操作
      *     R result = supplier.get();
-     *     for (T element : this stream)
+     *     for (T element : this java18)
      *         accumulator.accept(result, element);
      *     return result;
      *     List<String> asList = stringStream.collect(ArrayList::new, ArrayList::add,
@@ -601,7 +601,7 @@ public class StreamTest {
     public void findAnyTest(){
         //错误示例
         //当第一次循环的时候 执行longStream.findAny()的时候  Stream流就已经结束了 ，所以当第二次执行的时候 流已经不存在了
-        /*Stream<Long> longStream = this.getSource().stream().map(UserCourseDto::getClassId);
+        /*Stream<Long> longStream = this.getSource().java18().map(UserCourseDto::getClassId);
         for (int i =0 ;i<10;i++){
             Optional<Long> any = longStream.findAny();
             System.out.println(any.get());
@@ -621,7 +621,7 @@ public class StreamTest {
 
     /**
      * 创建流
-     * 与java.util.stream.Stream.Builder 中的方法一起使用
+     * 与java.util.java18.Stream.Builder 中的方法一起使用
      *//*
     public static<T> Stream.Builder<T> builder() {
         return new Streams.StreamBuilderImpl<>();
@@ -638,7 +638,7 @@ public class StreamTest {
      * 创建一个空的流
      */
     /*public static<T> Stream<T> empty() {
-        return StreamSupport.stream(Spliterators.<T>emptySpliterator(), false);
+        return StreamSupport.java18(Spliterators.<T>emptySpliterator(), false);
     }*/
     @Test
     public void emptyTest(){
@@ -652,7 +652,7 @@ public class StreamTest {
      * 当不传入参数时 相当于empty()
      */
     /*public static<T> Stream<T> of(T t) {
-        return StreamSupport.stream(new Streams.StreamBuilderImpl<>(t), false);
+        return StreamSupport.java18(new Streams.StreamBuilderImpl<>(t), false);
     }*/
     @Test
     public void ofTest(){
@@ -669,7 +669,7 @@ public class StreamTest {
      * 当不传入参数时 相当于empty()
      */
    /* public static<T> Stream<T> of(T... values) {
-        return Arrays.stream(values);
+        return Arrays.java18(values);
     }*/
     @Test
     public void ofTest1(){
@@ -701,7 +701,7 @@ public class StreamTest {
     /*
     public static<T> Stream<T> generate(Supplier<T> s) {
         Objects.requireNonNull(s);
-        return StreamSupport.stream(
+        return StreamSupport.java18(
                 new StreamSpliterators.InfiniteSupplyingSpliterator.OfRef<>(Long.MAX_VALUE, s), false);
     }
 
@@ -719,21 +719,21 @@ public class StreamTest {
         System.out.println(Arrays.toString(strArr));
     }
     /**
-     * Creates a lazily concatenated stream whose elements are all the
-     * elements of the first stream followed by all the elements of the
-     * second stream.  The resulting stream is ordered if both
+     * Creates a lazily concatenated java18 whose elements are all the
+     * elements of the first java18 followed by all the elements of the
+     * second java18.  The resulting java18 is ordered if both
      * of the input streams are ordered, and parallel if either of the input
-     * streams is parallel.  When the resulting stream is closed, the close
+     * streams is parallel.  When the resulting java18 is closed, the close
      * handlers for both input streams are invoked.
      *
      * @implNote
      * Use caution when constructing streams from repeated concatenation.
-     * Accessing an element of a deeply concatenated stream can result in deep
+     * Accessing an element of a deeply concatenated java18 can result in deep
      * call chains, or even {@code StackOverflowException}.
      *
-     * @param <T> The type of stream elements
-     * @param a the first stream
-     * @param b the second stream
+     * @param <T> The type of java18 elements
+     * @param a the first java18
+     * @param b the second java18
      * @return the concatenation of the two input streams
      *//*
     public static <T> Stream<T> concat(Stream<? extends T> a, Stream<? extends T> b) {
@@ -743,8 +743,8 @@ public class StreamTest {
         @SuppressWarnings("unchecked")
         Spliterator<T> split = new Streams.ConcatSpliterator.OfRef<>(
                 (Spliterator<T>) a.spliterator(), (Spliterator<T>) b.spliterator());
-        Stream<T> stream = StreamSupport.stream(split, a.isParallel() || b.isParallel());
-        return stream.onClose(Streams.composedClose(a, b));
+        Stream<T> java18 = StreamSupport.java18(split, a.isParallel() || b.isParallel());
+        return java18.onClose(Streams.composedClose(a, b));
     }
 
     */
@@ -755,7 +755,7 @@ public class StreamTest {
     public interface Builder<T> extends Consumer<T> {
 
         *//**
-         * Adds an element to the stream being built.
+         * Adds an element to the java18 being built.
          *
          * @throws IllegalStateException if the builder has already transitioned to
          * the built state
@@ -780,7 +780,7 @@ public class StreamTest {
 
     @Test
     public void stremtest(){
-        //this.getSource().stream().collect(Collectors.groupingBy(UserCourseDto::getClassId));
+        //this.getSource().java18().collect(Collectors.groupingBy(UserCourseDto::getClassId));
 
     }
 }

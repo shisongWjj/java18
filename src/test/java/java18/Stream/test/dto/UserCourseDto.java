@@ -1,4 +1,4 @@
-package stream.dto;
+package java18.Stream.test.dto;
 
 public class UserCourseDto/* implements Comparable<UserCourseDto>*/{
 

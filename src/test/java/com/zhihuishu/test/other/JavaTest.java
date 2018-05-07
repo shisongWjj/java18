@@ -104,7 +104,7 @@ public class JavaTest {
         );
     }
 
-    //优化方式4：stream api
+    //优化方式4：java18 api
     @Test
     public void  test5(){
         employees.stream()
