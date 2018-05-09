@@ -1,12 +1,10 @@
 package java18.utils;
 
+import com.google.common.base.Functions;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -38,9 +36,9 @@ public class ListHelper {
     */
     public static <K,V,DTO>Map<K,List<V>> listToMap(List<DTO> source, Function<? super DTO,? extends K> key,Function<? super DTO,? extends V> value,Integer isDistinct){
         if(isDistinct == null) isDistinct = IS_DISTINCT;
-        Objects.requireNonNull(source,"source cannot be mapped to a null key");
-        Objects.requireNonNull(key,"key cannot be mapped to a null key");
-        Objects.requireNonNull(value,"value cannot be mapped to a null key");
+        Objects.requireNonNull(source,"source not null");
+        Objects.requireNonNull(key,"key not null");
+        Objects.requireNonNull(value,"value not null");
         Map<K,List<V>> rsMap = new HashMap<>();
         Map<K, List<V>> map = source
                 .stream()
@@ -72,9 +70,9 @@ public class ListHelper {
     * @return
     */
     public static <K,V,DTO>Map<K,V> listToMap(List<DTO> source, Function<? super DTO,? extends K> key,Function<? super DTO,? extends V> value){
-        Objects.requireNonNull(source,"source cannot be mapped to a null key");
-        Objects.requireNonNull(key,"key cannot be mapped to a null key");
-        Objects.requireNonNull(value,"value cannot be mapped to a null key");
+        Objects.requireNonNull(source,"source not null");
+        Objects.requireNonNull(key,"key not null");
+        Objects.requireNonNull(value,"value not null");
         Map<K,V> map = source
                 .stream()
                 .filter(dto -> dto != null)
@@ -97,8 +95,8 @@ public class ListHelper {
     */
     public static <T,DTO>List<T> extractVariable(List<DTO> source,Function<? super DTO,? extends T> t,Integer isDistinct){
         if(isDistinct == null) isDistinct = IS_DISTINCT;
-        Objects.requireNonNull(source,"source cannot be mapped to a null key");
-        Objects.requireNonNull(t,"t cannot be mapped to a null key");
+        Objects.requireNonNull(source,"source not null");
+        Objects.requireNonNull(t,"t not null");
         Stream<? extends T> stream = source
                 .stream()
                 .filter(dto -> dto != null)
@@ -109,6 +107,28 @@ public class ListHelper {
         }
         List<T> rsList = stream.collect(Collectors.toList());
         return rsList;
+    }
+
+    /**
+     * 对结果集做排序  按照数据源的顺序排序
+     * 会将结果集中的为空的数据过滤
+     * @param source 排序好的数据源
+     * @param result 接口返回的结果集
+     * @param fun 函数式接口
+     */
+    public static <T extends Number,DTO>List<DTO> orderBySource(List<T> source,List<DTO> result,Function<? super DTO,? extends T> fun){
+        Objects.requireNonNull(source,"source not null");
+        Objects.requireNonNull(result,"result not null");
+        Objects.requireNonNull(fun,"fun not null");
+        List<DTO> r = new ArrayList<>();
+        Map<T, DTO> resultToMap = listToMap(result, fun, Functions.identity());
+        source.stream().forEach(t->{
+            DTO dto = resultToMap.get(t);
+            if(dto != null){
+                r.add(dto);
+            }
+        });
+        return r;
     }
 
 }
