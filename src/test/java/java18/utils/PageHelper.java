@@ -70,7 +70,7 @@ public class PageHelper {
         }
     }
 
-    public static  <K> List<K> distinctSource(List<K> s){
+    private static <K> List<K> distinctSource(List<K> s){
         Set<K> set = new HashSet<>(s);
         if(s.size() == set.size()){
             return s;
