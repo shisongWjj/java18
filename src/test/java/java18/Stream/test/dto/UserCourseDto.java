@@ -84,20 +84,22 @@ public class UserCourseDto/* implements Comparable<UserCourseDto>*/{
 
         UserCourseDto that = (UserCourseDto) o;
 
-        if (!courseId.equals(that.courseId)) return false;
-        if (!recruitId.equals(that.recruitId)) return false;
-        if (!companyId.equals(that.companyId)) return false;
-        if (!classId.equals(that.classId)) return false;
-        return userId.equals(that.userId);
+        //if (!courseId.equals(that.courseId)) return false;
+        //if (!recruitId.equals(that.recruitId)) return false;
+        //if (!companyId.equals(that.companyId)) return false;
+        //if (!classId.equals(that.classId)) return false;
+        //return userId.equals(that.userId);
+        return companyId.equals(that.companyId);
     }
 
     @Override
     public int hashCode() {
-        int result = courseId.hashCode();
-        result = 31 * result + recruitId.hashCode();
-        result = 31 * result + companyId.hashCode();
-        result = 31 * result + classId.hashCode();
-        result = 31 * result + userId.hashCode();
+        //int result = courseId.hashCode();
+        int result = companyId.hashCode();
+        //result = 31 * result + recruitId.hashCode();
+        //result = 31 * result + companyId.hashCode();
+        //result = 31 * result + classId.hashCode();
+        //result = 31 * result + userId.hashCode();
         return result;
     }
 }

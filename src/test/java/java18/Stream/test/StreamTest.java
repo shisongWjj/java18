@@ -204,9 +204,13 @@ public class StreamTest {
     //Stream<T> distinct();
     @Test
     public void distinctTest(){
-        List<Long> collect = this.getSource().stream().map(UserCourseDto::getCompanyId).distinct().collect(Collectors.toList());
-        this.getSource().stream().map(UserCourseDto::getCompanyId).distinct().forEach(companyId->{
-            System.out.println(companyId);
+        //List<Long> collect = this.getSource().stream().map(UserCourseDto::getClassId).distinct().collect(Collectors.toList());
+        List<Long> collect = this.getSource().stream().map(UserCourseDto::getClassId).collect(Collectors.toList());
+        this.getSource().stream().map(UserCourseDto::getClassId).distinct().forEach(classId->{
+            System.out.println(classId);
+        });
+        this.getSource().stream().distinct().forEach(classId->{
+            System.out.println(classId);
         });
     }
 
