@@ -84,22 +84,22 @@ public class UserCourseDto/* implements Comparable<UserCourseDto>*/{
 
         UserCourseDto that = (UserCourseDto) o;
 
-        //if (!courseId.equals(that.courseId)) return false;
-        //if (!recruitId.equals(that.recruitId)) return false;
-        //if (!companyId.equals(that.companyId)) return false;
-        //if (!classId.equals(that.classId)) return false;
-        //return userId.equals(that.userId);
-        return companyId.equals(that.companyId);
+        if (courseId != null ? !courseId.equals(that.courseId) : that.courseId != null) return false;
+        if(courseId.equals(600165l)){
+            if (recruitId != null ? !recruitId.equals(that.recruitId) : that.recruitId != null) return false;
+        }
+        /*if (companyId != null ? !companyId.equals(that.companyId) : that.companyId != null) return false;
+        if (classId != null ? !classId.equals(that.classId) : that.classId != null) return false;*/
+        return userId != null ? userId.equals(that.userId) : that.userId == null;
     }
 
     @Override
     public int hashCode() {
-        //int result = courseId.hashCode();
-        int result = companyId.hashCode();
-        //result = 31 * result + recruitId.hashCode();
-        //result = 31 * result + companyId.hashCode();
-        //result = 31 * result + classId.hashCode();
-        //result = 31 * result + userId.hashCode();
+        int result = courseId != null ? courseId.hashCode() : 0;
+        result = 31 * result + (recruitId != null ? recruitId.hashCode() : 0);
+        /*result = 31 * result + (companyId != null ? companyId.hashCode() : 0);
+        result = 31 * result + (classId != null ? classId.hashCode() : 0);*/
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         return result;
     }
 }
