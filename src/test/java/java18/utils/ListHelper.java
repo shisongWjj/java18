@@ -3,7 +3,14 @@ package java18.utils;
 import com.google.common.base.Functions;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeansException;
+import org.springframework.util.Assert;
+import org.springframework.util.ClassUtils;
 
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -129,6 +136,71 @@ public class ListHelper {
             }
         });
         return r;
+    }
+
+    /**
+     * 将源数据中 同一个字段的值累加（数字类型） 只实现了 integer long double的累加
+     * @Description
+     * @author shisong
+     * @date 13:43 2018/6/25
+     * @modifyNote
+     * @param source：源数据 classz：返回的值的类型 ignoreProperties：不需要进行累加的属性名字
+     * @return
+     */
+    public static <T,R> T listCount(List<R> source,Class<T> classz,String ... ignoreProperties) throws BeansException {
+        if(CollectionUtils.isEmpty(source)) return null ;
+        Assert.notNull(classz);
+        T target = BeanUtils.instantiate(classz) ;
+        PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(target.getClass());
+        List<String> ignoreList = (ignoreProperties != null ? Arrays.asList(ignoreProperties) : null);
+        for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
+            Method writeMethod = propertyDescriptor.getWriteMethod();//setXxx
+            if(writeMethod != null && (ignoreList == null || !ignoreList.contains(propertyDescriptor.getName()))){
+                PropertyDescriptor sourcePd = BeanUtils.getPropertyDescriptor(source.get(0).getClass(), propertyDescriptor.getName());
+                if (sourcePd != null) {
+                    Method readMethod = sourcePd.getReadMethod();//getXxx
+                    if(readMethod !=null && ClassUtils.isAssignable(Number.class, readMethod.getReturnType())) {
+                        Object sum = 0;
+                        for (R dto : source) {
+                            try {
+                                Object value = readMethod.invoke(dto);
+                                if (ClassUtils.isAssignable(Integer.class, readMethod.getReturnType())) {
+                                    if(value !=null){
+                                        sum = Integer.parseInt(sum.toString())  + Integer.parseInt(value.toString());
+                                    }else {
+                                        sum = Integer.parseInt(sum.toString());
+                                    }
+                                } else if (ClassUtils.isAssignable(Long.class, readMethod.getReturnType())) {
+                                    if(value !=null){
+                                        sum = Long.parseLong(sum.toString())  + Long.parseLong(value.toString());
+                                    }else {
+                                        sum = Long.parseLong(sum.toString());
+                                    }
+                                }else if(value !=null &&ClassUtils.isAssignable(Double.class, readMethod.getReturnType())){
+                                    if(value !=null){
+                                        sum = Double.parseDouble(sum.toString())  + Double.parseDouble(value.toString());
+                                    }else {
+                                        sum = Double.parseDouble(sum.toString());
+                                    }
+                                }
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            } catch (InvocationTargetException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        try {
+                            writeMethod.invoke(target,sum);
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        } catch (InvocationTargetException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+        return target;
     }
 
 }
