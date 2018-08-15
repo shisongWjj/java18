@@ -527,6 +527,8 @@ public class StreamTest {
     //Optional<T> max(Comparator<? super T> comparator);
     @Test
     public void maxTest(){
+        UserCourseDto userCourseDto = this.getSource().stream().max((dto1, dto2) -> (int) (dto1.getClassId() - dto2.getClassId())).get();
+        System.out.println(userCourseDto);
     }
 
     /**

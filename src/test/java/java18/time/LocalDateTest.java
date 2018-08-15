@@ -31,6 +31,13 @@ public class LocalDateTest {
     }
 
     @Test
+    public void localDateTimeTest1(){
+        LocalDateTime of = LocalDateTime.of(2018, 7, 21, 0, 0, 01);
+        LocalDateTime localDateTime = of.plusDays(112l);
+        System.out.println(localDateTime);
+    }
+
+    @Test
     public void instantTest(){
         //机器读的时间 有时差
         Instant isn = Instant.now();
