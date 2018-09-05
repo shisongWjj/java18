@@ -87,6 +87,17 @@ public class CollectorTest {
         System.out.println(longs2);
     }
 
-
+    @Test
+    public void test1(){
+        List<Integer> ids = Arrays.asList(1,2,3,4,5,6,7);
+        List<Integer> ids1 = Arrays.asList(1,2,3,90);
+        List<Integer> iids = new ArrayList<>(ids);
+        List<Integer> iids1 = new ArrayList<>(ids1);
+        iids.removeAll(iids1);
+        System.out.println(ids);
+        System.out.println(ids1);
+        System.out.println(iids);
+        System.out.println(iids1);
+    }
 
 }
