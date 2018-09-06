@@ -15,6 +15,7 @@ public class TestCountDownLatch {
         for(int i=0;i<5;i++){
             new Thread(cd).start();
         }
+        //当latch不为0的时候， 要让主线程 处于等待状态
         try {
             latch.await();
         } catch (InterruptedException e) {
@@ -37,6 +38,7 @@ class CountDownLatchDemo implements Runnable{
     @Override
     public void run() {
 
+        //可能会存在线程安全，这里加一个同步锁
         synchronized(this){
             try {
                 for(int i =0 ; i<50000;i++){
@@ -45,6 +47,7 @@ class CountDownLatchDemo implements Runnable{
                     }
                 }
             } finally {
+                //为了让latch减一 一定执行，这里将该方法放在finally里面
                 latch.countDown();
             }
         }
