@@ -1,5 +1,6 @@
 package com.ss.juc;
 
+
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -9,122 +10,112 @@ import java.util.concurrent.locks.ReentrantLock;
  A、 B、 C，每个线程将自己的 ID 在屏幕上打印 10 遍，要
  求输出的结果必须按顺序显示。
  如： ABCABCABC…… 依次递归
+  升级版
  */
-public class TestABCAlternate {
+public class TestABCAlternate2 {
 
     public static void main(String[] args) {
-        AlternateDeom ad = new AlternateDeom();
-        new Thread(new Runnable() {
+        AlternateDemo2 ad2 = new AlternateDemo2();
+        new  Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 1;i<=10;i++){
-                    ad.LockA();
+                for(int i = 1;i<=10;i++){
+                    ad2.LockA(i);
                 }
             }
         }).start();
 
-        new Thread(new Runnable() {
+        new  Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 1;i<=10;i++){
-                    ad.LockB();
+                for(int i = 1;i<=10;i++){
+                    ad2.LockB(i);
                 }
             }
         }).start();
 
-        new Thread(new Runnable() {
+        new  Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 1;i<=10;i++){
-                    ad.LockC();
+                for(int i = 1;i<=10;i++){
+                    ad2.LockC(i);
                 }
             }
         }).start();
-
     }
 }
 
-class AlternateDeom{
-    //创建锁对象
+class AlternateDemo2{
+
     private Lock lock = new ReentrantLock();
 
     private Condition conditionA = lock.newCondition();
     private Condition conditionB = lock.newCondition();
     private Condition conditionC = lock.newCondition();
 
-    Integer number = 1;
+    private Integer number = 1;
 
-    public void LockA(){
+    public void LockA(Integer time){
         lock.lock();
 
         try {
             if(!number.equals(1)){
-                //当不等于1的时候，锁住 A
                 try {
                     conditionA.await();
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
 
-            //输出A
-            System.out.println("A");
+            System.out.println("第"+time+"次循环输出A");
 
-            number =2;
-            //唤醒B
+            number = 2;
             conditionB.signal();
-
         }finally {
             lock.unlock();
         }
     }
 
-    public void LockB(){
+    public void LockB(Integer time){
         lock.lock();
 
         try {
             if(!number.equals(2)){
-                //当不等于1的时候，锁住 B
                 try {
                     conditionB.await();
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
 
-            //输出B
-            System.out.println("B");
+            System.out.println("第"+time+"次循环输出B");
 
-            number =3;
-            //唤醒C
+            number = 3;
             conditionC.signal();
-
         }finally {
             lock.unlock();
         }
     }
 
-    public void LockC(){
+    public void LockC(Integer time){
         lock.lock();
 
         try {
             if(!number.equals(3)){
-                //当不等于1的时候，锁住 B
                 try {
                     conditionC.await();
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
 
-            //输出B
-            System.out.println("C");
+            System.out.println("第"+time+"次循环输出C");
 
-            number =1;
-            //唤醒C
+            number = 1;
             conditionA.signal();
-
         }finally {
             lock.unlock();
         }
     }
-
 
 }
