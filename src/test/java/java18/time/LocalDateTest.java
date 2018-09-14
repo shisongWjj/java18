@@ -52,9 +52,9 @@ public class LocalDateTest {
         LocalDateTime dateTime = LocalDateTime.now();
         LocalDateTime of = LocalDateTime.of(2018, 5, 10, 0, 0, 01);
         Duration dur = Duration.between(dateTime,of);
-        System.out.println(dur);
+        System.out.println(dur.toMinutes());
         Duration dur1 = Duration.between(of,dateTime);
-        System.out.println(dur1);
+        System.out.println(dur1.toMinutes());
     }
 
     @Test
