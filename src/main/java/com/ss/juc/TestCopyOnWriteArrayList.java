@@ -13,7 +13,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *          concurrentHashMap：采用分段锁机制，是并行的  1.8  concurrentHashMap 取消了分段锁
  *
  * CopyOnWriteArrayList:复制并写入list  支持并发操作 每一次操作  在底层 都会先copy一个新的list 所以不会发生java.util.ConcurrentModificationException 错误
- *          由于每次都是copy一个新的  性能可想而知 肯定非常低，内存开心很大
+ *          由于每次都是copy一个新的  性能可想而知 肯定非常低，内存开销很大
  */
 public class TestCopyOnWriteArrayList {
 
