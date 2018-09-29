@@ -28,6 +28,12 @@ import java.nio.ByteBuffer;
  * limit ：界限，表示缓冲区中可以操作数据的大小。（limit 后数据是不能进行读写的）
  * capacity：容量，表示缓冲区中最大存储数据的容量，一旦声明不能改变
  *
+ * @see java18.nio.BufferTest
+ *
+ * 四、直接缓冲区与非直接缓冲区
+ * 非直接缓冲区：通过allocate()方法分配缓冲区，将缓冲区建立在JVM的内存中
+ * 直接缓冲区:通过allocateDirect()方法分配直接缓冲区，将缓冲区建立在物理内存中。可以提高效率
+ *
  */
 public class TestBuffer {
 
@@ -52,6 +58,28 @@ public class TestBuffer {
         System.out.println(buffer.capacity());
 
         buffer.flip();
+        System.out.println("=============flip================");
+        System.out.println(buffer.mark());
+        System.out.println(buffer.position());
+        System.out.println(buffer.limit());
+        System.out.println(buffer.capacity());
+        //buffer.put("213123123".getBytes());
+
+        /*buffer.clear();
+        System.out.println("=============clear================");
+        System.out.println(buffer.mark());
+        System.out.println(buffer.position());
+        System.out.println(buffer.limit());
+        System.out.println(buffer.capacity());*/
+
+        byte[] bytes = new byte[buffer.limit()];
+        buffer.get(bytes);
+        System.out.println(new String(bytes,0,bytes.length));
+        System.out.println("=============get================");
+        System.out.println(buffer.mark());
+        System.out.println(buffer.position());
+        System.out.println(buffer.limit());
+        System.out.println(buffer.capacity());
     }
 
 }

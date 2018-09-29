@@ -1,10 +1,10 @@
 package java18.nio;
 
 
-import java.nio.BufferOverflowException;
-import java.nio.BufferUnderflowException;
-import java.nio.InvalidMarkException;
-import java.nio.ReadOnlyBufferException;
+import org.junit.Test;
+
+import java.nio.*;
+import java.util.Spliterator;
 
 /**
  * A container for data of a specific primitive type.
@@ -124,19 +124,25 @@ import java.nio.ReadOnlyBufferException;
  *   <li><p> {@link #clear} makes a buffer ready for a new sequence of
  *   channel-read or relative <i>put</i> operations: It sets the limit to the
  *   capacity and the position to zero.  </p></li>
+ *   {@link #clear}为了通道读取或相对于put操作的新序列而准备缓冲区：它会将limit=capacity 并且position =0
+ *
  *
  *   <li><p> {@link #flip} makes a buffer ready for a new sequence of
  *   channel-write or relative <i>get</i> operations: It sets the limit to the
  *   current position and then sets the position to zero.  </p></li>
+ *   {@link #flip}为了是通道写入或相对于get操作的新序列而准备缓冲区：它会将limit=position 并且 position=0
+ *
  *
  *   <li><p> {@link #rewind} makes a buffer ready for re-reading the data that
  *   it already contains: It leaves the limit unchanged and sets the position
  *   to zero.  </p></li>
+ *   {@link #rewind}使缓冲区准备好重新读取它已经包含的数据：它保持limit不变，并且position=0。
  *
  * </ul>
  *
  *
  * <h2> Read-only buffers </h2>
+ * 只读缓冲区
  *
  * <p> Every buffer is readable, but not every buffer is writable.  The
  * mutation methods of each buffer class are specified as <i>optional
@@ -145,16 +151,24 @@ import java.nio.ReadOnlyBufferException;
  * content to be changed, but its mark, position, and limit values are mutable.
  * Whether or not a buffer is read-only may be determined by invoking its
  * {@link #isReadOnly isReadOnly} method.
+ * 每个缓冲区都是可读的，但是不是每个缓冲区都是可写入的。
+ * 每个缓冲区类的变异方法被指定为可选操作，当在只读缓冲区上调用时，这些操作将抛出{@link ReadOnlyBufferException}。
+ * 只读缓冲区不允许改变它的内容，但是它的mark,position,limit的值是可变的。
+ *  缓冲区是否是只读，可以通过调用它的{@link #isReadOnly isReadOnly}方法。
  *
  *
  * <h2> Thread safety </h2>
+ * 线程安全
  *
  * <p> Buffers are not safe for use by multiple concurrent threads.  If a
  * buffer is to be used by more than one thread then access to the buffer
  * should be controlled by appropriate synchronization.
+ * 缓冲区对于多个并发线程使用是不安全的。
+ * 如果要由多个线程使用缓冲区，则应通过适当的同步来控制对缓冲区的访问。
  *
  *
  * <h2> Invocation chaining </h2>
+ * 链式调用
  *
  * <p> Methods in this class that do not otherwise have a value to return are
  * specified to return the buffer upon which they are invoked.  This allows
@@ -176,4 +190,406 @@ import java.nio.ReadOnlyBufferException;
  * @since 1.4
  */
 public class BufferTest {
+
+    /**
+     * The characteristics of Spliterators that traverse and split elements
+     * maintained in Buffers.
+     */
+    static final int SPLITERATOR_CHARACTERISTICS =
+            Spliterator.SIZED | Spliterator.SUBSIZED | Spliterator.ORDERED;
+
+    @Test
+    public void test(){
+        System.out.println( Spliterator.SIZED);
+        System.out.println( Spliterator.SUBSIZED);
+        System.out.println( Spliterator.ORDERED);
+        System.out.println(SPLITERATOR_CHARACTERISTICS);
+    }
+
+    // Invariants: mark <= position <= limit <= capacity
+    /*private int mark = -1;
+    private int position = 0;
+    private int limit;
+    private int capacity;
+
+    // Used only by direct buffers
+    // NOTE: hoisted here for speed in JNI GetDirectBufferAddress
+    long address;
+
+    // Creates a new buffer with the given mark, position, limit, and capacity,
+    // after checking invariants.
+    //
+    Buffer(int mark, int pos, int lim, int cap) {       // package-private
+        if (cap < 0)
+            throw new IllegalArgumentException("Negative capacity: " + cap);
+        this.capacity = cap;
+        limit(lim);
+        position(pos);
+        if (mark >= 0) {
+            if (mark > pos)
+                throw new IllegalArgumentException("mark > position: ("
+                        + mark + " > " + pos + ")");
+            this.mark = mark;
+        }
+    }
+
+    *//**
+     * Returns this buffer's capacity.
+     *
+     * @return  The capacity of this buffer
+     *//*
+    public final int capacity() {
+        return capacity;
+    }
+
+    *//**
+     * Returns this buffer's position.
+     *
+     * @return  The position of this buffer
+     *//*
+    public final int position() {
+        return position;
+    }
+
+    *//**
+     * Sets this buffer's position.  If the mark is defined and larger than the
+     * new position then it is discarded.
+     *
+     * @param  newPosition
+     *         The new position value; must be non-negative
+     *         and no larger than the current limit
+     *
+     * @return  This buffer
+     *
+     * @throws  IllegalArgumentException
+     *          If the preconditions on <tt>newPosition</tt> do not hold
+     *//*
+    public final Buffer position(int newPosition) {
+        if ((newPosition > limit) || (newPosition < 0))
+            throw new IllegalArgumentException();
+        position = newPosition;
+        if (mark > position) mark = -1;
+        return this;
+    }
+
+    *//**
+     * Returns this buffer's limit.
+     *
+     * @return  The limit of this buffer
+     *//*
+    public final int limit() {
+        return limit;
+    }
+
+    *//**
+     * Sets this buffer's limit.  If the position is larger than the new limit
+     * then it is set to the new limit.  If the mark is defined and larger than
+     * the new limit then it is discarded.
+     *
+     * @param  newLimit
+     *         The new limit value; must be non-negative
+     *         and no larger than this buffer's capacity
+     *
+     * @return  This buffer
+     *
+     * @throws  IllegalArgumentException
+     *          If the preconditions on <tt>newLimit</tt> do not hold
+     *//*
+    public final Buffer limit(int newLimit) {
+        if ((newLimit > capacity) || (newLimit < 0))
+            throw new IllegalArgumentException();
+        limit = newLimit;
+        if (position > limit) position = limit;
+        if (mark > limit) mark = -1;
+        return this;
+    }
+
+    *//**
+     * Sets this buffer's mark at its position.
+     *
+     * @return  This buffer
+     *//*
+    public final Buffer mark() {
+        mark = position;
+        return this;
+    }
+
+    *//**
+     * Resets this buffer's position to the previously-marked position.
+     *
+     * <p> Invoking this method neither changes nor discards the mark's
+     * value. </p>
+     *
+     * @return  This buffer
+     *
+     * @throws  InvalidMarkException
+     *          If the mark has not been set
+     *//*
+    public final Buffer reset() {
+        int m = mark;
+        if (m < 0)
+            throw new InvalidMarkException();
+        position = m;
+        return this;
+    }
+
+    *//**
+     * Clears this buffer.  The position is set to zero, the limit is set to
+     * the capacity, and the mark is discarded.
+     *
+     * <p> Invoke this method before using a sequence of channel-read or
+     * <i>put</i> operations to fill this buffer.  For example:
+     *
+     * <blockquote><pre>
+     * buf.clear();     // Prepare buffer for reading
+     * in.read(buf);    // Read data</pre></blockquote>
+     *
+     * <p> This method does not actually erase the data in the buffer, but it
+     * is named as if it did because it will most often be used in situations
+     * in which that might as well be the case. </p>
+     *
+     * @return  This buffer
+     *//*
+    public final Buffer clear() {
+        position = 0;
+        limit = capacity;
+        mark = -1;
+        return this;
+    }
+
+    *//**
+     * Flips this buffer.  The limit is set to the current position and then
+     * the position is set to zero.  If the mark is defined then it is
+     * discarded.
+     *
+     * <p> After a sequence of channel-read or <i>put</i> operations, invoke
+     * this method to prepare for a sequence of channel-write or relative
+     * <i>get</i> operations.  For example:
+     *
+     * <blockquote><pre>
+     * buf.put(magic);    // Prepend header
+     * in.read(buf);      // Read data into rest of buffer
+     * buf.flip();        // Flip buffer
+     * out.write(buf);    // Write header + data to channel</pre></blockquote>
+     *
+     * <p> This method is often used in conjunction with the {@link
+     * java.nio.ByteBuffer#compact compact} method when transferring data from
+     * one place to another.  </p>
+     *
+     * @return  This buffer
+     *//*
+    public final Buffer flip() {
+        limit = position;
+        position = 0;
+        mark = -1;
+        return this;
+    }
+
+    *//**
+     * Rewinds this buffer.  The position is set to zero and the mark is
+     * discarded.
+     *
+     * <p> Invoke this method before a sequence of channel-write or <i>get</i>
+     * operations, assuming that the limit has already been set
+     * appropriately.  For example:
+     *
+     * <blockquote><pre>
+     * out.write(buf);    // Write remaining data
+     * buf.rewind();      // Rewind buffer
+     * buf.get(array);    // Copy data into array</pre></blockquote>
+     *
+     * @return  This buffer
+     *//*
+    public final Buffer rewind() {
+        position = 0;
+        mark = -1;
+        return this;
+    }
+
+    *//**
+     * Returns the number of elements between the current position and the
+     * limit.
+     *
+     * @return  The number of elements remaining in this buffer
+     *//*
+    public final int remaining() {
+        return limit - position;
+    }
+
+    *//**
+     * Tells whether there are any elements between the current position and
+     * the limit.
+     *
+     * @return  <tt>true</tt> if, and only if, there is at least one element
+     *          remaining in this buffer
+     *//*
+    public final boolean hasRemaining() {
+        return position < limit;
+    }
+
+    *//**
+     * Tells whether or not this buffer is read-only.
+     *
+     * @return  <tt>true</tt> if, and only if, this buffer is read-only
+     *//*
+    public abstract boolean isReadOnly();
+
+    *//**
+     * Tells whether or not this buffer is backed by an accessible
+     * array.
+     *
+     * <p> If this method returns <tt>true</tt> then the {@link #array() array}
+     * and {@link #arrayOffset() arrayOffset} methods may safely be invoked.
+     * </p>
+     *
+     * @return  <tt>true</tt> if, and only if, this buffer
+     *          is backed by an array and is not read-only
+     *
+     * @since 1.6
+     *//*
+    public abstract boolean hasArray();
+
+    *//**
+     * Returns the array that backs this
+     * buffer&nbsp;&nbsp;<i>(optional operation)</i>.
+     *
+     * <p> This method is intended to allow array-backed buffers to be
+     * passed to native code more efficiently. Concrete subclasses
+     * provide more strongly-typed return values for this method.
+     *
+     * <p> Modifications to this buffer's content will cause the returned
+     * array's content to be modified, and vice versa.
+     *
+     * <p> Invoke the {@link #hasArray hasArray} method before invoking this
+     * method in order to ensure that this buffer has an accessible backing
+     * array.  </p>
+     *
+     * @return  The array that backs this buffer
+     *
+     * @throws  ReadOnlyBufferException
+     *          If this buffer is backed by an array but is read-only
+     *
+     * @throws  UnsupportedOperationException
+     *          If this buffer is not backed by an accessible array
+     *
+     * @since 1.6
+     *//*
+    public abstract Object array();
+
+    *//**
+     * Returns the offset within this buffer's backing array of the first
+     * element of the buffer&nbsp;&nbsp;<i>(optional operation)</i>.
+     *
+     * <p> If this buffer is backed by an array then buffer position <i>p</i>
+     * corresponds to array index <i>p</i>&nbsp;+&nbsp;<tt>arrayOffset()</tt>.
+     *
+     * <p> Invoke the {@link #hasArray hasArray} method before invoking this
+     * method in order to ensure that this buffer has an accessible backing
+     * array.  </p>
+     *
+     * @return  The offset within this buffer's array
+     *          of the first element of the buffer
+     *
+     * @throws  ReadOnlyBufferException
+     *          If this buffer is backed by an array but is read-only
+     *
+     * @throws  UnsupportedOperationException
+     *          If this buffer is not backed by an accessible array
+     *
+     * @since 1.6
+     *//*
+    public abstract int arrayOffset();
+
+    *//**
+     * Tells whether or not this buffer is
+     * <a href="ByteBuffer.html#direct"><i>direct</i></a>.
+     *
+     * @return  <tt>true</tt> if, and only if, this buffer is direct
+     *
+     * @since 1.6
+     *//*
+    public abstract boolean isDirect();
+
+
+    // -- Package-private methods for bounds checking, etc. --
+
+    *//**
+     * Checks the current position against the limit, throwing a {@link
+     * BufferUnderflowException} if it is not smaller than the limit, and then
+     * increments the position.
+     *
+     * @return  The current position value, before it is incremented
+     *//*
+    final int nextGetIndex() {                          // package-private
+        if (position >= limit)
+            throw new BufferUnderflowException();
+        return position++;
+    }
+
+    final int nextGetIndex(int nb) {                    // package-private
+        if (limit - position < nb)
+            throw new BufferUnderflowException();
+        int p = position;
+        position += nb;
+        return p;
+    }
+
+    *//**
+     * Checks the current position against the limit, throwing a {@link
+     * BufferOverflowException} if it is not smaller than the limit, and then
+     * increments the position.
+     *
+     * @return  The current position value, before it is incremented
+     *//*
+    final int nextPutIndex() {                          // package-private
+        if (position >= limit)
+            throw new BufferOverflowException();
+        return position++;
+    }
+
+    final int nextPutIndex(int nb) {                    // package-private
+        if (limit - position < nb)
+            throw new BufferOverflowException();
+        int p = position;
+        position += nb;
+        return p;
+    }
+
+    *//**
+     * Checks the given index against the limit, throwing an {@link
+     * IndexOutOfBoundsException} if it is not smaller than the limit
+     * or is smaller than zero.
+     *//*
+    final int checkIndex(int i) {                       // package-private
+        if ((i < 0) || (i >= limit))
+            throw new IndexOutOfBoundsException();
+        return i;
+    }
+
+    final int checkIndex(int i, int nb) {               // package-private
+        if ((i < 0) || (nb > limit - i))
+            throw new IndexOutOfBoundsException();
+        return i;
+    }
+
+    final int markValue() {                             // package-private
+        return mark;
+    }
+
+    final void truncate() {                             // package-private
+        mark = -1;
+        position = 0;
+        limit = 0;
+        capacity = 0;
+    }
+
+    final void discardMark() {                          // package-private
+        mark = -1;
+    }
+
+    static void checkBounds(int off, int len, int size) { // package-private
+        if ((off | len | (off + len) | (size - (off + len))) < 0)
+            throw new IndexOutOfBoundsException();
+    }*/
+
 }
