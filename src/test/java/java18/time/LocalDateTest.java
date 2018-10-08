@@ -127,4 +127,12 @@ public class LocalDateTest {
             System.out.println(str);
         });
     }
+
+    @Test
+    public void test1(){
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime of = LocalDateTime.of(2014, 5, 10, 0, 0, 01);
+        Duration between = Duration.between(of, now);
+        System.out.println("结婚"+between.toDays()+"天");
+    }
 }
