@@ -11,7 +11,7 @@ public class FileStreamTest {
     public void test(){
 //创建文件对象，指定要读取的文件路径(要读的文件一定要存在)
         File file=new File("D:\\abc.txt");
-        File file1=new File("D:\\ccc.txt");
+        File file1=new File("D:\\bbb.txt");
         BufferedReader reader = null;
         BufferedWriter writer = null;
         try {
@@ -23,12 +23,9 @@ public class FileStreamTest {
             //一次读一行，读入null时文件结束
             while ((tempString = reader.readLine()) != null) {
             //把当前行号显示出来
-                if(StringUtils.isNotBlank(tempString) && !tempString.contains("pic_cnt_") && tempString.contains("nn.cbcb.us")){
-                    String str = "'";
-                    str += tempString.substring(81,110);
-                    str += "',";
-                    System.out.println("line " + line + ": " + str);
-                    writer.write(str);
+                if(StringUtils.isNotBlank(tempString) && !tempString.contains("pic_cnt_") && !tempString.contains("nn.cbcb.us") && !tempString.contains("HTTPConnectionPool")&& !tempString.contains("HTTPSConnectionPool")){
+                    System.out.println("line " + line + ": " + tempString);
+                    writer.write(tempString);
                     writer.newLine();
                 }
                 line++;
