@@ -1,4 +1,4 @@
-package com.ss.design.pattern.creational.simplefactory;
+package com.ss.design.pattern.creational.factorymethod;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,18 +30,18 @@ public class Test {
         car.produce();*/
 
         //v3
-        CarFactory carFactory = new CarFactory();
-        Car car = carFactory.getCar(FordCar.class);
+        CarFactory carFactory = new FordCarFactory();
+        Car car = carFactory.getCar();
         car.produce();
 
-       /* try {
+        /*try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/scutcs","root","root");
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
-*/
+        }*/
+
     }
 
 }
