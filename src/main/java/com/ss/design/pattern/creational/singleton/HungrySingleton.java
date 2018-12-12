@@ -20,10 +20,16 @@ public class HungrySingleton implements Serializable{
     }
 
     private HungrySingleton(){
-
+        if(hungrySingleton != null){
+            throw new RuntimeException("单例模式不能创建两个实例");
+        }
     }
 
     public static HungrySingleton getInstance(){
+        return hungrySingleton;
+    }
+
+    private Object readResolve(){
         return hungrySingleton;
     }
 }

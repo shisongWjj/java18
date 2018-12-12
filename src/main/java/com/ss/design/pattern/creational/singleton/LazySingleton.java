@@ -1,5 +1,8 @@
 package com.ss.design.pattern.creational.singleton;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+
 /**
  * 懒汉式：注重延时加载，只有使用它的时候 才会加载，会存在线程安全，
  * //1.创建静态对象，赋值为null
@@ -36,9 +39,15 @@ public class LazySingleton {
 
     //创建静态对象，赋值为null
     private static LazySingleton lazySingleton = null;
+    private static boolean flag = true;
 
     //私有化构造器
     private LazySingleton() {
+        if (flag){
+            flag =false;
+        }else {
+            throw new RuntimeException("单例模式不能创建两个实例");
+        }
     }
 
     //创建一个静态方法，判断，当对象为null时，创建对象
@@ -47,6 +56,23 @@ public class LazySingleton {
             lazySingleton = new LazySingleton();
         }
         return lazySingleton;
+    }
+
+    public static void main(String[] args) throws Exception{
+        Class objectClass = LazySingleton.class;
+        Constructor c = objectClass.getDeclaredConstructor();
+        c.setAccessible(true);
+
+        LazySingleton o1 = LazySingleton.getInstatnce();
+        Field flag = objectClass.getDeclaredField("flag");
+        flag.setAccessible(true);
+        flag.set(o1,true);
+
+        LazySingleton o2 = (LazySingleton) c.newInstance();
+
+        System.out.println(o1);
+        System.out.println(o2);
+        System.out.println(o2 == o1);
     }
 
 }
