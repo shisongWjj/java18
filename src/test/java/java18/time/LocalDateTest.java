@@ -61,12 +61,13 @@ public class LocalDateTest {
     public void periodTest(){
         //Period 2个日期之间的间隔
         LocalDate dateTime = LocalDate.now();
-        LocalDate of = LocalDate.of(2018, 5, 10);
+        LocalDate of = LocalDate.of(2018, 5, 1);
         Period p = Period.between(dateTime,of);
         System.out.println(p.getDays());
 
         Period p1 = Period.between(of,dateTime);
         System.out.println(p1.getDays());
+        System.out.println( p1.getMonths());
     }
 
     @Test
@@ -85,8 +86,8 @@ public class LocalDateTest {
 
         //梦幻西游  每月第一周的周日的活动奖励很好
         //计算最近一次的这个活动
-        //LocalDate now = LocalDate.now();
-        LocalDate now = LocalDate.of(2018,05,06);
+        LocalDate now = LocalDate.now();
+        //LocalDate now = LocalDate.of(2018,05,06);
         LocalDate with3 = now.with(l -> {
             LocalDate now1 = (LocalDate) l;
             LocalDate firstSundayInMonth = now1.with(TemporalAdjusters.firstInMonth(DayOfWeek.SUNDAY));
