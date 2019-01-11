@@ -9,7 +9,7 @@ import java.io.Serializable;
  * //3.创建一个静态方法，直接返回对象
  *
  */
-public class HungrySingleton implements Serializable{
+public class HungrySingleton implements Serializable,Cloneable{
 
     //方式一：
     //private final static HungrySingleton hungrySingleton = new HungrySingleton();
@@ -31,5 +31,10 @@ public class HungrySingleton implements Serializable{
 
     private Object readResolve(){
         return hungrySingleton;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return getInstance();
     }
 }
