@@ -6,9 +6,9 @@ package com.ss.design.pattern.behavioral.iterator;
  * @author shisong
  * @date 2019/1/21
  */
-public interface CourseIterator {
+public interface CourseIterator<T> {
 
-    Course nextCourse();
+    T nextCourse();
 
     Boolean lastCourse();
 

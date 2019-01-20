@@ -38,7 +38,7 @@ public class Test {
     private static void printCourses(CourseAggregate courseAggregate) {
         CourseIterator courseIterator = courseAggregate.getCourseIterator();
         while (!courseIterator.lastCourse()){
-            Course course = courseIterator.nextCourse();
+            Course course = (Course) courseIterator.nextCourse();
             System.out.println(course.getName());
         }
 

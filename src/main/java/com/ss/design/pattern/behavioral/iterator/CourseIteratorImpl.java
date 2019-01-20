@@ -8,20 +8,20 @@ import java.util.List;
  * @author shisong
  * @date 2019/1/21
  */
-public class CourseIteratorImpl implements CourseIterator{
+public class CourseIteratorImpl<T> implements CourseIterator<T>{
 
-    private List<Course> courseList;
+    private List<T> courseList;
 
     private int position;
 
-    private Course course;
+    private T course;
 
-    public CourseIteratorImpl(List<Course> courseList) {
+    public CourseIteratorImpl(List<T> courseList) {
         this.courseList = courseList;
     }
 
     @Override
-    public Course nextCourse() {
+    public T nextCourse() {
         System.out.println("返回课程，位置是："+position);
         course = courseList.get(position);
         position++;
