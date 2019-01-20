@@ -1,4 +1,6 @@
-package com.ss.design.pattern.behavioral;
+package com.ss.design.pattern.behavioral.templatemethod;
+
+import com.ss.design.pattern.behavioral.templatemethod.ACourse;
 
 /**
  * FECourse

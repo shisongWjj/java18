@@ -1,4 +1,4 @@
-package com.ss.design.pattern.behavioral;
+package com.ss.design.pattern.behavioral.templatemethod;
 
 /**
  * ACourse
