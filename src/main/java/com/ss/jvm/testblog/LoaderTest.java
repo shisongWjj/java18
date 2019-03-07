@@ -1,4 +1,4 @@
-package com.ss.jvm;
+package com.ss.jvm.testblog;
 
 public class LoaderTest {
 

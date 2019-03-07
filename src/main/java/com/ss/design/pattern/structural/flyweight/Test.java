@@ -43,11 +43,19 @@ public class Test {
         Integer a = new Integer(1000);
         Integer b = 1000;
         Integer c = Integer.valueOf(1000);
-        int d = 1000;
+        Integer d = 1000;
         /**
-         * true
+         *  int d = 1000;
          true
          true
+         true
+         */
+
+        /**
+         * Integer d = 1000;
+         false
+         false
+         false
          */
         System.out.println(d==c);
         System.out.println(d==a);

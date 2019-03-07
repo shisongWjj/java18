@@ -1,4 +1,4 @@
-package com.ss.jvm;
+package com.ss.jvm.testblog;
 
 import java.io.*;
 import java.lang.reflect.Constructor;

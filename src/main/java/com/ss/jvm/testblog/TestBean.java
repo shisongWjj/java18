@@ -1,6 +1,4 @@
-package com.ss.jvm;
-
-import org.apache.ibatis.javassist.expr.Instanceof;
+package com.ss.jvm.testblog;
 
 import java.io.InputStream;
 
@@ -33,9 +31,9 @@ public class TestBean {
         };
 
         try {
-            Object o = myClassLoader.loadClass("com.ss.jvm.TestBean").newInstance();
+            Object o = myClassLoader.loadClass("com.ss.jvm.testblog.TestBean").newInstance();
             System.out.println(o);
-            System.out.println(o instanceof com.ss.jvm.TestBean);
+            System.out.println(o instanceof TestBean);
         } catch (Exception e) {
             e.printStackTrace();
         }

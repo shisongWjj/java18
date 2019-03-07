@@ -7,6 +7,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Date;
 import java.util.Set;
 
 public class LocalDateTest {
@@ -135,5 +136,59 @@ public class LocalDateTest {
         LocalDateTime of = LocalDateTime.of(2014, 5, 10, 0, 0, 01);
         Duration between = Duration.between(of, now);
         System.out.println("结婚"+between.toDays()+"天");
+    }
+
+    // 01. java.util.Date --> java.time.LocalDateTime
+    public void UDateToLocalDateTime() {
+        java.util.Date date = new java.util.Date();
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+    }
+
+    // 02. java.util.Date --> java.time.LocalDate
+    public void UDateToLocalDate() {
+        java.util.Date date = new java.util.Date();
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        LocalDate localDate = localDateTime.toLocalDate();
+    }
+
+    // 03. java.util.Date --> java.time.LocalTime
+    public void UDateToLocalTime() {
+        java.util.Date date = new java.util.Date();
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        LocalTime localTime = localDateTime.toLocalTime();
+    }
+
+
+    // 04. java.time.LocalDateTime --> java.util.Date
+    public void LocalDateTimeToUdate() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDateTime.atZone(zone).toInstant();
+        Date date = Date.from(instant);
+    }
+
+
+    // 05. java.time.LocalDate --> java.util.Date
+    public void LocalDateToUdate() {
+        LocalDate localDate = LocalDate.now();
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDate.atStartOfDay().atZone(zone).toInstant();
+        Date date = Date.from(instant);
+    }
+
+    // 06. java.time.LocalTime --> java.util.Date
+    public void LocalTimeToUdate() {
+        LocalTime localTime = LocalTime.now();
+        LocalDate localDate = LocalDate.now();
+        LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDateTime.atZone(zone).toInstant();
+        Date date = Date.from(instant);
     }
 }
