@@ -1,0 +1,5 @@
+SELECT CONCAT(
+'*2\r\n',
+'$',LENGTH('DEL'),'\r\n','DEL','\r\n',
+'$',LENGTH(CONCAT('ids:userid:orderby:lastwatchtime12:',a.user_id)),'\r\n',CONCAT('ids:userid:orderby:lastwatchtime12:',a.user_id),'\r')
+ FROM (SELECT DISTINCT(user_id) user_id FROM push_live.tbl_user_select_collect WHERE guid = user_id AND collect_type=2 AND last_watch_time is NOT null) a;
