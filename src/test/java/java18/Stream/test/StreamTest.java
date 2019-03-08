@@ -813,4 +813,11 @@ public class StreamTest {
         this.getSource().stream().collect(Collectors.groupingBy(UserCourseDto::getClassId));
 
     }
+
+    @Test
+    public void test(){
+        List<Integer> list = Arrays.asList(2033880, 2015500, 2021082, 2025819, 2012810, 2033880);
+        list = list.stream().distinct().collect(Collectors.toList());
+        System.out.println(list);
+    }
 }
