@@ -1,8 +1,12 @@
 package collection;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,6 +47,21 @@ public class ArrayListTest {
     private void setAge(Student s1){
         Student s2 = s1;
         s2.setAge(30);
+    }
+
+    @Test
+    public void test3(){
+        try {
+            String enrollmentYear = "2017-01-01 00:00:00";
+            Date enrollmentYearDate = null;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            if(StringUtils.isNotBlank(enrollmentYear)){
+                enrollmentYearDate = sdf.parse(enrollmentYear);
+            }
+            System.out.println(enrollmentYearDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 }
