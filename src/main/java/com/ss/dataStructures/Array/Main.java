@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         // 创建 数组 方式一
-        int[] arr = new int[20];
+        /*int[] arr = new int[20];
 
         for (int i=0 ; i < arr.length;i++) {
             arr[i]=i;
@@ -25,7 +25,11 @@ public class Main {
         scores[0] = 98;
         for (int score : scores) {
             System.out.println(score);
+        }*/
+        Array arr = new Array(20);
+        for (int i=0 ; i <10;i++) {
+            arr.add(i,i);
         }
-
+        System.out.println(arr.toString());
     }
 }

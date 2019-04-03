@@ -95,5 +95,19 @@ public class Array {
         size++;
     }
 
-
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Array  size:%d , capacity:%d\n",size,data.length));
+        sb.append("[");
+        for (int i = 0;i<size;i++){
+            sb.append(data[i]);
+            if(i == (size-1)){
+                sb.append("]");
+            }else{
+                sb.append(", ");
+            }
+        }
+        return sb.toString();
+    }
 }
