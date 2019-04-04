@@ -40,6 +40,7 @@ public class JavaTest {
         employees.forEach(
                 (x)-> System.out.println(x)
                 );
+
     }
 
     List<Employee> filterEmp1(List<Employee> list){
