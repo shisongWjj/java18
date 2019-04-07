@@ -31,5 +31,8 @@ public class Main {
             arr.add(i,i);
         }
         System.out.println(arr.toString());
+
+        arr.add(1,99);
+        System.out.println(arr.toString());
     }
 }

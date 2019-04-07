@@ -6,10 +6,9 @@ package com.ss.dataStructures.Array;
  * @author shisong
  * @date 2019/4/2
  */
-public class Array {
-
+public class Array<E>{
     //数组
-    private int[] data;
+    private E[] data;
 
     //数组中元素的个数
     private int size;
@@ -19,7 +18,7 @@ public class Array {
      * @param capacity
      */
     public Array(int capacity){
-        data = new int[capacity];
+        data = (E[])new Object[capacity];
         size =0;
     }
 
@@ -58,7 +57,7 @@ public class Array {
      * 在第一个位置添加元素
      * @param e
      */
-    public void addFirst(int e){
+    public void addFirst(E e){
         add(0,e);
     }
 
@@ -66,7 +65,7 @@ public class Array {
      * 在最后一个位子添加元素
      * @param e
      */
-    public void addLast(int e){
+    public void addLast(E e){
         /*if(size == data.length){
             throw new IllegalArgumentException("add failed.Array is full");
         }
@@ -81,7 +80,7 @@ public class Array {
      * @param index
      * @param e
      */
-    public void add(int index,int e){
+    public void add(int index,E e){
         if(size == data.length){
             throw new IllegalArgumentException("add failed.Array is full");
         }
@@ -95,6 +94,35 @@ public class Array {
         size++;
     }
 
+    /**
+     * 根据下标位置查询元素
+     * @param index
+     * @return
+     */
+    public E get(int index){
+        if(index>=size || index <0){
+            throw new IllegalArgumentException("get fail.index is illegal");
+        }
+        return data[index];
+    }
+
+    /**
+     * 根据下标位置修改指定元素的值
+     * @param index
+     * @param e
+     */
+    public void set(int index,E e){
+        if(index>=size || index <0){
+            throw new IllegalArgumentException("set fail.index is illegal");
+        }
+        data[index] = e;
+    }
+
+
+    /**
+     * 重写toString方法
+     * @return
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -109,5 +137,77 @@ public class Array {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * 查询是否包含某个元素
+     * @param e
+     * @return
+     */
+    public boolean contains(E e){
+        for (int i = 0; i < size; i++){
+            if(data[i].equals(e)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 查询某个元素的下标，如果不存在 则返回-1
+     * @param e
+     * @return
+     */
+    public int find(E e){
+        for (int i = 0; i < size; i++){
+            if(data[i].equals(e)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+    /**
+     * 从数组中删除 index的元素，并返回删除的元素
+     * @param index
+     * @return
+     */
+    public E remove(int index){
+        if(index < 0 || index >= size){
+            throw new IllegalArgumentException("remove fail.index is illegal");
+        }
+        E result = data[index];
+        for (int i = index+1; i <size ; i++){
+            data[i-1] = data[i];
+        }
+        size--;
+        return result;
+    }
+
+    /**
+     * 从数组中删除 第一个的元素，并返回删除的元素
+     * @return
+     */
+    public E removeFirst(){
+        return remove(0);
+    }
+
+    /**
+     * 从数组中删除 最后一个的元素，并返回删除的元素
+     * @return
+     */
+    public E removeLast(){
+        return remove(size-1);
+    }
+
+    /**
+     * 删除某个元素
+     * @param e
+     * @return
+     */
+    public E removeElement(E e){
+        int index = find(e);
+        return remove(index);
     }
 }
