@@ -81,11 +81,11 @@ public class Array<E>{
      * @param e
      */
     public void add(int index,E e){
-        if(size == data.length){
-            throw new IllegalArgumentException("add failed.Array is full");
-        }
         if(index < 0 || index >size){
             throw new IllegalArgumentException("add failed.required index >= 0 || index <= size");
+        }
+        if(size == data.length){
+            resize(data.length*2);
         }
         for(int i = size; i >= index ; i--){
             data[i+1] = data[i];
@@ -104,6 +104,22 @@ public class Array<E>{
             throw new IllegalArgumentException("get fail.index is illegal");
         }
         return data[index];
+    }
+
+    /**
+     * 查询最后一个元素
+     * @return
+     */
+    public E getLast(){
+        return get(size-1);
+    }
+
+    /**
+     * 查询第一个元素
+     * @return
+     */
+    public E getFirst(){
+        return get(0);
     }
 
     /**
@@ -182,6 +198,9 @@ public class Array<E>{
             data[i-1] = data[i];
         }
         size--;
+        if(data.length/4 == size && data.length/2 != 0){
+            resize(data.length/2);
+        }
         return result;
     }
 
@@ -209,5 +228,17 @@ public class Array<E>{
     public E removeElement(E e){
         int index = find(e);
         return remove(index);
+    }
+
+    /**
+     * 重置数组的大小
+     * @param capacity
+     */
+    public void resize(int capacity){
+        E[] newData = (E[])new Object[capacity];
+        for(int i = 0; i< size;i++){
+            newData[i] = data[i];
+        }
+        data = newData;
     }
 }
