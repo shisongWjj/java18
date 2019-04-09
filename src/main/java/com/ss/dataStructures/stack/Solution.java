@@ -43,38 +43,31 @@ public class Solution {
             char c = s.charAt(i);
             if(c == '[' || c== '{' || c== '('){
                 stack.push(c);
-            }
-            if( c == ']'){
+            }else{
                 if(stack.empty()){
                     return false;
                 }
                 Character pop = stack.pop();
-                if(pop.equals('[')){
-                    continue;
-                }else {
-                    return false;
+                if( c == ']'){
+                    if(pop.equals('[')){
+                        continue;
+                    }else {
+                        return false;
+                    }
                 }
-            }
-            if( c == '}'){
-                if(stack.empty()){
-                    return false;
+                if( c == '}'){
+                    if(pop.equals('{')){
+                        continue;
+                    }else {
+                        return false;
+                    }
                 }
-                Character pop = stack.pop();
-                if(pop.equals('{')){
-                    continue;
-                }else {
-                    return false;
-                }
-            }
-            if( c == ')'){
-                if(stack.empty()){
-                    return false;
-                }
-                Character pop = stack.pop();
-                if(pop.equals('(')){
-                    continue;
-                }else {
-                    return false;
+                if( c == ')'){
+                    if(pop.equals('(')){
+                        continue;
+                    }else {
+                        return false;
+                    }
                 }
             }
         }

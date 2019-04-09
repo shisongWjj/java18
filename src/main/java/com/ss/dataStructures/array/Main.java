@@ -1,4 +1,4 @@
-package com.ss.dataStructures.Array;
+package com.ss.dataStructures.array;
 
 /**
  * Main

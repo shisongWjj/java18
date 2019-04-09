@@ -1,41 +1,45 @@
-package com.ss.dataStructures.stack;
+package com.ss.dataStructures.queue;
 
 import com.ss.dataStructures.array.Array;
 
 /**
- * ArrayStack
+ * ArrayQueue
  *
  * @author shisong
- * @date 2019/4/8
+ * @date 2019/4/9
  */
-public class ArrayStack<E> implements Stack<E>{
+public class ArrayQueue<E> implements Queue<E> {
 
     Array<E> array;
 
     /**
      * 无参构造
      */
-    public ArrayStack() {
+    public ArrayQueue(){
         array = new Array<>();
     }
 
-    public ArrayStack(int capacity){
+    /**
+     * 有参构造
+     * @param capacity
+     */
+    public ArrayQueue(int capacity){
         array = new Array<>(capacity);
     }
 
     @Override
-    public void push(E e) {
+    public void enqueue(E e) {
         array.addLast(e);
     }
 
     @Override
-    public E pop() {
-        return array.removeLast();
+    public E dequeue() {
+        return array.removeFirst();
     }
 
     @Override
-    public E peek() {
-        return array.getLast();
+    public E getFront() {
+        return array.getFirst();
     }
 
     @Override
@@ -48,10 +52,6 @@ public class ArrayStack<E> implements Stack<E>{
         return array.isEmpty();
     }
 
-    /**
-     * 查询容量
-     * @return
-     */
     public int getCapacity(){
         return array.getCapacity();
     }
@@ -59,15 +59,15 @@ public class ArrayStack<E> implements Stack<E>{
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
-        res.append("Stack: ");
-        res.append("[");
+        res.append("Queue: ");
+        res.append("front [");
         for (int i = 0;i<array.getSize();i++){
             res.append(array.get(i));
             if(i != array.getSize()-1){
                 res.append(", ");
             }
         }
-        res.append("] top");
+        res.append("] tail");
         return res.toString();
     }
 }
