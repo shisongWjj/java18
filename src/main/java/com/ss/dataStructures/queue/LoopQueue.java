@@ -39,13 +39,13 @@ public class LoopQueue<E> implements Queue<E> {
 
     @Override
     public void enqueue(E e) {
-        int lastIndex = (tail + 1) % data.length;
-        if(lastIndex ==front){
+        //int lastIndex = (tail + 1) % data.length; 不能这样写，因为扩容后  data.length的值已经发生改变了
+        if((tail + 1) % data.length ==front){
             //说明队列已满 需要扩容
             resize(getCapacity()*2);
         }
         data[tail] = e;
-        tail = lastIndex;
+        tail = (tail + 1) % data.length;
         size++;
     }
 
@@ -119,5 +119,16 @@ public class LoopQueue<E> implements Queue<E> {
         }
         res.append("] tail");
         return res.toString();
+    }
+
+    public static void main(String[] args) {
+        LoopQueue<Integer> queue = new LoopQueue<>();
+        for (int i = 0 ; i< 10 ;i++){
+            queue.enqueue(i);
+            if(i % 3 == 2){
+                queue.dequeue();
+            }
+            System.out.println(queue.toString());
+        }
     }
 }
