@@ -65,12 +65,27 @@ public class LoopQueue<E> implements Queue<E> {
 
     @Override
     public E dequeue() {
-        return null;
+        if(front == tail){
+            //说明队列为空
+            throw new IllegalArgumentException("Cannot dequeue from an empty queue.");
+        }
+        E result = data[front];
+        data[front] = null;
+        front = (front+1)%data.length;
+        size--;
+        if(size == getCapacity()/4 && getCapacity()/2 != 0){
+            resize(getCapacity()/2);
+        }
+        return result;
     }
 
     @Override
     public E getFront() {
-        return null;
+        if(front == tail){
+            //说明队列为空
+            throw new IllegalArgumentException("Queue is empty.");
+        }
+        return data[front];
     }
 
     @Override
@@ -89,5 +104,20 @@ public class LoopQueue<E> implements Queue<E> {
      */
     public int getCapacity(){
         return data.length-1;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        res.append(String.format("Queue  size:%d , capacity:%d\n",size,getCapacity()));
+        res.append("front [");
+        for (int i = front;i !=tail; i=(i+1)%data.length){
+            res.append(data[i]);
+            if((i+1)%data.length != tail){
+                res.append(", ");
+            }
+        }
+        res.append("] tail");
+        return res.toString();
     }
 }
