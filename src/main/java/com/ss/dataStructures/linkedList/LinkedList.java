@@ -189,7 +189,7 @@ public class LinkedList<E> {
     }
 
     /**
-     * 删除索引为index的元素
+     * 删除索引为index的元素,并返回被删除的元素
      * @param index
      * @return
      */
@@ -197,10 +197,31 @@ public class LinkedList<E> {
         if(index<0 || index >=size){
             throw new IllegalArgumentException("remove fail.illegal index.");
         }
-        Node pre = dummyHead;
+        Node prev = dummyHead;
         for (int i = 0; i < index ; i++){
-
+            prev = prev.next;
         }
+        Node delNode = prev.next;
+        prev.next = delNode.next;
+        delNode.next = null;
+        size--;
+        return delNode.e;
+    }
+
+    /**
+     * 删除第一个元素
+     * @return
+     */
+    public E removeFirst(){
+        return this.remove(0);
+    }
+
+    /**
+     * 删除最后一个元素
+     * @return
+     */
+    public E removeLast(){
+        return this.remove(size-1);
     }
 
     @Override
