@@ -1,5 +1,7 @@
 package com.ss.dataStructures.queue;
 
+import com.ss.dataStructures.linkedList.LinkedList;
+
 /**
  * LinkedListQueue
  *
@@ -66,12 +68,26 @@ public class LinkedListQueue<E> implements Queue<E>{
 
     @Override
     public E dequeue() {
-        return null;
+        if(isEmpty()){
+            throw new IllegalArgumentException("Cannot dequeue from an empty queue.");
+        }
+        E result = head.e;
+        Node newHead = head.next;
+        head.next = null;
+        head = newHead;
+        if(head == null){
+            tail = null;
+        }
+        size--;
+        return result;
     }
 
     @Override
     public E getFront() {
-        return null;
+        if(isEmpty()){
+            throw new IllegalArgumentException("Queue is empty.");
+        }
+        return head.e;
     }
 
     @Override
@@ -84,5 +100,17 @@ public class LinkedListQueue<E> implements Queue<E>{
         return size==0;
     }
 
-
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        res.append("Queue: front ");
+        Node cur = head;
+        //这里判断的时候  只要cur 不为空 而不是cur.e 不为空
+        while (cur != null){
+            res.append(cur + "->");
+            cur = cur.next;
+        }
+        res.append("NULL tail");
+        return res.toString();
+    }
 }
