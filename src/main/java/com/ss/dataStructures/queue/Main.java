@@ -41,6 +41,10 @@ public class Main {
         ArrayQueue<Integer> arrayQueue = new ArrayQueue<>();
         double arrayTime = testQueue(arrayQueue, opCount);
         System.out.println("arrayTime : " + arrayTime);
+
+        LinkedListQueue<Integer>  linkedListQueue = new LinkedListQueue<>();
+        double linkedListTime = testQueue(linkedListQueue, opCount);
+        System.out.println("linkedListTime : " + linkedListTime);
     }
 
 }
