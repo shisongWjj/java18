@@ -116,4 +116,94 @@ public class BST<E extends Comparable<E>> {
         }
         return node;
     }
+
+    /**
+     * 是否包含某个元素
+     * @param e
+     * @return
+     */
+    public boolean contains(E e){
+        return contains(root,e);
+    }
+
+    /**
+     * 递归查找 是否包含某个元素
+     * @param node
+     * @param e
+     * @return
+     */
+    private boolean contains(Node node, E e) {
+
+        if(node == null){
+            //当节点为空时，返回false
+            return false;
+        }else if(e.equals(node.e)){
+            //当值相等时，返回true
+            return true;
+        }
+
+        if(e.compareTo(node.e) < 0){
+            return contains(node.left,e);
+        }else{
+            return contains(node.right,e);
+        }
+    }
+
+    /**
+     * 前序遍历
+     */
+    public void preOrder(){
+        preOrder(root);
+    }
+
+    /**
+     * 前序遍历  递归
+     * @param node
+     */
+    private void preOrder(Node node) {
+        if(node != null){
+            System.out.println(node.e);
+            preOrder(node.left);
+            preOrder(node.right);
+        }
+    }
+
+    /**
+     * 中序遍历
+     */
+    public void inOrder(){
+        inOrder(root);
+    }
+
+    /**
+     * 中序遍历  递归
+     * @param node
+     */
+    private void inOrder(Node node) {
+        if(node != null){
+            inOrder(node.left);
+            System.out.println(node.e);
+            inOrder(node.right);
+        }
+    }
+
+    /**
+     * 后序遍历
+     */
+    public void postOrder(){
+        postOrder(root);
+    }
+
+    /**
+     * 后序遍历 递归
+     * @param node
+     */
+    private void postOrder(Node node){
+        if(node != null){
+            postOrder(node.left);
+            postOrder(node.right);
+            System.out.println(node.e);
+        }
+    }
+
 }
