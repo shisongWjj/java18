@@ -67,7 +67,7 @@ class AlternateDeom{
             }
 
             //输出A
-            System.out.println("A");
+            System.out.print("A");
 
             number =2;
             //唤醒B
@@ -91,7 +91,7 @@ class AlternateDeom{
             }
 
             //输出B
-            System.out.println("B");
+            System.out.print("B");
 
             number =3;
             //唤醒C
@@ -115,7 +115,7 @@ class AlternateDeom{
             }
 
             //输出B
-            System.out.println("C");
+            System.out.print("C");
 
             number =1;
             //唤醒C
