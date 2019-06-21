@@ -8,30 +8,30 @@ package com.ss.design.pattern.behavioral.templatemethod;
  */
 public abstract class ACourse {
 
-    protected final void makeCourse(){
+    protected final void makeCourse() {
         makePPT();
         makeVideo();
-        if(needWriteArticle()){
+        if (needWriteArticle()) {
             writeArticle();
         }
         packageCourse();
     }
 
-    final void makePPT(){
+    final void makePPT() {
         System.out.println("制作PPT");
     }
 
-    final void makeVideo(){
+    final void makeVideo() {
         System.out.println("制作视频");
     }
 
-    final void writeArticle(){
+    final void writeArticle() {
         System.out.println("写手记");
     }
 
     //钩子方法
-    public Boolean needWriteArticle(){
-        return  false;
+    public Boolean needWriteArticle() {
+        return false;
     }
 
     abstract void packageCourse();

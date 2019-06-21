@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 /**
  * 读写锁：
  * 写写，读写 互斥
- *
+ * <p>
  * 读读 不互斥
  */
 public class TestReadWriteLock {
@@ -16,11 +16,11 @@ public class TestReadWriteLock {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                rw.set((int) (Math.random()*101));
+                rw.set((int) (Math.random() * 101));
             }
         }).start();
 
-        for(int i=0 ;i<100;i++){
+        for (int i = 0; i < 100; i++) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -31,28 +31,28 @@ public class TestReadWriteLock {
     }
 }
 
-class ReadWriteLockDemo{
+class ReadWriteLockDemo {
 
     private Integer number = 0;
 
     private ReadWriteLock lock = new ReentrantReadWriteLock();
 
-    public void get(){
+    public void get() {
         lock.readLock().lock();
         try {
-            System.out.println(Thread.currentThread().getName()+":"+number);
-        }finally {
+            System.out.println(Thread.currentThread().getName() + ":" + number);
+        } finally {
             lock.readLock().unlock();
         }
     }
 
-    public void set(Integer number){
+    public void set(Integer number) {
         lock.writeLock().lock();
         try {
             System.out.println("write:");
             System.out.println(number);
             this.number = number;
-        }finally {
+        } finally {
             lock.writeLock().unlock();
         }
     }

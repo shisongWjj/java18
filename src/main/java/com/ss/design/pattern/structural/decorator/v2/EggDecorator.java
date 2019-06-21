@@ -6,7 +6,7 @@ package com.ss.design.pattern.structural.decorator.v2;
  * @author shisong
  * @date 2019/1/11
  */
-public class EggDecorator extends AbstractDecorator{
+public class EggDecorator extends AbstractDecorator {
     public EggDecorator(ABattercake aBattercake) {
         super(aBattercake);
     }

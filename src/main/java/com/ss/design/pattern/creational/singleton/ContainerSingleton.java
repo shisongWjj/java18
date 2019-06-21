@@ -7,21 +7,21 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ContainerSingleton {
 
-    private static Map<String,Object> singletonMap = new ConcurrentHashMap<>();
+    private static Map<String, Object> singletonMap = new ConcurrentHashMap<>();
 
-    private ContainerSingleton(){
+    private ContainerSingleton() {
 
     }
 
-    public static void putInstance(String key,Object value){
-         if(StringUtils.isNotBlank(key) && value !=null){
-             if(!singletonMap.containsKey(key)){
-                 singletonMap.put(key,value);
-             }
-         }
+    public static void putInstance(String key, Object value) {
+        if (StringUtils.isNotBlank(key) && value != null) {
+            if (!singletonMap.containsKey(key)) {
+                singletonMap.put(key, value);
+            }
+        }
     }
 
-    public static Object getInstance(String key){
+    public static Object getInstance(String key) {
         return singletonMap.get(key);
     }
 }

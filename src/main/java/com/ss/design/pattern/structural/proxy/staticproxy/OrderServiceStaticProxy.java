@@ -15,7 +15,7 @@ public class OrderServiceStaticProxy {
 
     private IOrderService orderService;
 
-    public int saveOrder(Order order){
+    public int saveOrder(Order order) {
         beforeMethod(order);
         orderService = new OrderServiceImpl();
 
@@ -25,17 +25,17 @@ public class OrderServiceStaticProxy {
         return i;
     }
 
-    public void beforeMethod(Order order){
+    public void beforeMethod(Order order) {
         System.out.println("静态代理 before code");
 
         Integer userId = order.getUserId();
-        int dbRount = userId%2;
+        int dbRount = userId % 2;
 
-        System.out.println("静态代理分配到【db"+dbRount+"】");
-        DataSourceContextHolder.setDbtype(dbRount+"");
+        System.out.println("静态代理分配到【db" + dbRount + "】");
+        DataSourceContextHolder.setDbtype(dbRount + "");
     }
 
-    public void afterMethod(){
+    public void afterMethod() {
         System.out.println("静态代理 after code");
     }
 

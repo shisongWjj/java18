@@ -9,13 +9,13 @@ import java.util.List;
  * @author shisong
  * @date 2019/1/16
  */
-public class CourseCatalog extends CatalogComponent{
+public class CourseCatalog extends CatalogComponent {
 
     private String name;
     private List<CatalogComponent> items = new ArrayList<>();
     private Integer level;
 
-    public CourseCatalog(String name,Integer level) {
+    public CourseCatalog(String name, Integer level) {
         this.name = name;
         this.level = level;
     }
@@ -41,7 +41,7 @@ public class CourseCatalog extends CatalogComponent{
 
         System.out.println(this.name);
         for (CatalogComponent item : items) {
-            for (int i = 0;i<this.level;i++){
+            for (int i = 0; i < this.level; i++) {
                 System.out.print("  ");
             }
             item.print();

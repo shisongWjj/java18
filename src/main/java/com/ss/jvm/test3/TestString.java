@@ -33,10 +33,10 @@ public class TestString {
         String s4 = String.valueOf("abc");
         System.out.println(s1 == s4);//true?
 
-        String s5 ="a";
+        String s5 = "a";
         String s6 = "bc";
-        String s7 = s5+s6;
-        System.out.println(s1==s7);//false
+        String s7 = s5 + s6;
+        System.out.println(s1 == s7);//false
 
     }
 

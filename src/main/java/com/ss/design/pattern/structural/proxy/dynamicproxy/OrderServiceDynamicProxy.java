@@ -21,9 +21,9 @@ public class OrderServiceDynamicProxy implements InvocationHandler {
         this.target = target;
     }
 
-    public Object bind(){
+    public Object bind() {
         Class<?> aClass = target.getClass();
-        return Proxy.newProxyInstance(aClass.getClassLoader(),aClass.getInterfaces(),this);
+        return Proxy.newProxyInstance(aClass.getClassLoader(), aClass.getInterfaces(), this);
     }
 
     @Override
@@ -35,21 +35,21 @@ public class OrderServiceDynamicProxy implements InvocationHandler {
         return invoke;
     }
 
-    public void beforeMethod(Object object){
+    public void beforeMethod(Object object) {
         System.out.println("动态代理 before code");
         Integer userId = 0;
-        if(object instanceof Order){
-            Order order = (Order)object;
+        if (object instanceof Order) {
+            Order order = (Order) object;
             userId = order.getUserId();
         }
 
-        int dbRount = userId%2;
+        int dbRount = userId % 2;
 
-        System.out.println("动态代理分配到【db"+dbRount+"】");
-        DataSourceContextHolder.setDbtype(dbRount+"");
+        System.out.println("动态代理分配到【db" + dbRount + "】");
+        DataSourceContextHolder.setDbtype(dbRount + "");
     }
 
-    public void afterMethod(){
+    public void afterMethod() {
         System.out.println("动态代理 after code");
     }
 }

@@ -1,7 +1,7 @@
 package com.ss.design.pattern.behavioral.iterator;
 
 /**
- * Test
+ * CamelUtils
  *
  * @author shisong
  * @date 2019/1/21
@@ -37,7 +37,7 @@ public class Test {
 
     private static void printCourses(CourseAggregate courseAggregate) {
         CourseIterator courseIterator = courseAggregate.getCourseIterator();
-        while (!courseIterator.lastCourse()){
+        while (!courseIterator.lastCourse()) {
             Course course = (Course) courseIterator.nextCourse();
             System.out.println(course.getName());
         }

@@ -6,7 +6,7 @@ package com.ss.design.pattern.structural.adapter.classadapter;
  * @author shisong
  * @date 2019/1/14
  */
-public class ConcreteTarget implements Target{
+public class ConcreteTarget implements Target {
     @Override
     public void request() {
         System.out.println("ConcreteTarget的方法");

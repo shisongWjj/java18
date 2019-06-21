@@ -6,7 +6,7 @@ package com.ss.design.pattern.structural.bridge;
  * @author shisong
  * @date 2019/1/17
  */
-public class ABCBank extends Bank{
+public class ABCBank extends Bank {
 
     public ABCBank(Account account) {
         super(account);

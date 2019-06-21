@@ -9,7 +9,7 @@ import com.ss.design.pattern.structural.adapter.DC5V;
  * @author shisong
  * @date 2019/1/14
  */
-public class PowerAdapter implements DC5V{
+public class PowerAdapter implements DC5V {
 
     AC220V ac220 = new AC220V();
 
@@ -18,7 +18,7 @@ public class PowerAdapter implements DC5V{
         int adapterInput = ac220.outputAC220V();
         //变压器
         int adapterOutput = adapterInput / 44;
-        System.out.println("使用PowerAdapter输入AC："+adapterInput + "V，输出DC:"+adapterOutput+"V");
+        System.out.println("使用PowerAdapter输入AC：" + adapterInput + "V，输出DC:" + adapterOutput + "V");
         return adapterOutput;
     }
 }

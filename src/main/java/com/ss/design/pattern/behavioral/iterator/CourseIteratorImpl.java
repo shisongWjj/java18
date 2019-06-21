@@ -8,7 +8,7 @@ import java.util.List;
  * @author shisong
  * @date 2019/1/21
  */
-public class CourseIteratorImpl<T> implements CourseIterator<T>{
+public class CourseIteratorImpl<T> implements CourseIterator<T> {
 
     private List<T> courseList;
 
@@ -22,7 +22,7 @@ public class CourseIteratorImpl<T> implements CourseIterator<T>{
 
     @Override
     public T nextCourse() {
-        System.out.println("返回课程，位置是："+position);
+        System.out.println("返回课程，位置是：" + position);
         course = courseList.get(position);
         position++;
         return course;
@@ -30,7 +30,7 @@ public class CourseIteratorImpl<T> implements CourseIterator<T>{
 
     @Override
     public Boolean lastCourse() {
-        if(position < courseList.size()){
+        if (position < courseList.size()) {
             return false;
         }
         return true;

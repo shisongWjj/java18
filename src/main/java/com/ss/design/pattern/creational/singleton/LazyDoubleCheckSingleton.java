@@ -9,10 +9,10 @@ public class LazyDoubleCheckSingleton {
     }
 
     //创建一个静态方法，判断，当对象为null时，创建对象
-    public static LazyDoubleCheckSingleton getInstatnce(){
-        if(lazyDoubleCheckSingleton == null){
-            synchronized (LazyDoubleCheckSingleton.class){
-                if(lazyDoubleCheckSingleton == null){
+    public static LazyDoubleCheckSingleton getInstatnce() {
+        if (lazyDoubleCheckSingleton == null) {
+            synchronized (LazyDoubleCheckSingleton.class) {
+                if (lazyDoubleCheckSingleton == null) {
                     lazyDoubleCheckSingleton = new LazyDoubleCheckSingleton();
                     //1.分配内存给这个对象
                     //2.初始化对象

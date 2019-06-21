@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
         List<Demo> demoList = new ArrayList<>();
-        while (true){
+        while (true) {
             demoList.add(new Demo());
         }
     }

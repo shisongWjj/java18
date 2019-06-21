@@ -17,27 +17,27 @@ import java.util.Spliterator;
  *
  * <blockquote>
  *
- *   <p> A buffer's <i>capacity</i> is the number of elements it contains.  The
- *   capacity of a buffer is never negative and never changes.  </p>
- *   缓冲区的容量是它包含的元素的数量。缓冲区的容量永远不会是负的，永远不会改变。
+ * <p> A buffer's <i>capacity</i> is the number of elements it contains.  The
+ * capacity of a buffer is never negative and never changes.  </p>
+ * 缓冲区的容量是它包含的元素的数量。缓冲区的容量永远不会是负的，永远不会改变。
  *
- *   <p> A buffer's <i>limit</i> is the index of the first element that should
- *   not be read or written.  A buffer's limit is never negative and is never
- *   greater than its capacity.  </p>
- *   缓冲区的限制是第一个元素的索引，这个元素不应该被读或写。缓冲区的限制永远不会是负的，并且永远不会比缓冲区的容量大
+ * <p> A buffer's <i>limit</i> is the index of the first element that should
+ * not be read or written.  A buffer's limit is never negative and is never
+ * greater than its capacity.  </p>
+ * 缓冲区的限制是第一个元素的索引，这个元素不应该被读或写。缓冲区的限制永远不会是负的，并且永远不会比缓冲区的容量大
  *
- *   <p> A buffer's <i>position</i> is the index of the next element to be
- *   read or written.  A buffer's position is never negative and is never
- *   greater than its limit.  </p>
- *   缓冲区的位置是下一个元素的索引，这个元素将要被读或者写入。缓冲区的位置永远不会是负的，并且永远不会比缓冲区的限制大
+ * <p> A buffer's <i>position</i> is the index of the next element to be
+ * read or written.  A buffer's position is never negative and is never
+ * greater than its limit.  </p>
+ * 缓冲区的位置是下一个元素的索引，这个元素将要被读或者写入。缓冲区的位置永远不会是负的，并且永远不会比缓冲区的限制大
  *
  * </blockquote>
  *
  * <p> There is one subclass of this class for each non-boolean primitive type.
- *  对于每一个非布尔类型的原始类型，该类都有一个子类
+ * 对于每一个非布尔类型的原始类型，该类都有一个子类
  *
  * <h2> Transferring data </h2>
- *  传递数据
+ * 传递数据
  *
  * <p> Each subclass of this class defines two categories of <i>get</i> and
  * <i>put</i> operations: </p>
@@ -45,22 +45,22 @@ import java.util.Spliterator;
  *
  * <blockquote>
  *
- *   <p> <i>Relative</i> operations read or write one or more elements starting
- *   at the current position and then increment the position by the number of
- *   elements transferred.  If the requested transfer exceeds the limit then a
- *   relative <i>get</i> operation throws a {@link BufferUnderflowException}
- *   and a relative <i>put</i> operation throws a {@link
- *   BufferOverflowException}; in either case, no data is transferred.  </p>
- *   相关操作从当前位置开始读取或写入一个或多个元素，然后将位置增加所传输的元素数量。
- *   如果请求的传输超出了限制，则相对get操作抛出{@link BufferUnderflowException}
- *   而相对put操作抛出{@link BufferOverflowException}；无论哪种情况，都不传输数据。
+ * <p> <i>Relative</i> operations read or write one or more elements starting
+ * at the current position and then increment the position by the number of
+ * elements transferred.  If the requested transfer exceeds the limit then a
+ * relative <i>get</i> operation throws a {@link BufferUnderflowException}
+ * and a relative <i>put</i> operation throws a {@link
+ * BufferOverflowException}; in either case, no data is transferred.  </p>
+ * 相关操作从当前位置开始读取或写入一个或多个元素，然后将位置增加所传输的元素数量。
+ * 如果请求的传输超出了限制，则相对get操作抛出{@link BufferUnderflowException}
+ * 而相对put操作抛出{@link BufferOverflowException}；无论哪种情况，都不传输数据。
  *
- *   <p> <i>Absolute</i> operations take an explicit element index and do not
- *   affect the position.  Absolute <i>get</i> and <i>put</i> operations throw
- *   an {@link IndexOutOfBoundsException} if the index argument exceeds the
- *   limit.  </p>
- *   绝对操作采用显式元素索引，不影响位置。
- *   如果索引参数超过限制，则绝对get和PoT操作会引发{@link IndexOutOfBoundsException}
+ * <p> <i>Absolute</i> operations take an explicit element index and do not
+ * affect the position.  Absolute <i>get</i> and <i>put</i> operations throw
+ * an {@link IndexOutOfBoundsException} if the index argument exceeds the
+ * limit.  </p>
+ * 绝对操作采用显式元素索引，不影响位置。
+ * 如果索引参数超过限制，则绝对get和PoT操作会引发{@link IndexOutOfBoundsException}
  *
  * </blockquote>
  *
@@ -71,7 +71,7 @@ import java.util.Spliterator;
  *
  *
  * <h2> Marking and resetting </h2>
- *  标记复位（reset）
+ * 标记复位（reset）
  *
  * <p> A buffer's <i>mark</i> is the index to which its position will be reset
  * when the {@link #reset reset} method is invoked.  The mark is not always
@@ -80,10 +80,10 @@ import java.util.Spliterator;
  * position or the limit is adjusted to a value smaller than the mark.  If the
  * mark is not defined then invoking the {@link #reset reset} method causes an
  * {@link InvalidMarkException} to be thrown.
- *  缓冲区的标记是当调用reset方法时，它的索引位置将会被重置。
- *  这个标记通常不被定义，但是当它被定义的时候，它永远不会是一个负数，并且不会比缓冲区的位置大。
- *  如果这个标记被定义了，那么当位置和限制被调整后的值小于这个标记，那么标记会被丢弃。
- *  如果这个标记没有被定义，那么调用reset方法时，会引起一个{@link InvalidMarkException} 异常
+ * 缓冲区的标记是当调用reset方法时，它的索引位置将会被重置。
+ * 这个标记通常不被定义，但是当它被定义的时候，它永远不会是一个负数，并且不会比缓冲区的位置大。
+ * 如果这个标记被定义了，那么当位置和限制被调整后的值小于这个标记，那么标记会被丢弃。
+ * 如果这个标记没有被定义，那么调用reset方法时，会引起一个{@link InvalidMarkException} 异常
  *
  *
  * <h2> Invariants </h2>
@@ -93,13 +93,13 @@ import java.util.Spliterator;
  * capacity values:
  *
  * <blockquote>
- *     <tt>0</tt> <tt>&lt;=</tt>
- *     <i>mark</i> <tt>&lt;=</tt>
- *     <i>position</i> <tt>&lt;=</tt>
- *     <i>limit</i> <tt>&lt;=</tt>
- *     <i>capacity</i>
+ * <tt>0</tt> <tt>&lt;=</tt>
+ * <i>mark</i> <tt>&lt;=</tt>
+ * <i>position</i> <tt>&lt;=</tt>
+ * <i>limit</i> <tt>&lt;=</tt>
+ * <i>capacity</i>
  * </blockquote>
- *
+ * <p>
  * 不变式 0<=mark<=position<=limit<=capacity
  *
  * <p> A newly-created buffer always has a position of zero and a mark that is
@@ -107,9 +107,9 @@ import java.util.Spliterator;
  * that depends upon the type of the buffer and the manner in which it is
  * constructed.  Each element of a newly-allocated buffer is initialized
  * to zero.
- *  一个新创建的缓冲区 它有一个position是0的和一个未被定义的mark。
- *  初始limit可能是0，也可能是取决于缓冲区的类型和构造缓冲区的方式（构造方法）的其它值。
- *  新分配的缓冲区的每个元素的初始值都是0.
+ * 一个新创建的缓冲区 它有一个position是0的和一个未被定义的mark。
+ * 初始limit可能是0，也可能是取决于缓冲区的类型和构造缓冲区的方式（构造方法）的其它值。
+ * 新分配的缓冲区的每个元素的初始值都是0.
  *
  * <h2> Clearing, flipping, and rewinding </h2>
  * 清除、翻转和倒回
@@ -121,22 +121,22 @@ import java.util.Spliterator;
  *
  * <ul>
  *
- *   <li><p> {@link #clear} makes a buffer ready for a new sequence of
- *   channel-read or relative <i>put</i> operations: It sets the limit to the
- *   capacity and the position to zero.  </p></li>
- *   {@link #clear}为了通道读取或相对于put操作的新序列而准备缓冲区：它会将limit=capacity 并且position =0
+ * <li><p> {@link #clear} makes a buffer ready for a new sequence of
+ * channel-read or relative <i>put</i> operations: It sets the limit to the
+ * capacity and the position to zero.  </p></li>
+ * {@link #clear}为了通道读取或相对于put操作的新序列而准备缓冲区：它会将limit=capacity 并且position =0
  *
  *
- *   <li><p> {@link #flip} makes a buffer ready for a new sequence of
- *   channel-write or relative <i>get</i> operations: It sets the limit to the
- *   current position and then sets the position to zero.  </p></li>
- *   {@link #flip}为了是通道写入或相对于get操作的新序列而准备缓冲区：它会将limit=position 并且 position=0
+ * <li><p> {@link #flip} makes a buffer ready for a new sequence of
+ * channel-write or relative <i>get</i> operations: It sets the limit to the
+ * current position and then sets the position to zero.  </p></li>
+ * {@link #flip}为了是通道写入或相对于get操作的新序列而准备缓冲区：它会将limit=position 并且 position=0
  *
  *
- *   <li><p> {@link #rewind} makes a buffer ready for re-reading the data that
- *   it already contains: It leaves the limit unchanged and sets the position
- *   to zero.  </p></li>
- *   {@link #rewind}使缓冲区准备好重新读取它已经包含的数据：它保持limit不变，并且position=0。
+ * <li><p> {@link #rewind} makes a buffer ready for re-reading the data that
+ * it already contains: It leaves the limit unchanged and sets the position
+ * to zero.  </p></li>
+ * {@link #rewind}使缓冲区准备好重新读取它已经包含的数据：它保持limit不变，并且position=0。
  *
  * </ul>
  *
@@ -154,7 +154,7 @@ import java.util.Spliterator;
  * 每个缓冲区都是可读的，但是不是每个缓冲区都是可写入的。
  * 每个缓冲区类的变异方法被指定为可选操作，当在只读缓冲区上调用时，这些操作将抛出{@link ReadOnlyBufferException}。
  * 只读缓冲区不允许改变它的内容，但是它的mark,position,limit的值是可变的。
- *  缓冲区是否是只读，可以通过调用它的{@link #isReadOnly isReadOnly}方法。
+ * 缓冲区是否是只读，可以通过调用它的{@link #isReadOnly isReadOnly}方法。
  *
  *
  * <h2> Thread safety </h2>
@@ -178,12 +178,11 @@ import java.util.Spliterator;
  * b.flip();
  * b.position(23);
  * b.limit(42);</pre></blockquote>
- *
+ * <p>
  * can be replaced by the single, more compact statement
  *
  * <blockquote><pre>
  * b.flip().position(23).limit(42);</pre></blockquote>
- *
  *
  * @author Mark Reinhold
  * @author JSR-51 Expert Group
@@ -199,10 +198,10 @@ public class BufferTest {
             Spliterator.SIZED | Spliterator.SUBSIZED | Spliterator.ORDERED;
 
     @Test
-    public void test(){
-        System.out.println( Spliterator.SIZED);
-        System.out.println( Spliterator.SUBSIZED);
-        System.out.println( Spliterator.ORDERED);
+    public void test() {
+        System.out.println(Spliterator.SIZED);
+        System.out.println(Spliterator.SUBSIZED);
+        System.out.println(Spliterator.ORDERED);
         System.out.println(SPLITERATOR_CHARACTERISTICS);
     }
 
@@ -236,7 +235,7 @@ public class BufferTest {
     *//**
      * Returns this buffer's capacity.
      *
-     * @return  The capacity of this buffer
+     * @return The capacity of this buffer
      *//*
     public final int capacity() {
         return capacity;
@@ -245,7 +244,7 @@ public class BufferTest {
     *//**
      * Returns this buffer's position.
      *
-     * @return  The position of this buffer
+     * @return The position of this buffer
      *//*
     public final int position() {
         return position;
@@ -259,9 +258,9 @@ public class BufferTest {
      *         The new position value; must be non-negative
      *         and no larger than the current limit
      *
-     * @return  This buffer
+     * @return This buffer
      *
-     * @throws  IllegalArgumentException
+     * @throws IllegalArgumentException
      *          If the preconditions on <tt>newPosition</tt> do not hold
      *//*
     public final Buffer position(int newPosition) {
@@ -275,7 +274,7 @@ public class BufferTest {
     *//**
      * Returns this buffer's limit.
      *
-     * @return  The limit of this buffer
+     * @return The limit of this buffer
      *//*
     public final int limit() {
         return limit;
@@ -290,9 +289,9 @@ public class BufferTest {
      *         The new limit value; must be non-negative
      *         and no larger than this buffer's capacity
      *
-     * @return  This buffer
+     * @return This buffer
      *
-     * @throws  IllegalArgumentException
+     * @throws IllegalArgumentException
      *          If the preconditions on <tt>newLimit</tt> do not hold
      *//*
     public final Buffer limit(int newLimit) {
@@ -307,7 +306,7 @@ public class BufferTest {
     *//**
      * Sets this buffer's mark at its position.
      *
-     * @return  This buffer
+     * @return This buffer
      *//*
     public final Buffer mark() {
         mark = position;
@@ -320,9 +319,9 @@ public class BufferTest {
      * <p> Invoking this method neither changes nor discards the mark's
      * value. </p>
      *
-     * @return  This buffer
+     * @return This buffer
      *
-     * @throws  InvalidMarkException
+     * @throws InvalidMarkException
      *          If the mark has not been set
      *//*
     public final Buffer reset() {
@@ -348,7 +347,7 @@ public class BufferTest {
      * is named as if it did because it will most often be used in situations
      * in which that might as well be the case. </p>
      *
-     * @return  This buffer
+     * @return This buffer
      *//*
     public final Buffer clear() {
         position = 0;
@@ -376,7 +375,7 @@ public class BufferTest {
      * java.nio.ByteBuffer#compact compact} method when transferring data from
      * one place to another.  </p>
      *
-     * @return  This buffer
+     * @return This buffer
      *//*
     public final Buffer flip() {
         limit = position;
@@ -398,7 +397,7 @@ public class BufferTest {
      * buf.rewind();      // Rewind buffer
      * buf.get(array);    // Copy data into array</pre></blockquote>
      *
-     * @return  This buffer
+     * @return This buffer
      *//*
     public final Buffer rewind() {
         position = 0;
@@ -410,7 +409,7 @@ public class BufferTest {
      * Returns the number of elements between the current position and the
      * limit.
      *
-     * @return  The number of elements remaining in this buffer
+     * @return The number of elements remaining in this buffer
      *//*
     public final int remaining() {
         return limit - position;
@@ -464,12 +463,12 @@ public class BufferTest {
      * method in order to ensure that this buffer has an accessible backing
      * array.  </p>
      *
-     * @return  The array that backs this buffer
+     * @return The array that backs this buffer
      *
-     * @throws  ReadOnlyBufferException
+     * @throws ReadOnlyBufferException
      *          If this buffer is backed by an array but is read-only
      *
-     * @throws  UnsupportedOperationException
+     * @throws UnsupportedOperationException
      *          If this buffer is not backed by an accessible array
      *
      * @since 1.6
@@ -487,13 +486,13 @@ public class BufferTest {
      * method in order to ensure that this buffer has an accessible backing
      * array.  </p>
      *
-     * @return  The offset within this buffer's array
+     * @return The offset within this buffer's array
      *          of the first element of the buffer
      *
-     * @throws  ReadOnlyBufferException
+     * @throws ReadOnlyBufferException
      *          If this buffer is backed by an array but is read-only
      *
-     * @throws  UnsupportedOperationException
+     * @throws UnsupportedOperationException
      *          If this buffer is not backed by an accessible array
      *
      * @since 1.6
@@ -518,7 +517,7 @@ public class BufferTest {
      * BufferUnderflowException} if it is not smaller than the limit, and then
      * increments the position.
      *
-     * @return  The current position value, before it is incremented
+     * @return The current position value, before it is incremented
      *//*
     final int nextGetIndex() {                          // package-private
         if (position >= limit)
@@ -539,7 +538,7 @@ public class BufferTest {
      * BufferOverflowException} if it is not smaller than the limit, and then
      * increments the position.
      *
-     * @return  The current position value, before it is incremented
+     * @return The current position value, before it is incremented
      *//*
     final int nextPutIndex() {                          // package-private
         if (position >= limit)

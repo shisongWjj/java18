@@ -13,7 +13,7 @@ import java.util.Set;
 public class LocalDateTest {
 
     @Test
-    public void localDateTimeTest(){
+    public void localDateTimeTest() {
         //LocalDate  日期
         //LocalTime  时间
         //LocalDateTime 日期+时间
@@ -32,14 +32,14 @@ public class LocalDateTest {
     }
 
     @Test
-    public void localDateTimeTest1(){
+    public void localDateTimeTest1() {
         LocalDateTime of = LocalDateTime.of(2018, 7, 21, 0, 0, 01);
         LocalDateTime localDateTime = of.plusDays(112l);
         System.out.println(localDateTime);
     }
 
     @Test
-    public void instantTest(){
+    public void instantTest() {
         //机器读的时间 有时差
         Instant isn = Instant.now();
         System.out.println(isn);
@@ -48,31 +48,31 @@ public class LocalDateTest {
     }
 
     @Test
-    public void DurationTest(){
+    public void DurationTest() {
         //Duration 2个时间之间的间隔
         LocalDateTime dateTime = LocalDateTime.now();
         LocalDateTime of = LocalDateTime.of(2018, 5, 10, 0, 0, 01);
-        Duration dur = Duration.between(dateTime,of);
+        Duration dur = Duration.between(dateTime, of);
         System.out.println(dur.toMinutes());
-        Duration dur1 = Duration.between(of,dateTime);
+        Duration dur1 = Duration.between(of, dateTime);
         System.out.println(dur1.toMinutes());
     }
 
     @Test
-    public void periodTest(){
+    public void periodTest() {
         //Period 2个日期之间的间隔
         LocalDate dateTime = LocalDate.now();
         LocalDate of = LocalDate.of(2018, 5, 1);
-        Period p = Period.between(dateTime,of);
+        Period p = Period.between(dateTime, of);
         System.out.println(p.getDays());
 
-        Period p1 = Period.between(of,dateTime);
+        Period p1 = Period.between(of, dateTime);
         System.out.println(p1.getDays());
-        System.out.println( p1.getMonths());
+        System.out.println(p1.getMonths());
     }
 
     @Test
-    public void Test(){
+    public void Test() {
         //TemporalAdjuster 时间矫正器
         LocalDateTime ldt = LocalDateTime.now();
         System.out.println(ldt);
@@ -102,7 +102,7 @@ public class LocalDateTest {
     }
 
     @Test
-    public void dateTimeFormatterTest(){
+    public void dateTimeFormatterTest() {
         //DateTimeFormatter 不带时区的格式化时间
         DateTimeFormatter dtf = DateTimeFormatter.ISO_DATE;
         LocalDateTime ldt = LocalDateTime.now();
@@ -119,11 +119,11 @@ public class LocalDateTest {
     }
 
     @Test
-    public void test(){
+    public void test() {
         //ZonedDateTime
         Set<String> availableZoneIds = ZoneId.getAvailableZoneIds();
-        availableZoneIds.stream().forEach(str->{
-            if(str.toLowerCase().contains("shanghai")){
+        availableZoneIds.stream().forEach(str -> {
+            if (str.toLowerCase().contains("shanghai")) {
                 System.out.println("-------------------------------------------------");
             }
             System.out.println(str);
@@ -131,11 +131,11 @@ public class LocalDateTest {
     }
 
     @Test
-    public void test1(){
+    public void test1() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime of = LocalDateTime.of(2014, 5, 10, 0, 0, 01);
         Duration between = Duration.between(of, now);
-        System.out.println("结婚"+between.toDays()+"天");
+        System.out.println("结婚" + between.toDays() + "天");
     }
 
     // 01. java.util.Date --> java.time.LocalDateTime

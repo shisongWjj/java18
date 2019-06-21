@@ -12,7 +12,7 @@ public class Child extends Parent {
         System.out.println("子类的初始化");
     }
 
-    public static  int num = 12;
+    public static int num = 12;
 
     public static final int a = 4;//这个不会被加载
 

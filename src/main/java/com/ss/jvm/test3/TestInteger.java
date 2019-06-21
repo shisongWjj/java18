@@ -26,21 +26,21 @@ public class TestInteger {
          */
         Integer i1 = 127;
         Integer i2 = 127;
-        System.out.println(i1==i2);//true
+        System.out.println(i1 == i2);//true
 
         Integer i3 = new Integer(127);
-        System.out.println(i1==i3);//false
+        System.out.println(i1 == i3);//false
 
-        Integer i4= Integer.valueOf(127);
-        System.out.println(i1==i4);//true
+        Integer i4 = Integer.valueOf(127);
+        System.out.println(i1 == i4);//true
 
         Integer i5 = 100;
         Integer i6 = 27;
-        Integer i7 = i5+i6;
-        System.out.println(i1==i7);
+        Integer i7 = i5 + i6;
+        System.out.println(i1 == i7);
 
-        Integer i8 = 100+27;
-        System.out.println(i1==i8);
+        Integer i8 = 100 + 27;
+        System.out.println(i1 == i8);
 
         /*Integer i1 = 128;
         Integer i2 = 128;

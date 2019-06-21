@@ -9,7 +9,7 @@ package com.ss.dataStructures.tree;
  */
 public class BST<E extends Comparable<E>> {
 
-    private class Node{
+    private class Node {
         //存储的数据
         public E e;
         //右孩子
@@ -17,7 +17,7 @@ public class BST<E extends Comparable<E>> {
         //左孩子
         public Node left;
 
-        public Node(E e){
+        public Node(E e) {
             this.e = e;
             right = null;
             left = null;
@@ -31,18 +31,20 @@ public class BST<E extends Comparable<E>> {
 
     /**
      * 获取数中的元素个数
+     *
      * @return
      */
-    public int getSize(){
+    public int getSize() {
         return size;
     }
 
     /**
      * 树是否为空
+     *
      * @return
      */
-    public boolean isEmpty(){
-        return size == 0 ;
+    public boolean isEmpty() {
+        return size == 0;
     }
 
     /**
@@ -90,78 +92,83 @@ public class BST<E extends Comparable<E>> {
 
     /**
      * 添加元素 方式二
+     *
      * @param e
      */
-    public void add(E e){
-        root = add(root,e);
+    public void add(E e) {
+        root = add(root, e);
     }
 
     /**
      * 递归方法，在某个节点上 添加值
+     *
      * @param node
      * @param e
      */
     private Node add(Node node, E e) {
         //结束递归的条件
-        if(node == null){
+        if (node == null) {
             //当 当前节点为null的时候，添加元素
             node = new Node(e);
             size++;
             return node;
         }
-        if (e.compareTo(node.e) < 0){
-            node.left = add(node.left,e);
-        }else if(e.compareTo(node.e) > 0){
-            node.right = add(node.right,e);
+        if (e.compareTo(node.e) < 0) {
+            node.left = add(node.left, e);
+        } else if (e.compareTo(node.e) > 0) {
+            node.right = add(node.right, e);
         }
         return node;
     }
 
     /**
      * 是否包含某个元素
+     *
      * @param e
      * @return
      */
-    public boolean contains(E e){
-        return contains(root,e);
+    public boolean contains(E e) {
+        return contains(root, e);
     }
 
     /**
      * 递归查找 是否包含某个元素
+     *
      * @param node
      * @param e
      * @return
      */
     private boolean contains(Node node, E e) {
 
-        if(node == null){
+        if (node == null) {
             //当节点为空时，返回false
             return false;
-        }else if(e.equals(node.e)){
+        } else if (e.equals(node.e)) {
             //当值相等时，返回true
             return true;
         }
 
-        if(e.compareTo(node.e) < 0){
-            return contains(node.left,e);
-        }else{
-            return contains(node.right,e);
+        if (e.compareTo(node.e) < 0) {
+            return contains(node.left, e);
+        } else {
+            return contains(node.right, e);
         }
     }
 
     /**
      * 前序遍历
      */
-    public void preOrder(){
+    public void preOrder() {
         preOrder(root);
     }
 
     /**
      * 前序遍历  递归
+     *
      * @param node
      */
     private void preOrder(Node node) {
-        if(node != null){
+        if (node != null) {
             System.out.println(node.e);
             preOrder(node.left);
             preOrder(node.right);
@@ -171,16 +178,17 @@ public class BST<E extends Comparable<E>> {
     /**
      * 中序遍历
      */
-    public void inOrder(){
+    public void inOrder() {
         inOrder(root);
     }
 
     /**
      * 中序遍历  递归
+     *
      * @param node
      */
     private void inOrder(Node node) {
-        if(node != null){
+        if (node != null) {
             inOrder(node.left);
             System.out.println(node.e);
             inOrder(node.right);
@@ -190,16 +198,17 @@ public class BST<E extends Comparable<E>> {
     /**
      * 后序遍历
      */
-    public void postOrder(){
+    public void postOrder() {
         postOrder(root);
     }
 
     /**
      * 后序遍历 递归
+     *
      * @param node
      */
-    private void postOrder(Node node){
-        if(node != null){
+    private void postOrder(Node node) {
+        if (node != null) {
             postOrder(node.left);
             postOrder(node.right);
             System.out.println(node.e);

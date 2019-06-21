@@ -2,11 +2,12 @@ package com.ss.design.pattern.creational.prototype;
 
 /**
  * Mail
- *  针对mail类的修改，让它实现java.lang.Cloneable类 重写clone方法
+ * 针对mail类的修改，让它实现java.lang.Cloneable类 重写clone方法
+ *
  * @author shisong
  * @date 2019/1/9
  */
-public class Mail implements Cloneable{
+public class Mail implements Cloneable {
 
     private String name;
     private String content;

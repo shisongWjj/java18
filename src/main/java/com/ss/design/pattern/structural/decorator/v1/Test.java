@@ -1,7 +1,7 @@
 package com.ss.design.pattern.structural.decorator.v1;
 
 /**
- * Test
+ * CamelUtils
  *
  * @author shisong
  * @date 2019/1/11
@@ -21,13 +21,13 @@ public class Test {
          实际的装饰物
          */
         Battercake battercake = new Battercake();
-        System.out.println(battercake.getDesc() + " 销售价格："+battercake.cost());
+        System.out.println(battercake.getDesc() + " 销售价格：" + battercake.cost());
 
         BattercakeWithEgg battercakeWithEgg = new BattercakeWithEgg();
-        System.out.println(battercakeWithEgg.getDesc() + " 销售价格："+battercakeWithEgg.cost());
+        System.out.println(battercakeWithEgg.getDesc() + " 销售价格：" + battercakeWithEgg.cost());
 
         BattercakeWithEggSausage battercakeWithEggSausage = new BattercakeWithEggSausage();
-        System.out.println(battercakeWithEggSausage.getDesc() + " 销售价格："+battercakeWithEggSausage.cost());
+        System.out.println(battercakeWithEggSausage.getDesc() + " 销售价格：" + battercakeWithEggSausage.cost());
     }
 
 }

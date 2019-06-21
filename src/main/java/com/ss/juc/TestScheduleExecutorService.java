@@ -10,15 +10,15 @@ public class TestScheduleExecutorService {
         ScheduledExecutorService pool = Executors.newScheduledThreadPool(5);
 
         //2.为线程池分配任务
-        for(int i =0 ;i<10;i++){
+        for (int i = 0; i < 10; i++) {
             ScheduledFuture<Integer> schedule = pool.schedule(new Callable<Integer>() {
                 @Override
                 public Integer call() throws Exception {
                     int num = new Random().nextInt(100);
-                    System.out.println(Thread.currentThread().getName() +" : "+ num);
+                    System.out.println(Thread.currentThread().getName() + " : " + num);
                     return num;
                 }
-            },1 , TimeUnit.SECONDS);
+            }, 1, TimeUnit.SECONDS);
             System.out.println(schedule.get());
         }
         //3.关闭线程池

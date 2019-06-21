@@ -27,12 +27,12 @@ public class Main {
             System.out.println(score);
         }*/
         Array arr = new Array(20);
-        for (int i=0 ; i <10;i++) {
-            arr.add(i,i);
+        for (int i = 0; i < 10; i++) {
+            arr.add(i, i);
         }
         System.out.println(arr.toString());
 
-        arr.add(1,99);
+        arr.add(1, 99);
         System.out.println(arr.toString());
     }
 }

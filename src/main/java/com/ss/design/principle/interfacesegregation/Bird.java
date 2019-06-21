@@ -1,6 +1,6 @@
 package com.ss.design.principle.interfacesegregation;
 
-public class Bird implements IEatAnimalAction,IFlyAnimalAction{
+public class Bird implements IEatAnimalAction, IFlyAnimalAction {
     @Override
     public void eat() {
 

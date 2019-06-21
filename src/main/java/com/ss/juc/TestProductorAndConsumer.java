@@ -6,22 +6,22 @@ package com.ss.juc;
  * 没有等待唤醒机制之前，我们可以看到，当进货时，已显示仓库已满，但是仍被要求进货，相反 当无货时，一直被要求卖货，其实是一种不合理的情况
  * 我们需要，当提示仓库已满时，就不再继续进货，反之，当无货时，不再被要求卖货。
  * 所以我们就用到了等待唤醒机制，当仓库已满或者无货时，让线程处于等待状态，并且进货或者卖出货物时，唤醒其他线程。
- *
+ * <p>
  * 然而 当我们将最大进货数变为1时，并且生产者生产时，睡200毫秒（网络通信中很正常），就会发现程序一直在运行，不能停止
  * 这是因为生产者最后一次进入等待的时候，没有其他线程进行唤醒操作。
- *
+ * <p>
  * 所以 我们需要把else里的提取出来。同理消费者也应该一样
- *
+ * <p>
  * 然而 当我们开启多条生产者或消费者 线程时，发现 居然出现了负数 .这是一种虚假唤醒
- *
- *
+ * <p>
+ * <p>
  * 对于某一个参数的版本，实现中断和虚假唤醒是可能的，而且此方法应始终在循环中使用：
  * synchronized (obj) {
- while (<condition does not hold>)
- obj.wait();
- ... // Perform action appropriate to condition
- }
-    只需要将if改为while即可
+ * while (<condition does not hold>)
+ * obj.wait();
+ * ... // Perform action appropriate to condition
+ * }
+ * 只需要将if改为while即可
  */
 public class TestProductorAndConsumer {
 
@@ -30,10 +30,10 @@ public class TestProductorAndConsumer {
         Productor p1 = new Productor(clerk);
         Consumer c1 = new Consumer(clerk);
 
-        new Thread(p1,"生产者A").start();
-        new Thread(c1,"消费者B").start();
-        new Thread(p1,"生产者C").start();
-        new Thread(c1,"消费者D").start();
+        new Thread(p1, "生产者A").start();
+        new Thread(c1, "消费者B").start();
+        new Thread(p1, "生产者C").start();
+        new Thread(c1, "消费者D").start();
     }
 }
 

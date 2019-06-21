@@ -11,7 +11,7 @@ public class StaticTest {
     static int i = 1;
 
     static {
-        i =0;
+        i = 0;
         System.out.println(i);
     }
     // clinit 收集的顺序是顺序收集（从上至下）的。

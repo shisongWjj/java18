@@ -1,7 +1,7 @@
 package com.ss.design.pattern.structural.adapter;
 
 /**
- * Test
+ * CamelUtils
  * 场景：由220V的交流电变为5V的直流电
  *
  * @author shisong

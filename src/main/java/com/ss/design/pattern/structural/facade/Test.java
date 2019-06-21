@@ -1,7 +1,7 @@
 package com.ss.design.pattern.structural.facade;
 
 /**
- * Test
+ * CamelUtils
  *
  * @author shisong
  * @date 2019/1/10

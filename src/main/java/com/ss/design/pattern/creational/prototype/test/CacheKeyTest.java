@@ -12,7 +12,7 @@ import java.util.List;
  * @author shisong
  * @date 2019/1/9
  */
-public class CacheKeyTest implements Cloneable{
+public class CacheKeyTest implements Cloneable {
     private static final long serialVersionUID = 1146682552656046210L;
 
     private static final int DEFAULT_MULTIPLYER = 37;
@@ -100,7 +100,7 @@ public class CacheKeyTest implements Cloneable{
         for (Object object : updateList) {
             returnValue.append(':').append(ArrayUtil.toString(object));
         }
-        return returnValue.toString()+super.toString();
+        return returnValue.toString() + super.toString();
     }
 
     @Override

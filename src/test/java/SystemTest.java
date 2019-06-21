@@ -104,7 +104,7 @@ public class SystemTest {
      * @see SecurityManager#checkPermission
      * @see java.lang.RuntimePermission
      *
-     * @since   JDK1.1
+     * @since JDK1.1
      *//*
     public static void setIn(InputStream in) {
         checkIO();
@@ -128,7 +128,7 @@ public class SystemTest {
      * @see SecurityManager#checkPermission
      * @see java.lang.RuntimePermission
      *
-     * @since   JDK1.1
+     * @since JDK1.1
      *//*
     public static void setOut(PrintStream out) {
         checkIO();
@@ -152,7 +152,7 @@ public class SystemTest {
      * @see SecurityManager#checkPermission
      * @see java.lang.RuntimePermission
      *
-     * @since   JDK1.1
+     * @since JDK1.1
      *//*
     public static void setErr(PrintStream err) {
         checkIO();
@@ -164,9 +164,9 @@ public class SystemTest {
      * Returns the unique {@link java.io.Console Console} object associated
      * with the current Java virtual machine, if any.
      *
-     * @return  The system console, if any, otherwise <tt>null</tt>.
+     * @return The system console, if any, otherwise <tt>null</tt>.
      *
-     * @since   1.6
+     * @since 1.6
      *//*
     public static Console console() {
         if (cons == null) {
@@ -191,12 +191,12 @@ public class SystemTest {
      * inheritedChannel}, this method may return other kinds of
      * channels in the future.
      *
-     * @return  The inherited channel, if any, otherwise <tt>null</tt>.
+     * @return The inherited channel, if any, otherwise <tt>null</tt>.
      *
      * @throws IOException
      *          If an I/O error occurs
      *
-     * @throws  SecurityException
+     * @throws SecurityException
      *          If a security manager is present and it does not
      *          permit access to the channel.
      *
@@ -233,7 +233,7 @@ public class SystemTest {
      * the method simply returns.
      *
      * @param      s   the security manager.
-     * @exception  SecurityException  if the security manager has already
+     * @exception SecurityException  if the security manager has already
      *             been set and its <code>checkPermission</code> method
      *             doesn't allow it to be replaced.
      * @see #getSecurityManager
@@ -284,7 +284,7 @@ public class SystemTest {
     *//**
      * Gets the system security interface.
      *
-     * @return  if a security manager has already been established for the
+     * @return if a security manager has already been established for the
      *          current application, then that security manager is returned;
      *          otherwise, <code>null</code> is returned.
      * @see     #setSecurityManager
@@ -305,7 +305,7 @@ public class SystemTest {
      * a discussion of slight discrepancies that may arise between
      * "computer time" and coordinated universal time (UTC).
      *
-     * @return  the difference, measured in milliseconds, between
+     * @return the difference, measured in milliseconds, between
      *          the current time and midnight, January 1, 1970 UTC.
      * @see     java.util.Date
      *//*
@@ -371,7 +371,7 @@ public class SystemTest {
      * 从src的srcPos下标开始复制length个元素到dest的destPos下标
      */
     @Test
-    public void arraycopyTest(){
+    public void arraycopyTest() {
         List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
@@ -385,7 +385,7 @@ public class SystemTest {
         System.out.println(objects);
 
         //index = 1
-        System.arraycopy(objects,2,objects,1,6);
+        System.arraycopy(objects, 2, objects, 1, 6);
         System.out.println(objects);
     }
 
@@ -397,12 +397,12 @@ public class SystemTest {
      * The hash code for the null reference is zero.
      *
      * @param x object for which the hashCode is to be calculated
-     * @return  the hashCode
-     * @since   JDK1.1
+     * @return the hashCode
+     * @since JDK1.1
      */
-   /* public static native int identityHashCode(Object x);
+    /* public static native int identityHashCode(Object x);
 
-    *//**
+     *//**
      * System properties. The following properties are guaranteed to be defined:
      * <dl>
      * <dt>java.version         <dd>Java version number
@@ -510,8 +510,8 @@ public class SystemTest {
      * <code>getProperties</code> operation, it may choose to permit the
      * {@link #getProperty(String)} operation.
      *
-     * @return     the system properties
-     * @exception  SecurityException  if a security manager exists and its
+     * @return the system properties
+     * @exception SecurityException  if a security manager exists and its
      *             <code>checkPropertiesAccess</code> method doesn't allow access
      *              to the system properties.
      * @see        #setProperties
@@ -559,7 +559,7 @@ public class SystemTest {
      * forgotten.
      *
      * @param      props   the new system properties.
-     * @exception  SecurityException  if a security manager exists and its
+     * @exception SecurityException  if a security manager exists and its
      *             <code>checkPropertiesAccess</code> method doesn't allow access
      *              to the system properties.
      * @see        #getProperties
@@ -591,15 +591,15 @@ public class SystemTest {
      * for the <code>getProperties</code> method.
      *
      * @param      key   the name of the system property.
-     * @return     the string value of the system property,
+     * @return the string value of the system property,
      *             or <code>null</code> if there is no property with that key.
      *
-     * @exception  SecurityException  if a security manager exists and its
+     * @exception SecurityException  if a security manager exists and its
      *             <code>checkPropertyAccess</code> method doesn't allow
      *              access to the specified system property.
-     * @exception  NullPointerException if <code>key</code> is
+     * @exception NullPointerException if <code>key</code> is
      *             <code>null</code>.
-     * @exception  IllegalArgumentException if <code>key</code> is empty.
+     * @exception IllegalArgumentException if <code>key</code> is empty.
      * @see        #setProperty
      * @see        java.lang.SecurityException
      * @see        java.lang.SecurityManager#checkPropertyAccess(java.lang.String)
@@ -628,15 +628,15 @@ public class SystemTest {
      *
      * @param      key   the name of the system property.
      * @param      def   a default value.
-     * @return     the string value of the system property,
+     * @return the string value of the system property,
      *             or the default value if there is no property with that key.
      *
-     * @exception  SecurityException  if a security manager exists and its
+     * @exception SecurityException  if a security manager exists and its
      *             <code>checkPropertyAccess</code> method doesn't allow
      *             access to the specified system property.
-     * @exception  NullPointerException if <code>key</code> is
+     * @exception NullPointerException if <code>key</code> is
      *             <code>null</code>.
-     * @exception  IllegalArgumentException if <code>key</code> is empty.
+     * @exception IllegalArgumentException if <code>key</code> is empty.
      * @see        #setProperty
      * @see        java.lang.SecurityManager#checkPropertyAccess(java.lang.String)
      * @see        java.lang.System#getProperties()
@@ -664,21 +664,21 @@ public class SystemTest {
      *
      * @param      key   the name of the system property.
      * @param      value the value of the system property.
-     * @return     the previous value of the system property,
+     * @return the previous value of the system property,
      *             or <code>null</code> if it did not have one.
      *
-     * @exception  SecurityException  if a security manager exists and its
+     * @exception SecurityException  if a security manager exists and its
      *             <code>checkPermission</code> method doesn't allow
      *             setting of the specified property.
-     * @exception  NullPointerException if <code>key</code> or
+     * @exception NullPointerException if <code>key</code> or
      *             <code>value</code> is <code>null</code>.
-     * @exception  IllegalArgumentException if <code>key</code> is empty.
+     * @exception IllegalArgumentException if <code>key</code> is empty.
      * @see        #getProperty
      * @see        java.lang.System#getProperty(java.lang.String)
      * @see        java.lang.System#getProperty(java.lang.String, java.lang.String)
      * @see        java.util.PropertyPermission
      * @see        SecurityManager#checkPermission
-     * @since      1.2
+     * @since 1.2
      *//*
     public static String setProperty(String key, String value) {
         checkKey(key);
@@ -702,15 +702,15 @@ public class SystemTest {
      * <p>
      *
      * @param      key   the name of the system property to be removed.
-     * @return     the previous string value of the system property,
+     * @return the previous string value of the system property,
      *             or <code>null</code> if there was no property with that key.
      *
-     * @exception  SecurityException  if a security manager exists and its
+     * @exception SecurityException  if a security manager exists and its
      *             <code>checkPropertyAccess</code> method doesn't allow
      *              access to the specified system property.
-     * @exception  NullPointerException if <code>key</code> is
+     * @exception NullPointerException if <code>key</code> is
      *             <code>null</code>.
-     * @exception  IllegalArgumentException if <code>key</code> is empty.
+     * @exception IllegalArgumentException if <code>key</code> is empty.
      * @see        #getProperty
      * @see        #setProperty
      * @see        java.util.Properties
@@ -831,7 +831,7 @@ public class SystemTest {
      *         method doesn't allow access to the process environment
      * @see    #getenv(String)
      * @see    ProcessBuilder#environment()
-     * @since  1.5
+     * @since 1.5
      *//*
     public static java.util.Map<String,String> getenv() {
         SecurityManager sm = getSecurityManager();
@@ -857,7 +857,7 @@ public class SystemTest {
      * </pre></blockquote>
      *
      * @param      status   exit status.
-     * @throws  SecurityException
+     * @throws SecurityException
      *        if a security manager exists and its <code>checkExit</code>
      *        method doesn't allow exit with the specified status.
      * @see        java.lang.Runtime#exit(int)
@@ -921,19 +921,19 @@ public class SystemTest {
      * with 0 as its argument to ensure the exit is allowed.
      * This could result in a SecurityException.
      *
-     * @deprecated  This method is inherently unsafe.  It may result in
+     * @deprecated This method is inherently unsafe.  It may result in
      *      finalizers being called on live objects while other threads are
      *      concurrently manipulating those objects, resulting in erratic
      *      behavior or deadlock.
      * @param value indicating enabling or disabling of finalization
-     * @throws  SecurityException
+     * @throws SecurityException
      *        if a security manager exists and its <code>checkExit</code>
      *        method doesn't allow the exit.
      *
      * @see     java.lang.Runtime#exit(int)
      * @see     java.lang.Runtime#gc()
      * @see     java.lang.SecurityManager#checkExit(int)
-     * @since   JDK1.1
+     * @since JDK1.1
      *//*
     @Deprecated
     public static void runFinalizersOnExit(boolean value) {
@@ -964,14 +964,14 @@ public class SystemTest {
      * </pre></blockquote>
      *
      * @param      filename   the file to load.
-     * @exception  SecurityException  if a security manager exists and its
+     * @exception SecurityException  if a security manager exists and its
      *             <code>checkLink</code> method doesn't allow
      *             loading of the specified dynamic library
-     * @exception  UnsatisfiedLinkError  if either the filename is not an
+     * @exception UnsatisfiedLinkError  if either the filename is not an
      *             absolute path name, the native library is not statically
      *             linked with the VM, or the library cannot be mapped to
      *             a native library image by the host system.
-     * @exception  NullPointerException if <code>filename</code> is
+     * @exception NullPointerException if <code>filename</code> is
      *             <code>null</code>
      * @see        java.lang.Runtime#load(java.lang.String)
      * @see        java.lang.SecurityManager#checkLink(java.lang.String)
@@ -1000,14 +1000,14 @@ public class SystemTest {
      * </pre></blockquote>
      *
      * @param      libname   the name of the library.
-     * @exception  SecurityException  if a security manager exists and its
+     * @exception SecurityException  if a security manager exists and its
      *             <code>checkLink</code> method doesn't allow
      *             loading of the specified dynamic library
-     * @exception  UnsatisfiedLinkError if either the libname argument
+     * @exception UnsatisfiedLinkError if either the libname argument
      *             contains a file path, the native library is not statically
      *             linked with the VM,  or the library cannot be mapped to a
      *             native library image by the host system.
-     * @exception  NullPointerException if <code>libname</code> is
+     * @exception NullPointerException if <code>libname</code> is
      *             <code>null</code>
      * @see        java.lang.Runtime#loadLibrary(java.lang.String)
      * @see        java.lang.SecurityManager#checkLink(java.lang.String)
@@ -1022,12 +1022,12 @@ public class SystemTest {
      * a native library.
      *
      * @param      libname the name of the library.
-     * @return     a platform-dependent native library name.
-     * @exception  NullPointerException if <code>libname</code> is
+     * @return a platform-dependent native library name.
+     * @exception NullPointerException if <code>libname</code> is
      *             <code>null</code>
      * @see        java.lang.System#loadLibrary(java.lang.String)
      * @see        java.lang.ClassLoader#findLibrary(java.lang.String)
-     * @since      1.2
+     * @since 1.2
      *//*
     public static native String mapLibraryName(String libname);
 

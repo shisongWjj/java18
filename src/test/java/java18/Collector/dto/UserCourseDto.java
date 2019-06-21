@@ -1,6 +1,6 @@
 package java18.Collector.dto;
 
-public class UserCourseDto/* implements Comparable<UserCourseDto>*/{
+public class UserCourseDto/* implements Comparable<UserCourseDto>*/ {
 
     private Long courseId;
     private Long recruitId;

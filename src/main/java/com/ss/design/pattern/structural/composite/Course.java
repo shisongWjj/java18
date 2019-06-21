@@ -6,7 +6,7 @@ package com.ss.design.pattern.structural.composite;
  * @author shisong
  * @date 2019/1/16
  */
-public class Course extends CatalogComponent{
+public class Course extends CatalogComponent {
 
     private String name;
     private double price;

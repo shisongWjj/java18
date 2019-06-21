@@ -6,7 +6,7 @@ package com.ss.design.pattern.structural.adapter.objectadapter;
  * @author shisong
  * @date 2019/1/14
  */
-public class Adapter implements Target{
+public class Adapter implements Target {
 
     Adaptee adaptee = new Adaptee();
 

@@ -1,7 +1,7 @@
 package com.ss.design.pattern.creational.prototype.test;
 
 /**
- * Test
+ * CamelUtils
  *
  * @author shisong
  * @date 2019/1/9

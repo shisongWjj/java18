@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
  */
 public class DemoThread {
 
-    static class Hello{
+    static class Hello {
         static {
             System.out.println(Thread.currentThread().getName() + "init.......");
 
@@ -22,7 +22,7 @@ public class DemoThread {
             }
         }
 
-        void sayHello(){
+        void sayHello() {
             System.out.println("hahhahahaahahahhaahahahaha");
         }
 
@@ -53,7 +53,7 @@ public class DemoThread {
     public static void main(String[] args) {
         ExecutorService threadPool = Executors.newFixedThreadPool(20);
         int i = 0;
-        while (i++<20){
+        while (i++ < 20) {
             threadPool.execute(new Runnable() {
                 @Override
                 public void run() {

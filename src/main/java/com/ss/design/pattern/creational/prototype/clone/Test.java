@@ -3,7 +3,7 @@ package com.ss.design.pattern.creational.prototype.clone;
 import java.util.Date;
 
 /**
- * Test
+ * CamelUtils
  *
  * @author shisong
  * @date 2019/1/9
@@ -11,7 +11,7 @@ import java.util.Date;
 public class Test {
 
     public static void main(String[] args) throws CloneNotSupportedException {
-        Pig pig1 = new Pig("小猪佩奇",new Date(0L));
+        Pig pig1 = new Pig("小猪佩奇", new Date(0L));
         Pig pig2 = (Pig) pig1.clone();
         /**
          * Pig{name='小猪佩奇', birthday=Thu Jan 01 08:00:00 CST 1970}com.ss.design.pattern.creational.prototype.clone.Pig@2ff5659e
@@ -20,7 +20,6 @@ public class Test {
          */
         System.out.println(pig1);
         System.out.println(pig2);
-
 
 
         pig1.getBirthday().setTime(6666666666L);

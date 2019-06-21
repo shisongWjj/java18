@@ -12,7 +12,7 @@ public class Main2 {
         System.out.println("short");
     }
 
-    public void sayHello(Object a){
+    public void sayHello(Object a) {
         System.out.println("Object");
     }
 
@@ -32,7 +32,7 @@ public class Main2 {
         System.out.println("Character");
     }*/
 
-    public void sayHello(char... a){
+    public void sayHello(char... a) {
         System.out.println("数组");
     }
 

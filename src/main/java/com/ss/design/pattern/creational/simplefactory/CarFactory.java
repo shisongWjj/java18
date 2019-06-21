@@ -2,16 +2,16 @@ package com.ss.design.pattern.creational.simplefactory;
 
 public class CarFactory {
 
-    public Car getCar(String type){
-        if(type.equalsIgnoreCase("本田")){
+    public Car getCar(String type) {
+        if (type.equalsIgnoreCase("本田")) {
             return new HondaCar();
-        }else if(type.equalsIgnoreCase("福特")){
+        } else if (type.equalsIgnoreCase("福特")) {
             return new FordCar();
         }
         return null;
     }
 
-    public Car getCar(Class c){
+    public Car getCar(Class c) {
         Car car = null;
 
         try {

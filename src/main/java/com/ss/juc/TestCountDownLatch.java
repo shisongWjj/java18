@@ -12,7 +12,7 @@ public class TestCountDownLatch {
         CountDownLatchDemo cd = new CountDownLatchDemo(latch);
         long start = System.currentTimeMillis();
 
-        for(int i=0;i<5;i++){
+        for (int i = 0; i < 5; i++) {
             new Thread(cd).start();
         }
         //当latch不为0的时候， 要让主线程 处于等待状态
@@ -22,12 +22,12 @@ public class TestCountDownLatch {
         }
         long end = System.currentTimeMillis();
 
-        System.out.println("共消耗："+(end-start));
+        System.out.println("共消耗：" + (end - start));
     }
 
 }
 
-class CountDownLatchDemo implements Runnable{
+class CountDownLatchDemo implements Runnable {
     private CountDownLatch latch;
 
     public CountDownLatchDemo(CountDownLatch latch) {
@@ -39,10 +39,10 @@ class CountDownLatchDemo implements Runnable{
     public void run() {
 
         //可能会存在线程安全，这里加一个同步锁
-        synchronized(this){
+        synchronized (this) {
             try {
-                for(int i =0 ; i<50000;i++){
-                    if(i%2==0){
+                for (int i = 0; i < 50000; i++) {
+                    if (i % 2 == 0) {
                         System.out.println(i);
                     }
                 }

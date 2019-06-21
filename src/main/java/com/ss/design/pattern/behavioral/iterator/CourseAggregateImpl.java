@@ -9,7 +9,7 @@ import java.util.List;
  * @author shisong
  * @date 2019/1/21
  */
-public class CourseAggregateImpl implements CourseAggregate{
+public class CourseAggregateImpl implements CourseAggregate {
 
     private List<Course> courseList;
 

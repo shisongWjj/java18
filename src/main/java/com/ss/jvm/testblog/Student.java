@@ -3,7 +3,7 @@ package com.ss.jvm.testblog;
 import java.io.*;
 import java.lang.reflect.Constructor;
 
-public class Student implements Cloneable,Serializable{
+public class Student implements Cloneable, Serializable {
 
     private Integer id;
 

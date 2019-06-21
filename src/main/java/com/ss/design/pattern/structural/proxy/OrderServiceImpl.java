@@ -6,7 +6,7 @@ package com.ss.design.pattern.structural.proxy;
  * @author shisong
  * @date 2019/1/17
  */
-public class OrderServiceImpl implements IOrderService{
+public class OrderServiceImpl implements IOrderService {
 
     private IOrderDao orderDao;
 

@@ -17,11 +17,11 @@ public class JConsoleThreadTest {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true){
+                while (true) {
 
                 }
             }
-        },"while true").start();
+        }, "while true").start();
 
         sc.next();
 
@@ -30,7 +30,7 @@ public class JConsoleThreadTest {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                synchronized (o1){
+                synchronized (o1) {
                     try {
                         o1.wait();
                     } catch (InterruptedException e) {
@@ -38,7 +38,7 @@ public class JConsoleThreadTest {
                     }
                 }
             }
-        },"wait").start();
+        }, "wait").start();
 
     }
 

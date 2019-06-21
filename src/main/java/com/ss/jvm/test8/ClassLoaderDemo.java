@@ -11,19 +11,19 @@ import java.io.InputStream;
  */
 public class ClassLoaderDemo {
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         ClassLoader mycl = new ClassLoader() {
             @Override
             public Class<?> loadClass(String name) throws ClassNotFoundException {
-                String fileName = name.substring(name.lastIndexOf(".")+1)+".class";
+                String fileName = name.substring(name.lastIndexOf(".") + 1) + ".class";
                 InputStream ins = getResourceAsStream(fileName);
-                if(ins == null){
+                if (ins == null) {
                     return super.loadClass(name);
                 }
                 try {
                     byte[] buff = new byte[ins.available()];
                     ins.read(buff);
-                    return defineClass(name,buff,0,buff.length);
+                    return defineClass(name, buff, 0, buff.length);
                 } catch (IOException e) {
                     e.printStackTrace();
                     throw new ClassNotFoundException();

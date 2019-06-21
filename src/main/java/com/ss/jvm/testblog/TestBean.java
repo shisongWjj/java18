@@ -14,15 +14,15 @@ public class TestBean {
             @Override
             public Class<?> loadClass(String name) throws ClassNotFoundException {
                 try {
-                    String filename = name.substring(name.lastIndexOf(".")+1);
+                    String filename = name.substring(name.lastIndexOf(".") + 1);
                     InputStream is = getClass().getResourceAsStream(filename);
-                    if(is == null){
+                    if (is == null) {
                         //说明文件不存在
                         return super.loadClass(name);
                     }
                     byte[] bytes = new byte[is.available()];
                     is.read(bytes);
-                    return defineClass(name,bytes,0,bytes.length);
+                    return defineClass(name, bytes, 0, bytes.length);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

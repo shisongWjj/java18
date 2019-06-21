@@ -3,7 +3,7 @@ package com.ss.design.pattern.structural.proxy.staticproxy;
 import com.ss.design.pattern.structural.proxy.Order;
 
 /**
- * Test
+ * CamelUtils
  *
  * @author shisong
  * @date 2019/1/17
@@ -20,7 +20,7 @@ public class Test {
 
     private static void method(Integer a, Integer b) {
        *//* try {
-           *//**//* Class<?> clazz = a.getClass();
+     *//**//* Class<?> clazz = a.getClass();
             Field fields = clazz.getDeclaredField("value");
             fields.setAccessible(true);
             fields.set(a, 400);

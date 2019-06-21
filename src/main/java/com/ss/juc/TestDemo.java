@@ -6,7 +6,7 @@ public class TestDemo {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true){
+                while (true) {
                     System.out.println("A");
                 }
             }
@@ -15,7 +15,7 @@ public class TestDemo {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true){
+                while (true) {
                     System.out.println("B");
                 }
             }
@@ -24,7 +24,7 @@ public class TestDemo {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true){
+                while (true) {
                     System.out.println("C");
                 }
             }

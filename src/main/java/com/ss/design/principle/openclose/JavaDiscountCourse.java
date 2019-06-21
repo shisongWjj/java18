@@ -1,6 +1,6 @@
 package com.ss.design.principle.openclose;
 
-public class JavaDiscountCourse extends JavaCourse{
+public class JavaDiscountCourse extends JavaCourse {
 
 
     public JavaDiscountCourse(Integer id, String name, Double price) {
@@ -9,6 +9,6 @@ public class JavaDiscountCourse extends JavaCourse{
 
     @Override
     public Double getPrice() {
-        return super.getPrice()*0.8;
+        return super.getPrice() * 0.8;
     }
 }

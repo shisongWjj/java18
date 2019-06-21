@@ -12,13 +12,13 @@ public class GiftExchangeService {
     private QualifyService qualifyService = new QualifyService();
     private ShippingService shippingService = new ShippingService();
 
-    public void giftExchange(PointGift pointGift){
-        if(qualifyService.isAvailable(pointGift)){
+    public void giftExchange(PointGift pointGift) {
+        if (qualifyService.isAvailable(pointGift)) {
             //积分验证通过
-            if(pointPaymentService.pay(pointGift)){
+            if (pointPaymentService.pay(pointGift)) {
                 //支付通过
                 String s = shippingService.shipGift(pointGift);
-                System.out.println("下单成功，订单号："+s);
+                System.out.println("下单成功，订单号：" + s);
             }
         }
     }

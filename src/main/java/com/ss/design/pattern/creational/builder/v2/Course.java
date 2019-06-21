@@ -33,7 +33,7 @@ public class Course {
     }
 
     //静态内部类
-    public static class CourseBuilder{
+    public static class CourseBuilder {
 
         private String courseName;
 
@@ -46,31 +46,31 @@ public class Course {
         private String courseQA;
 
         public CourseBuilder buildCourseName(String courseName) {
-            this.courseName =courseName;
+            this.courseName = courseName;
             return this;
         }
 
         public CourseBuilder buildCoursePPT(String coursePPT) {
-            this.coursePPT =coursePPT;
+            this.coursePPT = coursePPT;
             return this;
         }
 
         public CourseBuilder buildCourseVideo(String courseVideo) {
-            this.courseVideo =courseVideo;
+            this.courseVideo = courseVideo;
             return this;
         }
 
         public CourseBuilder buildCourseArticle(String courseArticle) {
-            this.courseArticle =courseArticle;
+            this.courseArticle = courseArticle;
             return this;
         }
 
         public CourseBuilder buildCourseQA(String courseQA) {
-            this.courseQA =courseQA;
+            this.courseQA = courseQA;
             return this;
         }
 
-        public Course build(){
+        public Course build() {
             return new Course(this);
         }
 

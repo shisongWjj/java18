@@ -5,7 +5,7 @@ import com.ss.design.pattern.behavioral.templatemethod.DesignPatternCourse;
 import com.ss.design.pattern.behavioral.templatemethod.FECourse;
 
 /**
- * Test
+ * CamelUtils
  *
  * @author shisong
  * @date 2019/1/20

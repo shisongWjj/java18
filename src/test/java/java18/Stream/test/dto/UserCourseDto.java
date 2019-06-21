@@ -1,6 +1,6 @@
 package java18.Stream.test.dto;
 
-public class UserCourseDto/* implements Comparable<UserCourseDto>*/{
+public class UserCourseDto/* implements Comparable<UserCourseDto>*/ {
 
     private Long courseId;
     private Long recruitId;
@@ -85,7 +85,7 @@ public class UserCourseDto/* implements Comparable<UserCourseDto>*/{
         UserCourseDto that = (UserCourseDto) o;
 
         if (courseId != null ? !courseId.equals(that.courseId) : that.courseId != null) return false;
-        if(courseId.equals(600165l)){
+        if (courseId.equals(600165l)) {
             if (recruitId != null ? !recruitId.equals(that.recruitId) : that.recruitId != null) return false;
         }
         /*if (companyId != null ? !companyId.equals(that.companyId) : that.companyId != null) return false;

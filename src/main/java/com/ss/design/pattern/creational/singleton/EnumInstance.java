@@ -13,7 +13,7 @@ public enum EnumInstance {
         this.data = data;
     }
 
-    public static EnumInstance getInstance(){
+    public static EnumInstance getInstance() {
         return INSTANCE;
     }
 }

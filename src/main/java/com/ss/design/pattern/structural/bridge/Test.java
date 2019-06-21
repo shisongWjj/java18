@@ -1,7 +1,7 @@
 package com.ss.design.pattern.structural.bridge;
 
 /**
- * Test
+ * CamelUtils
  *
  * @author shisong
  * @date 2019/1/17

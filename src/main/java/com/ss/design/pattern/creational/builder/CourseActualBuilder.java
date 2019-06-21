@@ -1,6 +1,6 @@
 package com.ss.design.pattern.creational.builder;
 
-public class CourseActualBuilder extends CourseBuilder{
+public class CourseActualBuilder extends CourseBuilder {
 
     private Course course = new Course();
 

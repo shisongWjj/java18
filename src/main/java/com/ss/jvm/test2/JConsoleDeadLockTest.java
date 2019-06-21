@@ -13,14 +13,14 @@ public class JConsoleDeadLockTest {
         Object o1 = new Object();
         Object o2 = new Object();
 
-        new Thread(new DeadLock(o1,o2)).start();
-        new Thread(new DeadLock(o2,o1)).start();
+        new Thread(new DeadLock(o1, o2)).start();
+        new Thread(new DeadLock(o2, o1)).start();
 
     }
 
 }
 
-class DeadLock implements Runnable{
+class DeadLock implements Runnable {
 
     private Object o1;
     private Object o2;
@@ -32,13 +32,13 @@ class DeadLock implements Runnable{
 
     @Override
     public void run() {
-        synchronized (o1){
+        synchronized (o1) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            synchronized (o2){
+            synchronized (o2) {
                 System.out.println("hello");
             }
         }

@@ -7,7 +7,7 @@ package com.ss.design.pattern.structural.adapter.classadapter;
  * @author shisong
  * @date 2019/1/14
  */
-public class Adapter extends Adaptee implements Target{
+public class Adapter extends Adaptee implements Target {
     @Override
     public void request() {
         super.adapteeRequest();

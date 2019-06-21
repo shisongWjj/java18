@@ -8,10 +8,10 @@ import java.io.*;
 public class FileStreamTest {
 
     @Test
-    public void test(){
+    public void test() {
 //创建文件对象，指定要读取的文件路径(要读的文件一定要存在)
-        File file=new File("D:\\abc.txt");
-        File file1=new File("D:\\bbb.txt");
+        File file = new File("D:\\abc.txt");
+        File file1 = new File("D:\\bbb.txt");
         BufferedReader reader = null;
         BufferedWriter writer = null;
         try {
@@ -22,8 +22,8 @@ public class FileStreamTest {
             int line = 1;
             //一次读一行，读入null时文件结束
             while ((tempString = reader.readLine()) != null) {
-            //把当前行号显示出来
-                if(StringUtils.isNotBlank(tempString) && !tempString.contains("pic_cnt_") && !tempString.contains("nn.cbcb.us") && !tempString.contains("HTTPConnectionPool")&& !tempString.contains("HTTPSConnectionPool")){
+                //把当前行号显示出来
+                if (StringUtils.isNotBlank(tempString) && !tempString.contains("pic_cnt_") && !tempString.contains("nn.cbcb.us") && !tempString.contains("HTTPConnectionPool") && !tempString.contains("HTTPSConnectionPool")) {
                     System.out.println("line " + line + ": " + tempString);
                     writer.write(tempString);
                     writer.newLine();
@@ -46,10 +46,10 @@ public class FileStreamTest {
     }
 
     @Test
-    public void test1(){
+    public void test1() {
         String str = "HTTPSConnectionPool(host='nn.cbcb.us', port=443): Max retries exceeded with url: /htm_data/8/1810/3298938.html (Caused by ConnectTimeoutError(<urllib3.connection.VerifiedHTTPSConnection object at 0x000001F07B95F7F0>, 'Connection to nn.cbcb.us timed out. (connect timeout=10)'))";
         //System.out.println(str.indexOf("/htm_data/8/1810/3298938.html"));
         System.out.println("/htm_data/8/1810/3298938.html".length());
-        System.out.println(str.substring(81,110));
+        System.out.println(str.substring(81, 110));
     }
 }

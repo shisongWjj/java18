@@ -8,9 +8,9 @@ package com.ss.jvm.test6;
  */
 public class Parent {
 
-    static{
+    static {
         System.out.println("父类的初始化");
     }
 
-    public static Integer num =10;
+    public static Integer num = 10;
 }

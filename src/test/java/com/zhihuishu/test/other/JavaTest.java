@@ -10,11 +10,11 @@ import java.util.function.Predicate;
 public class JavaTest {
 
     public List<Employee> employees = Arrays.asList(
-            new Employee("张三",9999.99,55),
-            new Employee("李四",6666.66,24),
-            new Employee("王五",2222.22,36),
-            new Employee("赵六",4444.44,41),
-            new Employee("田七",7777.77,18)
+            new Employee("张三", 9999.99, 55),
+            new Employee("李四", 6666.66, 24),
+            new Employee("王五", 2222.22, 36),
+            new Employee("赵六", 4444.44, 41),
+            new Employee("田七", 7777.77, 18)
     );
 
 
@@ -32,20 +32,20 @@ public class JavaTest {
         run2.run();
     }*/
 
-   //需求 按照某种条件对员工进行过滤
+    //需求 按照某种条件对员工进行过滤
     //方式一：传统的方式，这种方式极端的不方便，如果当需要按其他方式过滤 还要重新写一个方法，所以就延伸出策略模式来实现
     @Test
-    public void test1(){
+    public void test1() {
         List<Employee> employees = filterEmp1(this.employees);
         employees.forEach(
-                (x)-> System.out.println(x)
-                );
+                (x) -> System.out.println(x)
+        );
     }
 
-    List<Employee> filterEmp1(List<Employee> list){
+    List<Employee> filterEmp1(List<Employee> list) {
         List<Employee> emps = new ArrayList<>();
         for (Employee employee : list) {
-            if(employee.getSalary()>5000D){
+            if (employee.getSalary() > 5000D) {
                 emps.add(employee);
             }
         }
@@ -56,24 +56,24 @@ public class JavaTest {
     //优化方式一：策略模式
     //这种方法的缺点，每多一次过滤方式，就要创建一个类
     @Test
-    public void test2(){
-        List<Employee> employees = filterEmp2(this.employees,new FilterSalary());
+    public void test2() {
+        List<Employee> employees = filterEmp2(this.employees, new FilterSalary());
         employees.forEach(
-                (x)-> System.out.println(x)
+                (x) -> System.out.println(x)
         );
 
         System.out.println("------------------------------");
 
-        List<Employee> employees2 = filterEmp2(this.employees,new FilterAge());
+        List<Employee> employees2 = filterEmp2(this.employees, new FilterAge());
         employees2.forEach(
-                (x)-> System.out.println(x)
+                (x) -> System.out.println(x)
         );
     }
 
-    List<Employee> filterEmp2(List<Employee> list,MyPredicate<Employee> fs){
+    List<Employee> filterEmp2(List<Employee> list, MyPredicate<Employee> fs) {
         List<Employee> emps = new ArrayList<>();
         for (Employee employee : list) {
-            if(fs.myPredicate(employee)){
+            if (fs.myPredicate(employee)) {
                 emps.add(employee);
             }
         }
@@ -83,32 +83,32 @@ public class JavaTest {
     //优化方式2：匿名内部类
     //缺点 匿名内部类中的无用代码太多，真正有用的source.getSalary()>5000 就这一行代码
     @Test
-    public void test3(){
+    public void test3() {
         List<Employee> employees = filterEmp2(this.employees, new MyPredicate<Employee>() {
             @Override
             public Boolean myPredicate(Employee source) {
-                return source.getSalary()>5000;
+                return source.getSalary() > 5000;
             }
         });
         employees.forEach(
-                (x)-> System.out.println(x)
+                (x) -> System.out.println(x)
         );
     }
 
     //优化方式3：lambda表达式
     @Test
-    public void test4(){
-        List<Employee> employees = filterEmp2(this.employees, (x) -> x.getSalary()>5000);
+    public void test4() {
+        List<Employee> employees = filterEmp2(this.employees, (x) -> x.getSalary() > 5000);
         employees.forEach(
-                (x)-> System.out.println(x)
+                (x) -> System.out.println(x)
         );
     }
 
     //优化方式4：java18 api
     @Test
-    public void  test5(){
+    public void test5() {
         employees.stream()
-                .filter((x) -> x.getSalary()>5000)
+                .filter((x) -> x.getSalary() > 5000)
                 .forEach(
                         (x) -> System.out.println(x)
                 );
@@ -124,10 +124,10 @@ public class JavaTest {
                 );
     }
 
-    List<Employee> filterEmp3(List<Employee> list,Predicate<Employee> fs){
+    List<Employee> filterEmp3(List<Employee> list, Predicate<Employee> fs) {
         List<Employee> emps = new ArrayList<>();
         for (Employee employee : list) {
-            if(fs.test(employee)){
+            if (fs.test(employee)) {
                 emps.add(employee);
             }
         }

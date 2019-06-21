@@ -8,7 +8,7 @@ import java.util.Date;
  * @author shisong
  * @date 2019/1/9
  */
-public class Pig implements Cloneable{
+public class Pig implements Cloneable {
 
     private String name;
     private Date birthday;

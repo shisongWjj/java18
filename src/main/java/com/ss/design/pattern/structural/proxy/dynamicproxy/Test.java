@@ -5,7 +5,7 @@ import com.ss.design.pattern.structural.proxy.Order;
 import com.ss.design.pattern.structural.proxy.OrderServiceImpl;
 
 /**
- * Test
+ * CamelUtils
  *
  * @author shisong
  * @date 2019/1/18
@@ -15,7 +15,7 @@ public class Test {
         Order order = new Order();
         order.setUserId(2);
 
-        IOrderService orderServicedynamicProxy = (IOrderService)new OrderServiceDynamicProxy(new OrderServiceImpl()).bind();
+        IOrderService orderServicedynamicProxy = (IOrderService) new OrderServiceDynamicProxy(new OrderServiceImpl()).bind();
         orderServicedynamicProxy.saveOrder(order);
     }
 }

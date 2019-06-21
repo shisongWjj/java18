@@ -6,7 +6,7 @@ package com.ss.design.pattern.structural.bridge;
  * @author shisong
  * @date 2019/1/17
  */
-public class DepositAccount implements Account{
+public class DepositAccount implements Account {
     @Override
     public Account openAccount() {
         System.out.println("打开定期账号");

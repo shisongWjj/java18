@@ -8,20 +8,20 @@ package com.ss.jvm.test10;
  */
 public class Mian3 {
 
-    static class Parent{
-        public void sayHello(){
+    static class Parent {
+        public void sayHello() {
             System.out.println("parent");
         }
     }
 
-    static class Child1 extends Parent{
+    static class Child1 extends Parent {
         @Override
         public void sayHello() {
             System.out.println("child1");
         }
     }
 
-    static class Child2 extends Parent{
+    static class Child2 extends Parent {
         @Override
         public void sayHello() {
             System.out.println("child2");

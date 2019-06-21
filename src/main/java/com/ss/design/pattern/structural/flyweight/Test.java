@@ -1,14 +1,14 @@
 package com.ss.design.pattern.structural.flyweight;
 
 /**
- * Test
+ * CamelUtils
  *
  * @author shisong
  * @date 2019/1/16
  */
 public class Test {
 
-    public static final String[] departments = {"RD","QA","PM","BD"};
+    public static final String[] departments = {"RD", "QA", "PM", "BD"};
 
     public static void main(String[] args) {
        /* for(int i = 0;i<10;i++){
@@ -57,9 +57,9 @@ public class Test {
          false
          false
          */
-        System.out.println(d==c);
-        System.out.println(d==a);
-        System.out.println(d==b);
+        System.out.println(d == c);
+        System.out.println(d == a);
+        System.out.println(d == b);
 
 
     }

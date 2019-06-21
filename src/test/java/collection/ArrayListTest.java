@@ -18,22 +18,22 @@ import java.util.List;
 public class ArrayListTest {
 
     @Test
-    public void test(){
+    public void test() {
         List<String> list = new ArrayList<>();
-        for(int i = 0 ;i <10 ;i++){
-            list.add("a"+i);
+        for (int i = 0; i < 10; i++) {
+            list.add("a" + i);
         }
         System.out.println(list);
 
-        for (int i = 0 ;i <list.size() ;i++) {
+        for (int i = 0; i < list.size(); i++) {
             list.remove(i);
-            list.add(i+"a");
+            list.add(i + "a");
         }
         System.out.println(list);
     }
 
     @Test
-    public void test1(){
+    public void test1() {
 
         Student s1 = new Student();
         s1.setAge(20);
@@ -44,18 +44,18 @@ public class ArrayListTest {
 
     }
 
-    private void setAge(Student s1){
+    private void setAge(Student s1) {
         Student s2 = s1;
         s2.setAge(30);
     }
 
     @Test
-    public void test3(){
+    public void test3() {
         try {
             String enrollmentYear = "2017-01-01 00:00:00";
             Date enrollmentYearDate = null;
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            if(StringUtils.isNotBlank(enrollmentYear)){
+            if (StringUtils.isNotBlank(enrollmentYear)) {
                 enrollmentYearDate = sdf.parse(enrollmentYear);
             }
             System.out.println(enrollmentYearDate);

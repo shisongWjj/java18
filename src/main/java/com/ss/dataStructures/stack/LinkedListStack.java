@@ -2,11 +2,11 @@ package com.ss.dataStructures.stack;
 
 import com.ss.dataStructures.linkedList.LinkedList;
 
-public class LinkedListStack<E> implements Stack<E>{
+public class LinkedListStack<E> implements Stack<E> {
 
     private LinkedList<E> linkedList;
 
-    public LinkedListStack(){
+    public LinkedListStack() {
         linkedList = new LinkedList<>();
     }
 
@@ -45,7 +45,7 @@ public class LinkedListStack<E> implements Stack<E>{
 
     public static void main(String[] args) {
         LinkedListStack<Integer> stack = new LinkedListStack<>();
-        for (int i = 0;i<5;i++){
+        for (int i = 0; i < 5; i++) {
             stack.push(i);
             System.out.println(stack);
         }

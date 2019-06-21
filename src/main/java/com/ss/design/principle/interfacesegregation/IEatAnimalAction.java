@@ -1,6 +1,6 @@
 package com.ss.design.principle.interfacesegregation;
 
-public interface IEatAnimalAction{
+public interface IEatAnimalAction {
 
     void eat();
 }

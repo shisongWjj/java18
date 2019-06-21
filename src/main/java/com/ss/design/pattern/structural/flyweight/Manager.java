@@ -6,7 +6,7 @@ package com.ss.design.pattern.structural.flyweight;
  * @author shisong
  * @date 2019/1/16
  */
-public class Manager implements Employee{
+public class Manager implements Employee {
     @Override
     public void report() {
         System.out.println(reportContent);

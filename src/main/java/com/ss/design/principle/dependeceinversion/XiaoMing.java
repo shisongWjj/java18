@@ -24,7 +24,7 @@ public class XiaoMing {
         this.iCar = iCar;
     }
 
-    public void driveCar(){
+    public void driveCar() {
         iCar.driveCar();
     }
 

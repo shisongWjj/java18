@@ -6,7 +6,7 @@ package com.ss.design.pattern.structural.proxy;
  * @author shisong
  * @date 2019/1/17
  */
-public class OrderDaoImpl implements IOrderDao{
+public class OrderDaoImpl implements IOrderDao {
     @Override
     public int insert(Order order) {
         System.out.println("Dao层添加Order成功");

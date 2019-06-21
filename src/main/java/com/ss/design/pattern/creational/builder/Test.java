@@ -30,9 +30,9 @@ public class Test {
                 lists.add(5);
             }
         }*/
-       // 报错
+        // 报错
         for (Integer list : lists) {
-            if(list != null){
+            if (list != null) {
                 lists.add(5);
             }
         }
