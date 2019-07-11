@@ -18,9 +18,9 @@ import java.sql.*;
 
 public class Main {
 
-    private static final String PRE = "com.autoyol.carInfo";
+    private static final String PRE = "com.autoyol.giftCardService";
     private static final String MAPPER = "mapper";
-    private static final String VO = "vo";
+    private static final String ENETIY = "enetiy";
     private static final String XML = "xml";
     private static final String IMPORT_DATE = "import java.util.Date;";
     private static final String IMPORT_LIST = "import java.util.List;";
@@ -42,7 +42,7 @@ public class Main {
         try {
             //1. JDBC连接MYSQL的代码很标准。
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection conn = DriverManager.getConnection("jdbc:mysql://rm-bp17en498o13rb4c6jo.mysql.rds.aliyuncs.com:3306/atzuchedb", "auto_dev", "auto%2015");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://10.0.3.200:3306/gift_card_service", "autoDev", "auto2015");
 
             DatabaseMetaData metaData = conn.getMetaData();
             String catalog = conn.getCatalog(); //catalog 其实也就是数据库名
@@ -56,7 +56,7 @@ public class Main {
                 }*//*
                 queryTableColumn(metaData,tableName);
             }*/
-            String tableName = "activity_car";
+            String tableName = "gift_card_code";
             queryTableColumn(metaData, tableName, catalog);
             System.out.println("end");
             //主键
@@ -174,7 +174,7 @@ public class Main {
     private static void appendUpdateSql(ResultSet colRet, StringBuilder sb, String camelTableName, String primaryKeyColumnName, String tableName) throws Exception {
         //修改字段  <update id="updateByPrimaryKeySelective" parameterType="com.autoyol.carInfo.entity.CarInspectDo">
         colRet.beforeFirst();
-        sb.append("\t").append(" <update id=\"").append("update" + camelTableName).append("\" parameterType=\"").append(PRE).append(".").append(VO).append(".").append(camelTableName).append("\">").append("\n");
+        sb.append("\t").append(" <update id=\"").append("update" + camelTableName).append("\" parameterType=\"").append(PRE).append(".").append(ENETIY).append(".").append(camelTableName).append("\">").append("\n");
         sb.append("\t\t").append("update ").append(tableName).append(" set").append("\n");
         StringBuilder saveSqlSb = new StringBuilder();
         while (colRet.next()) {
@@ -195,7 +195,7 @@ public class Main {
     private static void appendSelelctListSql(ResultSet colRet, StringBuilder sb, String camelTableName, String primaryKeyColumnName, String tableName) throws Exception {
         //查询全部
         colRet.beforeFirst();
-        sb.append("\t").append("<select id=\"queryList\" resultType=\"").append(PRE).append(".").append(VO).append(".").append(camelTableName).append("\">").append("\n");
+        sb.append("\t").append("<select id=\"queryList\" resultType=\"").append(PRE).append(".").append(ENETIY).append(".").append(camelTableName).append("\">").append("\n");
         sb.append("\t\t").append("select <include refid=\"").append(SQL_COLUMN).append("\" />").append("\n");
         sb.append("\t\t").append("from ").append(tableName).append("\n");
         sb.append("\t\t").append("where ").append("is_delete = 0").append("\n");
@@ -205,7 +205,7 @@ public class Main {
     private static void appendSelectOneSql(ResultSet colRet, StringBuilder sb, String camelTableName, String primaryKeyColumnName, String tableName) throws Exception {
         //根据主键查询 "query"+camelTableName+"ById"
         colRet.beforeFirst();
-        sb.append("\t").append("<select id=\"").append("query").append(camelTableName).append("ById").append("\" resultType=\"").append(PRE).append(".").append(VO).append(".").append(camelTableName).append("\">").append("\n");
+        sb.append("\t").append("<select id=\"").append("query").append(camelTableName).append("ById").append("\" resultType=\"").append(PRE).append(".").append(ENETIY).append(".").append(camelTableName).append("\">").append("\n");
         sb.append("\t\t").append("select <include refid=\"").append(SQL_COLUMN).append("\" />").append("\n");
         sb.append("\t\t").append("from ").append(tableName).append("\n");
         sb.append("\t\t").append("where ").append(primaryKeyColumnName).append(" = #{id}").append(" and is_delete = 0").append("\n");
@@ -218,7 +218,7 @@ public class Main {
         colRet.beforeFirst();
         StringBuilder saveSqlKeySb = new StringBuilder();
         StringBuilder saveSqlValueSb = new StringBuilder();
-        sb.append("\t").append("<insert id=\"").append("save").append(camelTableName).append("\" parameterType=\"").append(PRE).append(".").append(VO).append(".").append(camelTableName)
+        sb.append("\t").append("<insert id=\"").append("save").append(camelTableName).append("\" parameterType=\"").append(PRE).append(".").append(ENETIY).append(".").append(camelTableName)
                 .append("\" useGeneratedKeys=\"true\" keyProperty=\"").append(CamelUtils.underline2Camel(primaryKeyColumnName)).append("\" keyColumn=\"").append(primaryKeyColumnName).append("\">").append("\n");
         sb.append("\t\t").append("insert into ").append(tableName).append("(").append("\n");
         while (colRet.next()) {
@@ -243,7 +243,7 @@ public class Main {
 
     private static void appendResultMap(ResultSet colRet, StringBuilder sb, String camelTableName) throws Exception {
         StringBuilder resultMapSb = new StringBuilder();//resultMap
-        resultMapSb.append("\t").append("<resultMap id = \"").append(RESULT_MAP).append("\" type=\"").append(PRE).append(".").append(VO).append(".").append(camelTableName).append("\">").append("\n");
+        resultMapSb.append("\t").append("<resultMap id = \"").append(RESULT_MAP).append("\" type=\"").append(PRE).append(".").append(ENETIY).append(".").append(camelTableName).append("\">").append("\n");
         colRet.beforeFirst();
         while (colRet.next()) {
             String column_name = colRet.getString("COLUMN_NAME");
@@ -288,7 +288,7 @@ public class Main {
         sb.append("package ").append(PRE).append(".").append(MAPPER).append(";").append("\n\n");
         sb.append(IMPORT_MAPPER).append("\n");
         sb.append(IMPORT_PARAM).append("\n\n");
-        sb.append("import ").append(PRE).append(".").append(VO).append(".").append(camelTableName).append(";").append("\n\n");
+        sb.append("import ").append(PRE).append(".").append(ENETIY).append(".").append(camelTableName).append(";").append("\n\n");
         sb.append(IMPORT_LIST).append("\n\n");
         sb.append(ANNOTATION_MAPPER).append("\n");
         sb.append("public interface ").append(camelTableName + "Mapper").append("{").append("\n\n");
@@ -330,7 +330,7 @@ public class Main {
                 throw new UnsupportedOperationException("不支持的columnType :" + columnType + " 不支持的tableName :" + tableName);
             } else {
                 if (StringUtils.isNotBlank(remarks)) {
-                    sb.append("\t").append("//").append(remarks).append("\n");
+                    sb.append("\t").append("@AutoDocProperty(value=\"").append(remarks).append("\")").append("\n");
                 }
                 sb.append("\t").append("private ").append(javaType).append(" ").append(camel).append(";").append("\n");
                 if (javaType.equals("Date")) {
@@ -350,7 +350,7 @@ public class Main {
         sb.append("}");
         //System.out.println(sb);
         StringBuilder sb1 = new StringBuilder();
-        sb1.append("package ").append(PRE).append(".").append(VO).append(";").append("\n\n");
+        sb1.append("package ").append(PRE).append(".").append(ENETIY).append(";").append("\n\n");
         sb1.append(IMPORT_LOMBOK).append("\n").append("\n");
         if (hasDate) {
             sb1.append(IMPORT_DATE).append("\n").append("\n");
@@ -366,7 +366,7 @@ public class Main {
         }
         sb1.append(ANNOTATION_DATA).append("\n");
         sb1.append(sb);
-        String file = "E://test3/" + VO;
+        String file = "E://test3/" + ENETIY;
         String fileName = "/" + camelTableName + ".java";
         WriteStringToFile(file, fileName, sb1.toString());
     }

@@ -191,4 +191,20 @@ public class LocalDateTest {
         Instant instant = localDateTime.atZone(zone).toInstant();
         Date date = Date.from(instant);
     }
+
+    @Test
+    public void LocalTimeToUdate1() {
+//        ZoneId zone = ZoneId.systemDefault();
+//        Instant instant = localDateTime.atZone(zone).toInstant();
+        /*Instant now = Instant.now();
+        Date date = Date.from(now);
+        System.out.println(date);*/
+        LocalDate now = LocalDate.now();
+        LocalDate localDate = now.plusDays(1);
+        System.out.println(localDate);
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDate.atStartOfDay().atZone(zone).toInstant();
+        Date date = Date.from(instant);
+        System.out.println(date);
+    }
 }
