@@ -31,29 +31,29 @@ public abstract class Synchroinzer<SRC_DTO, ID> {
 
     public Synchroinzer(List<SRC_DTO> srcList, List<ID> destList) {
         if (srcList == null) {
-            srcList = new ArrayList<SRC_DTO>();
+            srcList = new ArrayList<>();
         }
         if (destList == null) {
-            destList = new ArrayList<ID>();
+            destList = new ArrayList<>();
         }
         this.srcList = srcList;
         this.destList = destList;
     }
 
     //提取源数据的ID
-    public abstract ID extractSrcId(SRC_DTO srcDto);
+    abstract ID extractSrcId(SRC_DTO srcDto);
 
     //针对DTO
     public Map<String, Object> sync() {
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Map<String, Object> resultMap = new HashMap<>();
         //一个临时map 用于存放前端传入有主键的DTO
-        Map<ID, SRC_DTO> temp_map = new HashMap<ID, SRC_DTO>();
+        Map<ID, SRC_DTO> temp_map = new HashMap<>();
         //需要新增的DTO
-        List<SRC_DTO> toCreateDtos = new ArrayList<SRC_DTO>();
+        List<SRC_DTO> toCreateDtos = new ArrayList<>();
         //需要修改的DTO
-        List<SRC_DTO> toUpdateDtos = new ArrayList<SRC_DTO>();
+        List<SRC_DTO> toUpdateDtos = new ArrayList<>();
         //需要删除ID
-        List<ID> toDeleteIds = new ArrayList<ID>();
+        List<ID> toDeleteIds = new ArrayList<>();
 
         //循环从前端传入的dto
         //如果主键为空，则说明需要新增
@@ -86,15 +86,15 @@ public abstract class Synchroinzer<SRC_DTO, ID> {
 
     //针对ID
     public Map<String, Object> sync1() {
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Map<String, Object> resultMap = new HashMap<>();
         //一个临时map 用于存放前端传入有主键的DTO
-        Map<ID, SRC_DTO> temp_map = new HashMap<ID, SRC_DTO>();
+        Map<ID, SRC_DTO> temp_map = new HashMap<>();
         //需要新增的DTO
-        List<SRC_DTO> toCreateDtos = new ArrayList<SRC_DTO>();
+        List<SRC_DTO> toCreateDtos = new ArrayList<>();
         //需要修改的DTO
-        List<SRC_DTO> toUpdateDtos = new ArrayList<SRC_DTO>();
+        List<SRC_DTO> toUpdateDtos = new ArrayList<>();
         //需要删除ID
-        List<ID> toDeleteIds = new ArrayList<ID>();
+        List<ID> toDeleteIds = new ArrayList<>();
 
         //循环从前端传入的dto
         //如果主键为空，则说明需要新增

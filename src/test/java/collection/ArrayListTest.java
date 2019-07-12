@@ -1,13 +1,18 @@
 package collection;
 
+import com.zhihuishu.teacher.commons.jtest.core.RepeatFixedDuration;
+import com.zhihuishu.teacher.commons.jtest.core.RepeatFixedTimes;
+import com.zhihuishu.teacher.commons.jtest.core.StatisticsSpringJunitRunner;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.model.FrameworkMethod;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * ArrayListTest
@@ -15,6 +20,7 @@ import java.util.List;
  * @author shisong
  * @date 2019/3/20
  */
+@RunWith(StatisticsSpringJunitRunner.class)
 public class ArrayListTest {
 
     @Test
@@ -62,6 +68,29 @@ public class ArrayListTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void test4(){
+        Method[] methods = ArrayListTest.class.getMethods();
+        for (Method method : methods) {
+            FrameworkMethod frameworkMethod = new FrameworkMethod(method);
+            Annotation[] annotations = frameworkMethod.getAnnotations();
+            for (Annotation annotation : annotations) {
+                System.out.println(annotation.toString());
+            }
+        }
+    }
+
+    List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+
+    @Test
+    @RepeatFixedDuration(value = 5000)
+    public void test123(){
+        Collections.shuffle(integers);
+        List<Integer> integers = this.integers.subList(0, 7);
+        System.out.println(integers);
+        System.out.println(this.integers);
     }
 
 }
