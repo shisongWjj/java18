@@ -207,4 +207,15 @@ public class LocalDateTest {
         Date date = Date.from(instant);
         System.out.println(date);
     }
+
+    @Test
+    public void test11(){
+        String browseCarEvent = "3600";
+        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime localDateTime1 = localDateTime.minusSeconds(Long.parseLong(browseCarEvent));
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDateTime1.atZone(zone).toInstant();
+        Date date = Date.from(instant);
+        System.out.println(date);
+    }
 }
