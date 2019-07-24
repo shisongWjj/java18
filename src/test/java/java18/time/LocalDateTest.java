@@ -210,12 +210,27 @@ public class LocalDateTest {
 
     @Test
     public void test11(){
-        String browseCarEvent = "3600";
+       /* String browseCarEvent = "3600";
         LocalDateTime localDateTime = LocalDateTime.now();
         LocalDateTime localDateTime1 = localDateTime.minusSeconds(Long.parseLong(browseCarEvent));
         ZoneId zone = ZoneId.systemDefault();
         Instant instant = localDateTime1.atZone(zone).toInstant();
         Date date = Date.from(instant);
-        System.out.println(date);
+        System.out.println(date);*/
+        LocalDateTime now = LocalDateTime.of(2019,7,24,10,45,59);
+        LocalDateTime localDateTime1 = now.plusDays(1L);
+        localDateTime1.getMinute();
+        LocalDateTime localDateTime15 = LocalDateTime.of(localDateTime1.getYear(),localDateTime1.getMonth(),localDateTime1.getDayOfMonth(),localDateTime1.getHour(),15,0);
+        LocalDateTime localDateTime30 = LocalDateTime.of(localDateTime1.getYear(),localDateTime1.getMonth(),localDateTime1.getDayOfMonth(),localDateTime1.getHour(),30,0);
+        LocalDateTime localDateTime45 = LocalDateTime.of(localDateTime1.getYear(),localDateTime1.getMonth(),localDateTime1.getDayOfMonth(),localDateTime1.getHour(),45,0);
+        System.out.println(Duration.between(localDateTime1,localDateTime15).toMinutes());
+        System.out.println(Duration.between(localDateTime1,localDateTime30).toMinutes());
+        System.out.println(Duration.between(localDateTime1,localDateTime45).toMinutes());
+        LocalDateTime localDateTime2 = localDateTime1.plusHours(1);
+        LocalDateTime localDateTime0= LocalDateTime.of(localDateTime2.getYear(),localDateTime2.getMonth(),localDateTime2.getDayOfMonth(),localDateTime2.getHour(),0,0);
+        System.out.println(Duration.between(localDateTime1,localDateTime0).toMinutes());
+        /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        String format = localDateTime1.format(formatter);*/
+
     }
 }
