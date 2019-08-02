@@ -3,12 +3,12 @@ package java18.time;
 import org.junit.Test;
 
 import javax.smartcardio.TerminalFactory;
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 public class LocalDateTest {
 
@@ -232,5 +232,23 @@ public class LocalDateTest {
         /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         String format = localDateTime1.format(formatter);*/
 
+    }
+    @Test
+    public void test12(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+
+        /*  Calendar calendar = new GregorianCalendar();//当前时间
+        System.out.println(Long.valueOf(DATETIME_SEC_STR.format(calendar.getTime())));
+        calendar.add(Calendar.MINUTE, (2 * 60 - 5));//
+        long minTime = Long.valueOf(Long.valueOf(DATETIME_SEC_STR.format(calendar.getTime())));
+        calendar.add(Calendar.MINUTE, 15);//
+        long maxTime = Long.valueOf(Long.valueOf(DATETIME_SEC_STR.format(calendar.getTime())));
+        Map<String,Long> map = new HashMap<>();
+        map.put("minTime", minTime);
+        map.put("maxTime", maxTime);
+        System.out.println(map);*/
+        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime localDateTime1 = localDateTime.minusMonths(6L);
+        System.out.println(localDateTime1.format(formatter));
     }
 }
