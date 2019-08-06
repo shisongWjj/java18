@@ -251,4 +251,17 @@ public class LocalDateTest {
         LocalDateTime localDateTime1 = localDateTime.minusMonths(6L);
         System.out.println(localDateTime1.format(formatter));
     }
+
+    @Test
+    public void test13(){
+        Date date = new Date();
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        LocalDateTime localDateTime1 = localDateTime.plusMonths(3);
+        Instant instant1 = localDateTime1.atZone(zone).toInstant();
+        Date date1 = Date.from(instant1);
+        System.out.println(date);
+        System.out.println(date1);
+    }
 }
