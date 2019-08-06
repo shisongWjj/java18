@@ -91,7 +91,7 @@ public class LocalDateTest {
         //LocalDate now = LocalDate.of(2018,05,06);
         LocalDate with3 = now.with(l -> {
             LocalDate now1 = (LocalDate) l;
-            LocalDate firstSundayInMonth = now1.with(TemporalAdjusters.firstInMonth(DayOfWeek.SUNDAY));
+            LocalDate firstSundayInMonth = now1.with(TemporalAdjusters.firstInMonth(DayOfWeek.SUNDAY));//firstDayOfMonth
             if (now1.isBefore(firstSundayInMonth)) {
                 return firstSundayInMonth;
             } else {
@@ -263,5 +263,25 @@ public class LocalDateTest {
         Date date1 = Date.from(instant1);
         System.out.println(date);
         System.out.println(date1);
+    }
+
+    @Test
+    public void test14(){
+        ZoneId zone = ZoneId.systemDefault();
+
+        LocalDate ldt = LocalDate.now();
+        Instant instant = ldt.atStartOfDay().atZone(zone).toInstant();
+        Date date = Date.from(instant);
+        System.out.println(date);
+
+        LocalDate with = ldt.with(TemporalAdjusters.firstDayOfMonth());
+        Instant instant1 = with.atStartOfDay().atZone(zone).toInstant();
+        Date date1 = Date.from(instant1);
+        System.out.println(date1);
+
+        LocalDate with1 = ldt.with(TemporalAdjusters.firstDayOfNextMonth());
+        Instant instant2 = with1.atStartOfDay().atZone(zone).toInstant();
+        Date date2 = Date.from(instant2);
+        System.out.println(date2);
     }
 }
