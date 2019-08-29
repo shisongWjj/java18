@@ -209,4 +209,15 @@ public class CollectorTest {
                 = personStream.collect(Collectors.groupingBy(Person::getState,
                 Collectors.groupingBy(Person::getCity)));*/
     }
+
+    @Test
+    public void test17(){
+        BigDecimal bigDecimal = new BigDecimal("0.00");
+        System.out.println(bigDecimal.intValue());
+        if(bigDecimal.intValue() == 0){
+            System.out.println(true);
+        }else {
+            System.out.println(false);
+        }
+    }
 }
