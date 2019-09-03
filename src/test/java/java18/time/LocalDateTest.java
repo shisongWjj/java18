@@ -134,6 +134,8 @@ public class LocalDateTest {
     public void test1() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime of = LocalDateTime.of(2014, 5, 10, 0, 0, 01);
+        LocalDateTime localDateTime = of.plusDays(2000l);
+        System.out.println(localDateTime);
         Duration between = Duration.between(of, now);
         System.out.println("结婚" + between.toDays() + "天");
     }
@@ -267,7 +269,7 @@ public class LocalDateTest {
 
     @Test
     public void test14(){
-        ZoneId zone = ZoneId.systemDefault();
+        /*ZoneId zone = ZoneId.systemDefault();
 
         LocalDate ldt = LocalDate.now();
         Instant instant = ldt.atStartOfDay().atZone(zone).toInstant();
@@ -283,5 +285,11 @@ public class LocalDateTest {
         Instant instant2 = with1.atStartOfDay().atZone(zone).toInstant();
         Date date2 = Date.from(instant2);
         System.out.println(date2);
+*/
+       /* int num = 50 ;
+        num = num ++ * 2 ;
+        System.out.println(num) ;*/
+        boolean flag = 10%2 == 1 && 10 / 3 == 0 && 1 / 0 == 0 ;
+        System.out.println(flag ? "mldn" : "yootk") ;
     }
 }
