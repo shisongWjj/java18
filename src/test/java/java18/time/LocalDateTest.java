@@ -1,5 +1,6 @@
 package java18.time;
 
+import java18.aaaa;
 import org.junit.Test;
 
 import javax.smartcardio.TerminalFactory;
@@ -289,7 +290,39 @@ public class LocalDateTest {
        /* int num = 50 ;
         num = num ++ * 2 ;
         System.out.println(num) ;*/
-        boolean flag = 10%2 == 1 && 10 / 3 == 0 && 1 / 0 == 0 ;
-        System.out.println(flag ? "mldn" : "yootk") ;
+       /* boolean flag = 10%2 == 1 && 10 / 3 == 0 && 1 / 0 == 0 ;
+        System.out.println(flag ? "mldn" : "yootk") ;*/
+
+        StringBuilder temp = new StringBuilder("冀R035J8");
+        System.out.println(("适用车辆：" + temp.replace(2, 5, "***")));
+    }
+
+    @Test
+    public void test15(){
+        Date date = new Date();
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+        LocalDateTime localDateTime1 = localDateTime.plusMonths(3);
+        //Duration 2个时间之间的间隔
+        LocalDateTime dateTime = LocalDateTime.now();
+        LocalDateTime of = LocalDateTime.of(2018, 5, 10, 0, 0, 01);
+        Duration dur = Duration.between(dateTime, of);
+        System.out.println(dur.toDays());
+        Duration dur1 = Duration.between(of, dateTime);
+        System.out.println(dur1.toDays());
+    }
+
+    @Test
+    public void test16(){
+        int i = 12 / 10;
+        System.out.println(i);
+    }
+
+    @Test
+    public void test17(){
+        Integer a = 15;
+        List<Integer> integers = aaaa.reverseOrOperation(a);
+        System.out.println(integers);
     }
 }
