@@ -30,6 +30,8 @@ public class LeetCode0005 {
 
     public String longestPalindrome(String s) {
         Stack stack = new Stack();
+
+        return null;
     }
 
 }
