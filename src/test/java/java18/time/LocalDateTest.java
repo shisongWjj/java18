@@ -325,4 +325,11 @@ public class LocalDateTest {
         List<Integer> integers = aaaa.reverseOrOperation(a);
         System.out.println(integers);
     }
+
+    @Test
+    public void test18(){
+        LocalDate ld = LocalDate.now();
+        LocalDate localDate = ld.plusDays(67);
+        System.out.println(localDate);
+    }
 }

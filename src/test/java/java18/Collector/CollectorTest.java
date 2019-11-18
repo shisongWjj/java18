@@ -1,16 +1,12 @@
 package java18.Collector;
 
-import com.google.common.base.Functions;
 import java18.Stream.test.dto.UserCourseDto;
 import java18.utils.ListHelper;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CollectorTest {
@@ -87,6 +83,12 @@ public class CollectorTest {
         List<Long> longs2 = ListHelper.extractVariable(new ArrayList<>(), UserCourseDto::getCompanyId, 1);
         /*List<Long> longs3 = ListHelper.extractVariable(new ArrayList<>(), null, 1);*/
         System.out.println(longs2);
+    }
+
+    @Test
+    public void test99(){
+        List<UserCourseDto> collect = this.getSource().stream().sorted(Comparator.comparingLong(UserCourseDto::getCourseId)).collect(Collectors.toList());
+        System.out.println(collect);
     }
 
     @Test
