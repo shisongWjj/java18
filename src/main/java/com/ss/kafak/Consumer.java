@@ -23,16 +23,16 @@ public class Consumer {
         try {
             Properties properties = new Properties();
             properties.put("bootstrap.servers", "172.16.1.239:9092");
-            properties.put("group.id", "group6554654ffff65-1");
+            properties.put("group.id", "group655465dddd4fsfffffsfff65-1");
             properties.put("enable.auto.commit", "true");
             properties.put("auto.commit.interval.ms", "1000");
-            properties.put("auto.offset.reset", "earliest");
+            //properties.put("auto.offset.reset", "earliest");
             properties.put("session.timeout.ms", "30000");
             properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
             properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 
             KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties);
-            kafkaConsumer.subscribe(Arrays.asList("interface","yunyingconsole","applog"));
+            kafkaConsumer.subscribe(Arrays.asList("appserver2"));
             while (true) {
                 ConsumerRecords<String, String> records = kafkaConsumer.poll(1000);
                 for (ConsumerRecord<String, String> record : records) {

@@ -332,4 +332,11 @@ public class LocalDateTest {
         LocalDate localDate = ld.plusDays(67);
         System.out.println(localDate);
     }
+
+    @Test
+    public void test19(){
+        LocalDate now = LocalDate.now();
+        LocalDate firstYear = now.with(TemporalAdjusters.firstDayOfYear());
+        System.out.println(firstYear);
+    }
 }
