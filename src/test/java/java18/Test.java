@@ -17,7 +17,7 @@ public class Test {
     @org.junit.Test
     public void test() throws Exception{
         RenterOrderWzCostDetailEntity target = new RenterOrderWzCostDetailEntity();
-        //target.setAmount(null);
+        target.setAmount(300);
         target.setRemark("11111");
         RenterOrderWzCostDetailEntity source = new RenterOrderWzCostDetailEntity();
         source.setAmount(300);
@@ -27,7 +27,7 @@ public class Test {
         paramNames.put("amount","其他扣款");
         paramNames.put("remark","其他扣款备注");
 
-        CompareHelper<RenterOrderWzCostDetailEntity> comparable = new CompareHelper<>(null,source,paramNames);
+        CompareHelper<RenterOrderWzCostDetailEntity> comparable = new CompareHelper<>(target,source,paramNames);
         String compare = comparable.compare();
         System.out.println(compare);
     }

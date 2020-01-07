@@ -44,6 +44,12 @@ public class CompareHelper<T> {
             String s = paramNames.get(paramName);
             String targetValue = getDeclaredFieldValueByField(fromDB, paramName);
             String sourceValue = getDeclaredFieldValueByField(fromApp, paramName);
+            if(StringUtils.isBlank(targetValue) && StringUtils.isBlank(sourceValue)){
+                continue;
+            }
+            if(StringUtils.isNotBlank(targetValue) && StringUtils.isNotBlank(sourceValue) && targetValue.equals(sourceValue)){
+                continue;
+            }
             sb.append("将【");
             sb.append(s);
             sb.append("】从'");
