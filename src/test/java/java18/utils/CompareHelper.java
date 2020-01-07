@@ -50,7 +50,9 @@ public class CompareHelper<T> {
                 sb.append(targetValue);
             }
             sb.append("'改成'");
-            sb.append(sourceValue);
+            if(StringUtils.isNotBlank(sourceValue) && !"null".equals(sourceValue)){
+                sb.append(sourceValue);
+            }
             sb.append("';");
         }
         return sb.toString();
