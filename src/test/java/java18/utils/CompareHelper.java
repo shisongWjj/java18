@@ -20,23 +20,24 @@ public class CompareHelper<T> {
 
     private Map<String,String> paramNames;
 
-    @SuppressWarnings("unchecked")
+
     public CompareHelper(T fromDB, T fromApp, Map<String,String> paramNames) {
+        this.fromDB = fromDB;
+        this.fromApp = fromApp;
+        this.paramNames = paramNames;
+    }
+
+    @SuppressWarnings("unchecked")
+    public String compare() throws Exception{
+        if(fromApp == null || CollectionUtils.isEmpty(paramNames)){
+            return "";
+        }
         if(fromDB == null){
             try {
                 fromDB = (T) fromApp.getClass().newInstance();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        this.fromDB = fromDB;
-        this.fromApp = fromApp;
-        this.paramNames = paramNames;
-    }
-
-    public String compare() throws Exception{
-        if(fromDB == null || fromApp == null || CollectionUtils.isEmpty(paramNames)){
-            return "";
         }
         StringBuilder sb = new StringBuilder();
         for (String paramName : paramNames.keySet()) {
