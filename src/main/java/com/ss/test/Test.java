@@ -17,9 +17,17 @@ public class Test {
         } finally {
             System.out.println("2222");
         }*/
-        String s = "c";
+        /*String s = "c";
         transf(s);
-        System.out.println(s);
+        System.out.println(s);*/
+        Student student = new Student();
+        student.setNo("2123213");
+        student.setUserName("3233333");
+        print(student);
+    }
+
+    public static void print(Person p){
+        System.out.println(p);
     }
 
     public static void transf(String s){
