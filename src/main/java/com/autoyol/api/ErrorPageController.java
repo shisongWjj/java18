@@ -1,16 +1,16 @@
 package com.autoyol.api;
 
 
-import com.autoyol.utils.base.JsonMapper;
+/*import com.autoyol.utils.base.JsonMapper;
 import com.autuoyol.utils.web.ResponseObject;
 import com.autuoyol.utils.web.ServiceException;
-import com.dianping.cat.Cat;
+import com.dianping.cat.Cat;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.web.DefaultErrorAttributes;
+/*import org.springframework.boot.autoconfigure.web.DefaultErrorAttributes;
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
-import org.springframework.boot.autoconfigure.web.ErrorController;
+import org.springframework.boot.autoconfigure.web.ErrorController;*/
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,14 +27,14 @@ import java.util.Map;
  * @author andy.liang
  */
 @Controller
-public class ErrorPageController implements ErrorController {
+public class ErrorPageController /*implements ErrorController*/ {
 
     private static Logger logger = LoggerFactory.getLogger(ErrorPageController.class);
 
     @Value("${error.path:/error}")
     private String errorPath;
 
-    private JsonMapper jsonMapper = new JsonMapper();
+   /* private JsonMapper jsonMapper = new JsonMapper();
 
     private ErrorAttributes errorAttributes = new DefaultErrorAttributes();
 
@@ -85,5 +85,5 @@ public class ErrorPageController implements ErrorController {
 
     public static void main(String[] args) {
         System.out.println(HttpStatus.UNAUTHORIZED.getReasonPhrase());
-    }
+    }*/
 }

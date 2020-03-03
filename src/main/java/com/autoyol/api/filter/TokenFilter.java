@@ -2,8 +2,8 @@ package com.autoyol.api.filter;
 
 import com.autoyol.api.entity.MemViewEntity;
 import com.autoyol.api.service.TokenService;
-import com.netflix.zuul.ZuulFilter;
-import com.netflix.zuul.context.RequestContext;
+/*import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;*/
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 检查请求头中是否有token且token是否合法。只有token存在且合法才允许访问到达后端
  */
-public class TokenFilter extends ZuulFilter {
+public class TokenFilter /*extends ZuulFilter*/ {
 
     private final static List<String> EXCEPT_PATHS= Arrays.asList(
         "/authorization/user/auth/image/validCode",
@@ -50,7 +50,7 @@ public class TokenFilter extends ZuulFilter {
         this.tokenService = tokenService;
     }
 
-    @Override
+   /* @Override
     public String filterType() {
         return "pre";
     }
@@ -138,7 +138,7 @@ public class TokenFilter extends ZuulFilter {
             FilterHelper.errorHandle("200008","网关登录失效");
             return null;
         }
-    }
+    }*/
 
 
     public boolean isNoTokenPath(HttpServletRequest request){

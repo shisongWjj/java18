@@ -4,13 +4,13 @@ import com.autoyol.api.dao.ResourceMapper;
 import com.autoyol.api.entity.ResourceMdl;
 import com.autoyol.api.vo.ResourceResult;
 import com.autoyol.api.vo.ResourceVo;
-import com.google.gson.Gson;
+/*import com.google.gson.Gson;*/
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.StringRedisTemplate;
+/*import org.springframework.data.redis.core.StringRedisTemplate;*/
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -26,7 +26,7 @@ public class AuthService {
 	
 	@Value("${authUrl}")
 	private String authUrl;
-	@Autowired
+	/*@Autowired
     private StringRedisTemplate redisTemplate;
 	@Autowired
     private ResourceMapper resourceMapper;
@@ -63,9 +63,9 @@ public class AuthService {
 			logger.error("hasAuth error. method: {}, path: {}, loginId: {}", method, path, loginId,e);
 		}
     	return hasAuth;
-    }
+    }*/
 
-	private boolean hasAuthNew(String method, String path, String loginId) {
+	/*private boolean hasAuthNew(String method, String path, String loginId) {
 		ResourceResult result = getResourceByCache(loginId);
 		if(null == result) {
 			result = getResourceByUrl(loginId);
@@ -101,9 +101,9 @@ public class AuthService {
 			}
 		}
 		return false;
-	}
+	}*/
 	
-	private ResourceResult getResourceByCache(String loginId) {
+	/*private ResourceResult getResourceByCache(String loginId) {
 		try {
 			String key = CAS_AUTH_RESOURCE + loginId;
 			String value = redisTemplate.opsForValue().get(key);
@@ -125,6 +125,6 @@ public class AuthService {
 			logger.error("refreshAuth error. url: {}", url, e);
 		}
 		return null;
-	}
+	}*/
 
 }

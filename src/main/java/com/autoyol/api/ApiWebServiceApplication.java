@@ -7,11 +7,11 @@ import com.autoyol.api.service.impl.DBTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+//import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 
 
-@EnableZuulProxy
+//@EnableZuulProxy
 @SpringBootApplication
 public class ApiWebServiceApplication {
 

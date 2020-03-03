@@ -1,11 +1,11 @@
 package com.autoyol.api.filter;
 
 import com.autoyol.api.service.AuthService;
-import com.autoyol.cas.util.ErrorCode;
+/*import com.autoyol.cas.util.ErrorCode;
 import com.autoyol.cas.util.JwtUtil;
 import com.autoyol.cas.vo.TokenVo;
 import com.netflix.zuul.ZuulFilter;
-import com.netflix.zuul.context.RequestContext;
+import com.netflix.zuul.context.RequestContext;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +16,14 @@ import java.net.URLEncoder;
 /**
  * 用于拦截管理后台的访问请求
  */
-public class JwtTFilter extends ZuulFilter {
+public class JwtTFilter /*extends ZuulFilter*/ {
 
     private final static Logger logger = LoggerFactory.getLogger(JwtTFilter.class);
 
     @Autowired
     private AuthService authService;
 
-    @Override
+   /* @Override
     public String filterType() {
         return "pre";
     }
@@ -46,7 +46,7 @@ public class JwtTFilter extends ZuulFilter {
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
         String auth = request.getHeader("Authorization");
-        /**
+        *//**
         if(StringUtils.isBlank(auth)) {
             logger.info("get from cookies");
             Cookie[] cookies = request.getCookies();
@@ -58,7 +58,7 @@ public class JwtTFilter extends ZuulFilter {
                     }
                 }
             }
-        }**/
+        }**//*
 
         String method=request.getMethod();
         logger.info("method is {},auth is {}",method,auth);
@@ -112,7 +112,7 @@ public class JwtTFilter extends ZuulFilter {
         	}
         }
         return null;
-    }
+    }*/
 
     
 }

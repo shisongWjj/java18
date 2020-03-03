@@ -1,7 +1,7 @@
 package com.autoyol.api.filter;
 
-import com.autuoyol.utils.web.ResponseObject;
-import com.netflix.zuul.exception.ZuulException;
+/*import com.autuoyol.utils.web.ResponseObject;
+import com.netflix.zuul.exception.ZuulException;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     private final static Logger logger = LoggerFactory.getLogger(ErrorHandler.class);
 
 
-    @ExceptionHandler(ZuulException.class)
+   /* @ExceptionHandler(ZuulException.class)
     @ResponseBody
     ResponseEntity<?> handleControllerException(HttpServletRequest request, ZuulException ex) {
         HttpStatus status = getStatus(request);
@@ -32,6 +32,6 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         }
         return HttpStatus.valueOf(statusCode);
     }
-
+*/
 
 }

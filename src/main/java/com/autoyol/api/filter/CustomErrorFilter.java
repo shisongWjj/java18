@@ -1,16 +1,16 @@
 package com.autoyol.api.filter;
 
-import com.netflix.zuul.ZuulFilter;
+/*import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.exception.ZuulException;
+import com.netflix.zuul.exception.ZuulException;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ReflectionUtils;
 
-public class CustomErrorFilter extends ZuulFilter {
+public class CustomErrorFilter /*extends ZuulFilter */{
     private final static Logger logger = LoggerFactory.getLogger(CustomErrorFilter.class);
     
-    @Override
+    /*@Override
     public String filterType() {
         return "error";
     }
@@ -54,5 +54,5 @@ public class CustomErrorFilter extends ZuulFilter {
             ReflectionUtils.rethrowRuntimeException(ex);
         }
         return null;
-    }
+    }*/
 }

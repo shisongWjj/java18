@@ -2,8 +2,8 @@ package com.autoyol.api.filter;
 
 import com.autoyol.api.entity.MemViewEntity;
 import com.autoyol.api.service.TokenService;
-import com.netflix.zuul.ZuulFilter;
-import com.netflix.zuul.context.RequestContext;
+/*import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;*/
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ import java.net.URLEncoder;
 /**
  * 对前缀是public的路径进行过滤处理
  */
-public class PublicFilter extends ZuulFilter {
+public class PublicFilter /*extends ZuulFilter*/ {
     private final static Logger logger = LoggerFactory.getLogger(PublicFilter.class);
 
     private final TokenService tokenService;
@@ -23,7 +23,7 @@ public class PublicFilter extends ZuulFilter {
         this.tokenService = tokenService;
     }
     
-    @Override
+   /* @Override
     public String filterType() {
         return "pre";
     }
@@ -99,7 +99,7 @@ public class PublicFilter extends ZuulFilter {
         }
 
         return null;
-    }
+    }*/
 
 
 }

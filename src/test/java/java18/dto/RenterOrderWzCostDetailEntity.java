@@ -14,7 +14,7 @@ public class RenterOrderWzCostDetailEntity {
 	/**
 	*总价
 	*/
-	private Integer amount;
+	private String amount;
 	/**
 	*备注
 	*/
@@ -28,11 +28,11 @@ public class RenterOrderWzCostDetailEntity {
 		this.costDesc = costDesc;
 	}
 
-	public Integer getAmount() {
+	public String getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Integer amount) {
+	public void setAmount(String amount) {
 		this.amount = amount;
 	}
 

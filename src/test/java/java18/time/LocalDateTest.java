@@ -329,7 +329,7 @@ public class LocalDateTest {
     @Test
     public void test18(){
         LocalDate ld = LocalDate.now();
-        LocalDate localDate = ld.plusDays(67);
+        LocalDate localDate = ld.plusDays(58);
         System.out.println(localDate);
     }
 
@@ -338,5 +338,10 @@ public class LocalDateTest {
         LocalDate now = LocalDate.now();
         LocalDate firstYear = now.with(TemporalAdjusters.firstDayOfYear());
         System.out.println(firstYear);
+    }
+
+    @Test
+    public void test20(){
+        System.out.println((int)(Math.random()*30+20));
     }
 }

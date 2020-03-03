@@ -1,8 +1,8 @@
 package com.autoyol.api.filter;
 
 import com.autoyol.api.util.JsonMapper;
-import com.autuoyol.utils.web.ResponseObject;
-import com.netflix.zuul.context.RequestContext;
+/*import com.autuoyol.utils.web.ResponseObject;
+import com.netflix.zuul.context.RequestContext;*/
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class FilterHelper {
     private FilterHelper(){}
 
 
-    public static boolean isConsoleOperation() {
+    /*public static boolean isConsoleOperation() {
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
         String path = request.getServletPath();
@@ -52,11 +52,11 @@ public class FilterHelper {
     }
 
 
-    /**
+    *//**
      * 根据错误代码通知返回信息
      * @param errorCode
      * @param message
-     */
+     *//*
     public static void errorHandle(String errorCode,String message){
         RequestContext context = RequestContext.getCurrentContext();
         context.set("FILT_FLAG_NAME",false);
@@ -83,7 +83,7 @@ public class FilterHelper {
             }
         }
         return false;
-    }
+    }*/
 
     public  static  String getToken(HttpServletRequest request) {
         String token = request.getHeader("Atzuche-Token");
