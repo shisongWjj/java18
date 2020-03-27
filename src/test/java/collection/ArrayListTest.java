@@ -3,6 +3,7 @@ package collection;
 import com.zhihuishu.teacher.commons.jtest.core.RepeatFixedDuration;
 import com.zhihuishu.teacher.commons.jtest.core.RepeatFixedTimes;
 import com.zhihuishu.teacher.commons.jtest.core.StatisticsSpringJunitRunner;
+import java18.utils.ListHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -91,6 +92,60 @@ public class ArrayListTest {
         List<Integer> integers = this.integers.subList(0, 7);
         System.out.println(integers);
         System.out.println(this.integers);
+    }
+
+    @Test
+    public void test1234(){
+        List<String> list = new ArrayList();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+
+        for (String integer : list) {
+            if(integer == "2"){
+                list.remove(integer);
+            }
+        }
+/*
+        Iterator<String> iterator = list.iterator();
+        int i = 0 ;
+        while(iterator.hasNext()) {
+            if (i == 3) {
+                list.remove(3);
+            }
+            System.out.println(iterator.next());
+            i ++;
+        }*/
+
+    }
+
+    @Test
+    public void test123456(){
+        List<Integer> list = new ArrayList<>();
+        for (int i = 1 ; i <= 99 ; i++){
+            list.add(i);
+        }
+        List<Integer> list1 = ListHelper.subList(list, 10, 1);
+        System.out.println(list1);
+        list1 = ListHelper.subList(list, 10, 2);
+        System.out.println(list1);
+        list1 = ListHelper.subList(list, 10, 3);
+        System.out.println(list1);
+        list1 = ListHelper.subList(list, 10, 4);
+        System.out.println(list1);
+        list1 = ListHelper.subList(list, 10, 5);
+        System.out.println(list1);
+        list1 = ListHelper.subList(list, 10, 6);
+        System.out.println(list1);
+        list1 = ListHelper.subList(list, 10, 7);
+        System.out.println(list1);
+        list1 = ListHelper.subList(list, 10, 8);
+        System.out.println(list1);
+        list1 = ListHelper.subList(list, 10, 9);
+        System.out.println(list1);
+        list1 = ListHelper.subList(list, 10, 10);
+        System.out.println(list1);
     }
 
 }

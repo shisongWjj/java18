@@ -3,10 +3,8 @@ package java18;
 import java18.dto.RenterOrderWzCostDetailEntity;
 import java18.utils.CompareHelper;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Test
@@ -39,6 +37,55 @@ public class Test {
         String compare = comparable.compare();
         System.out.println(compare);*/
 
+    }
+
+    @org.junit.Test
+    public void test2(){
+       /* List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
+        List<Integer> integers1 = integers.subList(0, 8);
+        System.out.println(integers1);*/
+       String a = "1234567890123456789";
+       a = a.substring(0,a.length()-5);
+       System.out.println(a);
+    }
+
+    @org.junit.Test
+    public void test3() throws Exception{
+      /*  String endDateStr = "2020-04-11";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date endDate = sdf.parse(endDateStr);
+        Date startDate = new Date();
+        Long diffDay = null;
+
+        // 得到相差的天数 betweenDate
+        diffDay = (endDate.getTime() - startDate.getTime()) / (60 * 60 * 24 * 1000);
+        System.out.println(diffDay);*/
+     /* String s = "11111";
+      Object o = (Object)s;
+      int i = (int)o;
+      System.out.println(i);*/
+       /* int[] a = new int[3];
+        a[0] = 0;
+        a[1] = 1;
+        a[2] = 2;
+        int[] b = Arrays.copyOf(a, 10);
+        System.out.println("b.length:"+b.length);
+        for(int i = 0 ; i < b.length; i++){
+            System.out.println(b[i]);
+        }*/
+       System.out.println(this.tableSizeFor(3));
+    }
+
+    static final int MAXIMUM_CAPACITY = 1 << 30;
+
+    static final int tableSizeFor(int cap) {
+        int n = cap - 1;
+        n |= n >>> 1;
+        n |= n >>> 2;
+        n |= n >>> 4;
+        n |= n >>> 8;
+        n |= n >>> 16;
+        return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
     }
 
 
