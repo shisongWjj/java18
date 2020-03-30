@@ -103,10 +103,11 @@ public class ArrayListTest {
         list.add("4");
 
         for (String integer : list) {
-            if(integer == "2"){
+            if(integer == "3"){
                 list.remove(integer);
             }
         }
+        System.out.println("结束");
 /*
         Iterator<String> iterator = list.iterator();
         int i = 0 ;
