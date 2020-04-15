@@ -13,4 +13,10 @@ package com.ss.design.watchBook.structural.strategy;
  * @date 2020/4/9
  */
 public interface IStrategy {
+
+    /**
+     * 策略的方法
+     */
+    void operate();
+
 }
