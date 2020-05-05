@@ -209,4 +209,26 @@ public class ListHelper {
         return target;
     }
 
+    /**
+     * 分页
+     * @param list 集合
+     * @param pageSize 页长
+     * @param pageNum 页码 从1开始
+     * @return 分页后的数据
+     */
+    public static <T> List<T> subList(List<T> list, Integer pageSize ,Integer pageNum){
+        if(CollectionUtils.isEmpty(list) || pageSize == null || pageSize <= 0 || pageNum == null || pageNum <= 0){
+            return new ArrayList<>();
+        }
+        Integer pageStart = pageSize * (pageNum - 1);
+        int count = list.size();
+        if(count < pageStart){
+            return new ArrayList<>();
+        }
+        if(count < pageStart + pageSize){
+            return list.subList(pageStart,count);
+        }
+        return list.subList(pageStart,pageStart + pageSize);
+    }
+
 }

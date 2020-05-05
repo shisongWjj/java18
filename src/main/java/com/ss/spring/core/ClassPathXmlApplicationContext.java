@@ -1,13 +1,17 @@
 package com.ss.spring.core;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractXmlApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.core.ResolvableType;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
+
+import java.lang.annotation.Annotation;
 
 /**
  * Standalone XML application context, taking the context definition files
@@ -204,5 +208,24 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
         return this.configResources;
     }
 
+    @Override
+    public String[] getBeanNamesForType(ResolvableType type) {
+        return new String[0];
+    }
+
+    @Override
+    public String[] getBeanNamesForAnnotation(Class<? extends Annotation> annotationType) {
+        return new String[0];
+    }
+
+    @Override
+    public <T> T getBean(Class<T> requiredType, Object... args) throws BeansException {
+        return null;
+    }
+
+    @Override
+    public boolean isTypeMatch(String name, ResolvableType typeToMatch) throws NoSuchBeanDefinitionException {
+        return false;
+    }
 }
 
