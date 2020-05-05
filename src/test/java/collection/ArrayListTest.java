@@ -1,8 +1,8 @@
 package collection;
 
-import com.zhihuishu.teacher.commons.jtest.core.RepeatFixedDuration;
+/*import com.zhihuishu.teacher.commons.jtest.core.RepeatFixedDuration;
 import com.zhihuishu.teacher.commons.jtest.core.RepeatFixedTimes;
-import com.zhihuishu.teacher.commons.jtest.core.StatisticsSpringJunitRunner;
+import com.zhihuishu.teacher.commons.jtest.core.StatisticsSpringJunitRunner;*/
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +20,7 @@ import java.util.*;
  * @author shisong
  * @date 2019/3/20
  */
-@RunWith(StatisticsSpringJunitRunner.class)
+//@RunWith(StatisticsSpringJunitRunner.class)
 public class ArrayListTest {
 
     @Test
@@ -85,7 +85,7 @@ public class ArrayListTest {
     List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
 
     @Test
-    @RepeatFixedDuration(value = 5000)
+   // @RepeatFixedDuration(value = 5000)
     public void test123(){
         Collections.shuffle(integers);
         List<Integer> integers = this.integers.subList(0, 7);
