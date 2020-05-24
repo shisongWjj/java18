@@ -13,18 +13,24 @@ public class ThreadDemo {
     public static void main(String[] args) {
 
         new Thread(()->{
-            try {
-                TimeUnit.SECONDS.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+           while (true){
+               try {
+                   TimeUnit.SECONDS.sleep(1000);
+               } catch (InterruptedException e) {
+                   e.printStackTrace();
+               }
+           }
         },"Thread_Status_01").start();
 
         new Thread(()->{
-            try {
-                Thread.currentThread().wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            while(true){
+                synchronized (ThreadDemo.class){
+                    try {
+                        ThreadDemo.class.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         },"Thread_Status_02").start();
 
@@ -40,11 +46,13 @@ public class ThreadDemo {
     static class BlockedThreadDemo extends Thread{
         @Override
         public void run() {
-            synchronized (this){
-                try {
-                    TimeUnit.SECONDS.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            synchronized (BlockedThreadDemo.class){
+                while (true){
+                    try {
+                            TimeUnit.SECONDS.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
