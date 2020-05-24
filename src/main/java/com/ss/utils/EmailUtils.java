@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
-/*import javax.mail.*;
+import javax.mail.*;
 import javax.mail.internet.*;
-import javax.mail.util.ByteArrayDataSource;*/
+import javax.mail.util.ByteArrayDataSource;
 import java.io.ByteArrayInputStream;
 import java.util.Properties;
 
@@ -24,16 +24,16 @@ public class EmailUtils {
     /**
      * 系统属性
      */
-   /* private static Properties props = System.getProperties();
+    private static Properties props = System.getProperties();
 
-    *//**
+    /**
      * 邮件会话对象
-     *//*
+     */
     private static Session session;
 
-    *//**
+    /**
      * MIME邮件对象
-     *//*
+     */
     private static MimeMessage mimeMsg;
     private static Multipart mp = null;
     private static final String HOST_NAME = "smtp.qiye.163.com";
@@ -43,7 +43,7 @@ public class EmailUtils {
 
     private static final String SMTP = "smtp";
 
-    *//**
+    /**
      * 发送邮件
      *
      * @param tos     收件人
@@ -53,7 +53,7 @@ public class EmailUtils {
      * @return
      * @throws MessagingException
      * @throws AddressException
-     *//*
+     */
     public static void sendMail(String[] tos, String[] copyTos, String subject, String content) throws Exception {
         // Multipart对象,邮件内容,标题,附件等内容均添加到其中后再生成MimeMessage对象
         logger.info("send a email to {}, copy to {}, that subject is {}", tos, copyTos, subject);
@@ -61,7 +61,7 @@ public class EmailUtils {
         send(copyTos, bp);
     }
 
-    *//**
+    /**
      * 发送邮件(带附件)
      *
      * @param tos     收件人
@@ -71,7 +71,7 @@ public class EmailUtils {
      * @return
      * @throws MessagingException
      * @throws AddressException
-     *//*
+     */
     public static void sendMailAttachment(String[] tos, String[] copyTos, String subject, String content, ByteArrayInputStream stream, String fileName, String type) throws Exception {
         // Multipart对象,邮件内容,标题,附件等内容均添加到其中后再生成MimeMessage对象
         BodyPart bp = setBodyPart(tos, subject, content);
@@ -86,7 +86,7 @@ public class EmailUtils {
         send(copyTos, body1);
     }
 
-    *//**
+    /**
      * 构建body
      *
      * @param tos
@@ -94,7 +94,7 @@ public class EmailUtils {
      * @param content
      * @return
      * @throws MessagingException
-     *//*
+     */
     private static BodyPart setBodyPart(String[] tos, String subject, String content) throws MessagingException {
         mp = new MimeMultipart();
         mimeMsg = new MimeMessage(session);
@@ -116,13 +116,13 @@ public class EmailUtils {
         return bp;
     }
 
-    *//**
+    /**
      * body追加部分
      *
      * @param copyTos
      * @param bp
      * @throws MessagingException
-     *//*
+     */
     private static void send(String[] copyTos, BodyPart bp) throws MessagingException {
         mp.addBodyPart(bp);
         mimeMsg.setContent(mp);
@@ -139,14 +139,14 @@ public class EmailUtils {
             transport.sendMessage(mimeMsg, mimeMsg.getRecipients(Message.RecipientType.CC));
         }
         transport.close();
-    }*/
+    }
 
     public static void main(String... args) throws Exception {
         String[] tos = {"song.shi@atzuche.com"};
         String errorMsg = "123\n223";
         ByteArrayInputStream stream = new ByteArrayInputStream(errorMsg.getBytes());
         // sendMailAttachment(tos, null, "测试", "Dear ALL：<br><br>        ", stream, "文件.txt", "application/txt");
-        /*sendMail(tos, null, "测试", "<%@ page contentType=\"text/html;charset=UTF-8\" language=\"java\" %>\n" +
+        sendMail(tos, null, "测试", "<%@ page contentType=\"text/html;charset=UTF-8\" language=\"java\" %>\n" +
                 "<html>\n" +
                 "<head>\n" +
                 "    <meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\">\n" +
@@ -206,7 +206,7 @@ public class EmailUtils {
                 "        </tbody>\n" +
                 "    </table>\n" +
                 "</body>\n" +
-                "</html>");*/
+                "</html>");
     }
 
 }
