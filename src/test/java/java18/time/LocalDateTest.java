@@ -317,6 +317,8 @@ public class LocalDateTest {
     public void test16(){
         int i = 12 / 10;
         System.out.println(i);
+        //System.out.println(Integer.toHexString(7));
+        System.out.println(0b10111011000010110100&0b1111);
     }
 
     @Test

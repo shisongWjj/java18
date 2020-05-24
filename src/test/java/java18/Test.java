@@ -88,5 +88,25 @@ public class Test {
         return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
     }
 
+    private static boolean stop = false;
+    private static volatile int i = 0;
+
+            @org.junit.Test
+    public void test1(){
+        Thread thread = new Thread(()->{
+            while (!stop){
+                i++;
+            }
+        });
+        thread.start();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        stop = true;
+        System.out.println(i);
+    }
 
 }
