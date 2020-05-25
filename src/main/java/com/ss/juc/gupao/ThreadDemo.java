@@ -12,6 +12,7 @@ public class ThreadDemo {
 
     public static void main(String[] args) {
 
+        //阻塞线程
         new Thread(()->{
            while (true){
                try {
@@ -22,6 +23,7 @@ public class ThreadDemo {
            }
         },"Thread_Status_01").start();
 
+        //阻塞线程
         new Thread(()->{
             while(true){
                 synchronized (ThreadDemo.class){
@@ -38,7 +40,7 @@ public class ThreadDemo {
         t1.setName("Block_Thread_01");
         t1.start();
         BlockedThreadDemo t2 = new BlockedThreadDemo();
-        t2.setName("Block_Thread_01");
+        t2.setName("Block_Thread_02");
         t2.start();
 
     }
@@ -49,7 +51,7 @@ public class ThreadDemo {
             synchronized (BlockedThreadDemo.class){
                 while (true){
                     try {
-                            TimeUnit.SECONDS.sleep(1000);
+                        TimeUnit.SECONDS.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
