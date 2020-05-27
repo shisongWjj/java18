@@ -84,7 +84,7 @@ public class InterrupteDemo {
         System.out.println("结束");
     }*/
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         System.out.println("开始");
         System.out.println(Thread.currentThread().isInterrupted());
         Thread.currentThread().interrupt();
@@ -93,6 +93,40 @@ public class InterrupteDemo {
         System.out.println(Thread.currentThread().isInterrupted());
         System.out.println(Thread.interrupted());
         System.out.println("结束");
+    }*/
+
+    public static void main(String[] args) {
+        Thread t1 = new Thread(new Demo());
+        t1.start();
+
+        try {
+            Thread.sleep(10000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //只会中断调用它的线程，谁调用，中断谁
+        t1.interrupt();
+        //Thread.interrupted();
+    }
+
+    static class Demo implements Runnable{
+
+        @Override
+        public void run() {
+            while (!Thread.currentThread().isInterrupted()){
+                /*try {
+                    Thread.sleep(1000L);
+                    System.out.println("333333");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    System.out.println("444444");
+                }*/
+                System.out.println("444444");
+                LockSupport.park();
+                System.out.println("55555");
+                Thread.interrupted();
+            }
+        }
     }
 
 
