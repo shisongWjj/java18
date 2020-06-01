@@ -34,6 +34,8 @@ public class Main {
         cursor.next = listNode3;
         cursor = listNode3;
         System.out.println(node);
+
+
     }
 
 }

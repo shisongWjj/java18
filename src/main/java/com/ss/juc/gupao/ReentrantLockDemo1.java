@@ -14,10 +14,19 @@ public class ReentrantLockDemo1 {
     static Lock lock = new ReentrantLock();
 
     public static void main(String[] args) {
-        int i = 1;
+        int c = 0;
+        int d = 5;
+        do {
+            int i  = c = d;
+            System.out.println(i);
+            System.out.println(c);
+            d++;
+        } while (d < 7);
+
+        /*int i = 1;
         new Thread(()->{
             incr(i);
-        }).start();
+        }).start();*/
 
     }
 
