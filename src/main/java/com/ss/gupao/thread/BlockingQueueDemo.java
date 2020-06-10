@@ -29,8 +29,14 @@ public class BlockingQueueDemo {
         //------------添加元素--------------
 
         //------------取出元素--------------
+        //remove 获取元素，取到了就返回元素，没有就抛出异常 阻塞式获取元素
+        //如果元素个数为0，则抛出异常
         blockingQueue.remove();
+
+        //poll 获取元素，取到了就返回元素，没有就返回null 阻塞式获取元素
+        //如果元素个数为0，则返回null
         blockingQueue.poll();
+
         blockingQueue.take();
         //------------取出元素--------------
     }
