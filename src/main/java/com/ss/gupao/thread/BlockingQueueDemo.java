@@ -29,8 +29,8 @@ public class BlockingQueueDemo {
         //------------添加元素--------------
 
         //------------取出元素--------------
-        blockingQueue.poll();
         blockingQueue.remove();
+        blockingQueue.poll();
         blockingQueue.take();
         //------------取出元素--------------
     }
