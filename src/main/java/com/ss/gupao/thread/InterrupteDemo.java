@@ -1,7 +1,6 @@
-package com.ss.juc.gupao;
+package com.ss.gupao.thread;
 
 import java.util.concurrent.locks.LockSupport;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * InterrupteDemo

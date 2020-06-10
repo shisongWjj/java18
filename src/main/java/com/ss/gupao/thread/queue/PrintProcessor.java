@@ -1,4 +1,4 @@
-package com.ss.juc.gupao.queue;
+package com.ss.gupao.thread.queue;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;

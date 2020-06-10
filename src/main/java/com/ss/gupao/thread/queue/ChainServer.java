@@ -1,4 +1,4 @@
-package com.ss.juc.gupao.queue;
+package com.ss.gupao.thread.queue;
 
 /**
  * Chain

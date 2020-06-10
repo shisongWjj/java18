@@ -1,4 +1,4 @@
-package com.ss.juc.gupao;
+package com.ss.gupao.thread;
 
 import java.util.PriorityQueue;
 import java.util.Queue;
