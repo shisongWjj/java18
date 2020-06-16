@@ -1,4 +1,4 @@
-package com.ss.gupao.Serializer.first;
+package com.ss.gupao.serializer.first;
 
 import java.io.IOException;
 import java.io.Serializable;
