@@ -22,6 +22,7 @@ public class JavaSerializer<T> implements ISerializer<T>{
             return bos.toByteArray();
         }catch (Exception e){
             System.out.println("对象转二进制失败");
+            e.printStackTrace();
         }finally {
             if(oos != null){
                 try {
@@ -51,6 +52,7 @@ public class JavaSerializer<T> implements ISerializer<T>{
             return (T)ois.readObject();
         }catch (Exception e){
             System.out.println("二进制转对象失败");
+            e.printStackTrace();
         }finally {
             if(ois != null){
                 try {

@@ -1,6 +1,5 @@
 package com.ss.gupao.serializer.second;
 
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -9,7 +8,7 @@ import java.io.Serializable;
  * @author shisong
  * @date 2020/6/16
  */
-public class User implements Serializable{
+public class User implements Serializable {
 
     private String name;
 

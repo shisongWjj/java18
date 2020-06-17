@@ -1,7 +1,5 @@
 package com.ss.gupao.serializer.second;
 
-import com.ss.gupao.serializer.first.User;
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
