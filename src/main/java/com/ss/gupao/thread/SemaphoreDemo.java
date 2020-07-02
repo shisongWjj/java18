@@ -7,6 +7,7 @@ import java.util.concurrent.Semaphore;
  *
  * @author shisong
  * @date 2020-06-13
+ * @date 2020/6/15
  */
 public class SemaphoreDemo {
 
@@ -29,4 +30,5 @@ public class SemaphoreDemo {
             },"Thread " + i).start();
         }
     }
+
 }
