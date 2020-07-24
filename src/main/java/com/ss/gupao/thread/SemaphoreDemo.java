@@ -6,6 +6,7 @@ import java.util.concurrent.Semaphore;
  * SemaphoreDemo
  *
  * @author shisong
+ * @date 2020-06-13
  * @date 2020/6/15
  */
 public class SemaphoreDemo {
@@ -13,6 +14,7 @@ public class SemaphoreDemo {
     static Semaphore semaphore = new Semaphore(5);
 
     public static void main(String[] args) {
+        //semaphore.acquire();
         for(int i =0 ;i< 10;i++){
             new Thread(()->{
                 try {
