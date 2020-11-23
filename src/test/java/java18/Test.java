@@ -1,8 +1,14 @@
 package java18;
 
+import com.ss.test.Person;
+import java18.dto.CashierRemoteVo;
+import java18.dto.NewOrderFlowVo;
 import java18.dto.RenterOrderWzCostDetailEntity;
 import java18.utils.CompareHelper;
+import org.apache.commons.lang.StringUtils;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -107,6 +113,124 @@ public class Test {
         }
         stop = true;
         System.out.println(i);
+    }
+
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final int NEW_ORDER_STATUS_CONFIRM = 1;
+    private static final int NEW_ORDER_STATUS_PAY = NEW_ORDER_STATUS_CONFIRM << TWO;
+    private static final int NEW_ORDER_STATUS_DISPATCH = NEW_ORDER_STATUS_PAY << ONE;
+    private static final int NEW_ORDER_STATUS_GET_CAR = NEW_ORDER_STATUS_DISPATCH << ONE;
+    private static final int NEW_ORDER_STATUS_RETURN_CAR = NEW_ORDER_STATUS_GET_CAR << ONE;
+    private static final int NEW_ORDER_STATUS_SETTLE = NEW_ORDER_STATUS_RETURN_CAR << ONE;
+    private static final int NEW_ORDER_STATUS_VIOLATION_SETTLE = NEW_ORDER_STATUS_SETTLE << ONE;
+    private static final int NEW_ORDER_STATUS_CLAIMS_PROCESSING = NEW_ORDER_STATUS_VIOLATION_SETTLE << ONE;
+    private static final int NEW_ORDER_STATUS_FINISHED = NEW_ORDER_STATUS_CLAIMS_PROCESSING << ONE;
+
+    @org.junit.Test
+    public void test0(){
+      System.out.println(NEW_ORDER_STATUS_CONFIRM);
+      System.out.println(NEW_ORDER_STATUS_PAY);
+      System.out.println(NEW_ORDER_STATUS_DISPATCH);
+      System.out.println(NEW_ORDER_STATUS_GET_CAR);
+      System.out.println(NEW_ORDER_STATUS_RETURN_CAR);
+      System.out.println(NEW_ORDER_STATUS_SETTLE);
+      System.out.println(NEW_ORDER_STATUS_VIOLATION_SETTLE);
+      System.out.println(NEW_ORDER_STATUS_CLAIMS_PROCESSING);
+      System.out.println(NEW_ORDER_STATUS_FINISHED);
+      int HASH_INCREMENT = 0x61c88647;
+      System.out.println(HASH_INCREMENT);
+    }
+
+    @org.junit.Test
+    public void test_1(){
+        /*BigDecimal totalAmount = new BigDecimal(193);
+        BigDecimal coefficient = new BigDecimal(1.3D);
+        BigDecimal unitPrice = totalAmount.divide(coefficient, RoundingMode.CEILING);
+        System.out.println( unitPrice + "元 × " + 1.3D );*/
+        /*String baseUrl = "https://test1-web.autozuche.com/";
+        if(baseUrl.endsWith("/")){
+            baseUrl = baseUrl.substring(0,baseUrl.length()-1);
+        }
+        System.out.println(baseUrl);*/
+        BigDecimal unitPrice = new BigDecimal(193);
+        BigDecimal count = new BigDecimal(2.0D);
+        BigDecimal coefficient = new BigDecimal(1.3D);
+        double value = unitPrice.multiply(count).multiply(coefficient).doubleValue();
+        System.out.println(value);
+        System.out.println((int)Math.ceil(value));
+    }
+
+    @org.junit.Test
+    public void test_2(){
+        List<Person> list = new ArrayList<>();
+        Person person = initPerson("ss");
+        list.add(person);
+        person = initPerson("ll");
+        System.out.println(list);
+    }
+
+    private Person initPerson(String userName){
+        Person person = new Person();
+        person.setUserName(userName);
+        return person;
+    }
+
+    @org.junit.Test
+    public void test_3(){
+        /*getNum(1234.09);
+        getNum(123120.2343242);*/
+        List<NewOrderFlowVo> dtoList = getDtoList();
+        int sum = dtoList
+                .stream()
+                .filter(Objects::nonNull)
+                .filter(dto -> dto.getAmt() != null)
+                .map(dto -> Math.abs(dto.getAmt()))
+                .mapToInt(Integer::intValue)
+                .sum();
+        System.out.println(sum);
+    }
+
+    private int getNum(double source){
+        int temp = (int)Math.floor(source);
+        if(temp % 10 > 0){
+            temp = (temp / 10 + 1) * 10;
+        }
+        System.out.println(temp);
+        return temp;
+    }
+
+    private List<NewOrderFlowVo> getDtoList(){
+        return Arrays.asList(
+                new NewOrderFlowVo("1111",null,10,null,null),
+                new NewOrderFlowVo("1111",null,-10,null,null)
+                );
+    }
+
+    private List<CashierRemoteVo> getDtoList2(){
+        return Arrays.asList(
+                new CashierRemoteVo("11",381),
+                new CashierRemoteVo("02",2000),
+                new CashierRemoteVo("01",26)
+                );
+    }
+    private static final List<String> PAY_KIND_DEPOSITS = Arrays.asList("01","02","03","08");
+
+    @org.junit.Test
+    public void test_4(){
+        /*getNum(1234.09);
+        getNum(123120.2343242);*/
+        List<CashierRemoteVo> dtoList = getDtoList2();
+        int sum =dtoList
+                .stream()
+                .filter(Objects::nonNull)
+                .filter(dto-> StringUtils.isNotBlank(dto.getPayKind()))
+                .filter(dto-> !PAY_KIND_DEPOSITS.contains(dto.getPayKind()))
+                .filter(dto -> dto.getPayAmt() != null)
+                .map(dto-> Math.abs(dto.getPayAmt()))
+                .mapToInt(Integer::intValue)
+                .sum();
+        System.out.println(sum);
     }
 
 }
