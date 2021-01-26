@@ -346,4 +346,14 @@ public class LocalDateTest {
     public void test20(){
         System.out.println((int)(Math.random()*30+20));
     }
+
+    @Test
+    public void test21(){
+        LocalDateTime now = LocalDateTime.now();
+        for(int i = 1; i <=30 ;i++){
+            LocalDateTime localDateTime = now.plusDays(i);
+            int value = localDateTime.getDayOfWeek().getValue();
+            System.out.println(value);
+        }
+    }
 }

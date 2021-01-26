@@ -233,4 +233,18 @@ public class Test {
         System.out.println(sum);
     }
 
+    @org.junit.Test
+    public void test_5(){
+        while (true){
+            new Thread( ()->{
+                System.out.println("111111111111111111111111");
+            }).start();
+        }
+    }
+
+    @org.junit.Test
+    public void test_6(){
+        //Math.pow();
+    }
+
 }
