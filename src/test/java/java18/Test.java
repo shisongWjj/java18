@@ -245,6 +245,10 @@ public class Test {
     @org.junit.Test
     public void test_6(){
         //Math.pow();
+        int a = 1;
+        int b = a++;
+        System.out.println(a);
+        System.out.println(b);
     }
 
 }
