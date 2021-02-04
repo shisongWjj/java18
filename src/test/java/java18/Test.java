@@ -4,12 +4,9 @@ import com.ss.test.Person;
 import java18.dto.CashierRemoteVo;
 import java18.dto.NewOrderFlowVo;
 import java18.dto.RenterOrderWzCostDetailEntity;
-import java18.utils.CompareHelper;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -245,10 +242,66 @@ public class Test {
     @org.junit.Test
     public void test_6(){
         //Math.pow();
-        int a = 1;
+        /*int a = 1;
         int b = a++;
         System.out.println(a);
-        System.out.println(b);
+        System.out.println(b);*/
+       /* List<Integer> list = new ArrayList<>();
+        list.add(1);
+        System.out.println(list.size());*/
+        //this.tableSizeFor(6);
+        /*Map<String,String> map = new HashMap(16);
+        map.put("1","1");*/
+        Node<Integer,Integer> a1 = new Node<>(11,11,11,null);
+        Node<Integer,Integer> a = new Node<>(5,5,5,a1);
+        Node<Integer,Integer> b = new Node<>(7,7,7,a);
+        Node<Integer,Integer> e = new Node<>(3,3,3,b);
+
+        int oldCap = 2;
+
+        Node<Integer,Integer> loHead = null, loTail = null;
+        Node<Integer,Integer> hiHead = null, hiTail = null;
+        Node<Integer,Integer> next;
+        do {
+            next = e.next;
+            if ((e.hash & oldCap) == 0) {
+                if (loTail == null)
+                    loHead = e;
+                else
+                    loTail.next = e;
+                loTail = e;
+            }
+            else {
+                if (hiTail == null)
+                    hiHead = e;
+                else
+                    hiTail.next = e;
+                hiTail = e;
+            }
+        } while ((e = next) != null);
+        if (loTail != null) {
+            loTail.next = null;
+            //newTab[j] = loHead;
+        }
+        if (hiTail != null) {
+            hiTail.next = null;
+            //newTab[j + oldCap] = hiHead;
+        }
     }
+
+    static class Node<K,V>{
+        int hash;
+        K key;
+        V value;
+        Node<K,V> next;
+
+        public Node(int hash, K key, V value, Node<K, V> next) {
+            this.hash = hash;
+            this.key = key;
+            this.value = value;
+            this.next = next;
+        }
+    }
+
 
 }
