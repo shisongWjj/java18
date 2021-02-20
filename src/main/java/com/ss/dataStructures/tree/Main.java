@@ -19,8 +19,9 @@ public class Main {
         bst.inOrder();
         System.out.println();
         bst.postOrder();
+        System.out.println();
         //BST
-        System.out.println(bst.getClass().getSimpleName());
+        //System.out.println(bst.getClass().getSimpleName());
     }
 
 }

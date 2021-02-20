@@ -6,8 +6,12 @@ import java18.dto.NewOrderFlowVo;
 import java18.dto.RenterOrderWzCostDetailEntity;
 import org.apache.commons.lang.StringUtils;
 
+import java.lang.ref.Reference;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Test
@@ -303,5 +307,73 @@ public class Test {
         }
     }
 
+    @org.junit.Test
+    public void test123() throws InterruptedException {
+
+        final AtomicInteger atomicInteger = new AtomicInteger(1);
+
+        Thread coreThread = new Thread(
+                () -> {
+                    final int currentValue = atomicInteger.get();
+                    System.out.println(Thread.currentThread().getName() + " ------ currentValue=" + currentValue);
+
+                    // 这段目的：模拟处理其他业务花费的时间
+                    try {
+                        Thread.sleep(300);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    boolean casResult = atomicInteger.compareAndSet(1, 3);
+                    System.out.println(Thread.currentThread().getName()
+                            + " ------ currentValue=" + currentValue
+                            + ", finalValue=" + atomicInteger.get()
+                            + ", compareAndSet Result=" + casResult);
+                }
+        );
+        coreThread.start();
+
+        // 这段目的：为了让 coreThread 线程先跑起来
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Thread amateurThread = new Thread(
+                () -> {
+                    int currentValue = atomicInteger.get();
+                    boolean casResult = atomicInteger.compareAndSet(1, 2);
+                    System.out.println(Thread.currentThread().getName()
+                            + " ------ currentValue=" + currentValue
+                            + ", finalValue=" + atomicInteger.get()
+                            + ", compareAndSet Result=" + casResult);
+
+                    currentValue = atomicInteger.get();
+                    casResult = atomicInteger.compareAndSet(2, 1);
+                    System.out.println(Thread.currentThread().getName()
+                            + " ------ currentValue=" + currentValue
+                            + ", finalValue=" + atomicInteger.get()
+                            + ", compareAndSet Result=" + casResult);
+                }
+        );
+        amateurThread.start();
+        Thread.sleep(1000);
+    }
+
+    @org.junit.Test
+    public void test12(){
+        String str = new String("hello"); //①
+        ReferenceQueue rq = new ReferenceQueue(); //②;
+        WeakReference<String> wf = new WeakReference(str, rq); //③
+        str=null; //④
+//两次催促垃圾回收器工作，提高"hello"对象被回收的可能性
+        //System.gc(); //⑤
+        //System.gc(); //⑥
+        String str1=wf.get(); //⑦ 假如"hello"对象被回收，str1为null
+        System.out.println(str1);
+        Reference ref=rq.poll(); //⑧
+        System.out.println(ref);
+    }
 
 }

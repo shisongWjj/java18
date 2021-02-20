@@ -169,7 +169,7 @@ public class BST<E extends Comparable<E>> {
      */
     private void preOrder(Node node) {
         if (node != null) {
-            System.out.println(node.e);
+            System.out.print(node.e);
             preOrder(node.left);
             preOrder(node.right);
         }
@@ -190,7 +190,7 @@ public class BST<E extends Comparable<E>> {
     private void inOrder(Node node) {
         if (node != null) {
             inOrder(node.left);
-            System.out.println(node.e);
+            System.out.print(node.e);
             inOrder(node.right);
         }
     }
@@ -211,7 +211,7 @@ public class BST<E extends Comparable<E>> {
         if (node != null) {
             postOrder(node.left);
             postOrder(node.right);
-            System.out.println(node.e);
+            System.out.print(node.e);
         }
     }
 
