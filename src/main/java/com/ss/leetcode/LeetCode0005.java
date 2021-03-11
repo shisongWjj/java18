@@ -1,7 +1,6 @@
 package com.ss.leetcode;
 
-import java.util.Stack;
-
+import org.apache.commons.lang3.StringUtils;
 /**
  * LeetCode0005
  *
@@ -27,11 +26,45 @@ public class LeetCode0005 {
      * 链接：https://leetcode-cn.com/problems/longest-palindromic-substring
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
+    public static void main(String[] args) {
+        String s = "aaaa";
+        String i = longestPalindrome(s);
+        System.out.println(i);
 
-    public String longestPalindrome(String s) {
-        Stack stack = new Stack();
+    }
 
-        return null;
+
+    public static String longestPalindrome(String s) {
+        if(s == null || s.equalsIgnoreCase("")){
+            return "";
+        }
+        int length = s.length();
+        if(length == 1){
+            return s;
+        }
+        boolean[][] dp = new boolean[length][length];
+        int start = 0;
+        int end = 0;
+        for (int i = length - 2 ; i >= 0;i--){
+            for (int j = i+1;j<length;j++){
+                dp[i][i] = true;
+                char a = s.charAt(i);
+                char b = s.charAt(j);
+                if(a != b){
+                    dp[i][j] = false;
+                    continue;
+                }
+
+                if((dp[i+1][j-1] || j-i < 3) ){
+                    dp[i][j] = true;
+                }
+                if(dp[i][j] && (end-start) < (j-i)){
+                    start = i;
+                    end = j;
+                }
+            }
+        }
+        return s.substring(start,end+1);
     }
 
 }
