@@ -38,8 +38,8 @@ public class LeetCode0004 {
      Related Topics 数组 二分查找 分治算法*/
 
     public static void main(String[] args) {
-        int[] nums1 = {};
-        int[] nums2 = {1};
+        int[] nums1 = {1,2};
+        int[] nums2 = {3,4};
         double i = findMedianSortedArrays(nums1,nums2);
         System.out.println(i);
 
@@ -57,15 +57,43 @@ public class LeetCode0004 {
         }else if(m == 0){
             x = nums1;
         }else {
+            int index1 = 0;
             int index = 0;
-            for(int i = 0; i < n; i++){
-                for(int y = 0; y < m; y++){
-
+            for(int i = 0; i < n;){
+                for(int y = index1; y < m; ){
+                    if(nums1[i]<=nums2[y]){
+                        x[index] = nums1[i];
+                        i++;
+                        index ++;
+                        break;
+                    }
+                    if(nums1[i]>nums2[y]){
+                        x[index] = nums2[y];
+                        y++;
+                        index1++;
+                        index ++;
+                    }
+                }
+                if(index < (m+n) && index1 == m){
+                    x[index] = nums1[i];
+                    i++;
+                    index ++;
                 }
             }
-
+            if(index < (m+n) ){
+                for(int y = index1; y < m; ){
+                    x[index] = nums2[y];
+                    y++;
+                    index1++;
+                    index ++;
+                }
+            }
         }
 
-        return 0D;
+        if(x.length % 2 == 0){
+            return (double) (x[x.length / 2] + x[x.length / 2 -1]) / 2d;
+        }else{
+            return (double) x[x.length / 2 ];
+        }
     }
 }
