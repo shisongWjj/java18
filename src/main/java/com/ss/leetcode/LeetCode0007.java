@@ -35,14 +35,24 @@ public class LeetCode0007 {
     著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。*/
     public static void main(String[] args) {
         String s = "PAYPALISHIRING";
-        int i = reverse(4);
+        int i = reverse(6541546);
         System.out.println(i);
 
     }
 
 
     public static int reverse(int x) {
-        return x;
+        long result = 0;
+        while(x != 0){
+            int i = x % 10;
+            result = result*10 + i;
+            x = x/10;
+
+        }
+        if(result < Integer.MIN_VALUE || result > Integer.MAX_VALUE){
+            return 0;
+        }
+        return (int)result;
     }
 
 }
