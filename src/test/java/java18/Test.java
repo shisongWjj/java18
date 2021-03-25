@@ -10,6 +10,8 @@ import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -378,7 +380,20 @@ public class Test {
 
     @org.junit.Test
     public void test13(){
-        System.out.println(new Date().getTime());
+       /* DecimalFormat df1 = new DecimalFormat("0.0");
+
+        System.out.println(df1.format(12.34));
+        System.out.println(df1.format(12.35));
+        System.out.println(df1.format(12.36));
+        System.out.println(df1.format(-12.34));
+        System.out.println(df1.format(-12.35));
+        System.out.println(df1.format(-12.36));*/
+        BigDecimal bigDecima1 = BigDecimal.valueOf(2);
+        BigDecimal bigDecima2 = BigDecimal.valueOf(3);
+        BigDecimal divide = bigDecima1.divide(bigDecima2,1, RoundingMode.DOWN);
+        System.out.println("divide======"+divide);//0.67
+
+
     }
 
 }
