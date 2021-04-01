@@ -38,7 +38,8 @@ public class LeetCode0011 {
 
 
     public static int maxArea(int[] height) {
-        if(height == null || height.length == 0){
+        //超时了，尴尬
+        /*if(height == null || height.length == 0){
             return 0;
         }
         int max = 0;
@@ -47,6 +48,23 @@ public class LeetCode0011 {
                 int a = Math.min(height[i],height[j]);
                 int b = j - i;
                 max = Math.max(max,a*b);
+            }
+        }
+        return max;*/
+        if(height == null || height.length == 0){
+            return 0;
+        }
+        int max = 0;
+        int head = 0;
+        int tail = height.length-1;
+        while (head < tail){
+            int a = Math.min(height[head],height[tail]);
+            int b = tail - head;
+            max = Math.max(max,a*b);
+            if(height[head]<height[tail]){
+                head++;
+            }else {
+                tail--;
             }
         }
         return max;

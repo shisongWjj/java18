@@ -30,7 +30,7 @@ public class LeetCode0009 {
      Related Topics 数学*/
     public static void main(String[] args) {
         String s = "PAYPALISHIRING";
-        boolean flag = isPalindrome(6541546);
+        boolean flag = isPalindrome(121);
         System.out.println(flag);
 
     }
@@ -40,13 +40,14 @@ public class LeetCode0009 {
         if(x < 0){
             return false;
         }
+        int origin = x;
         int result = 0;
         while (x != 0){
             int temp = x % 10;
             result = result * 10 + temp;
             x = x / 10;
         }
-        return result == x;
+        return result == origin;
     }
 
 }

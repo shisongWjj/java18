@@ -304,8 +304,8 @@ public class StreamTest {
                         str.add(e);
                     }
                 })
-                .peek(e -> System.out.println("Mapped value: " + e))
-                .forEach(str1 -> System.out.println(str1));
+                //.peek(e -> System.out.println("Mapped value: " + e))
+                .forEach(str1 -> System.out.println());
         System.out.println(str);
     }
 
