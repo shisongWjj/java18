@@ -40,6 +40,15 @@ public class LeetCode0002 {
     }
 
 
+    /**
+     * 创建一个虚拟节点列表，
+     * 只要2个列表不为空，并且存在进位，就一直循环
+     * 判断2个列表是否为空，如果为空 那么值就是0；
+     * 合为 ： 2个列表的值 + 进位
+     * @param l1
+     * @param l2
+     * @return
+     */
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode result = new ListNode(0);
         ListNode cursor = result;

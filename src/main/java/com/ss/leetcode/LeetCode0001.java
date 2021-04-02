@@ -34,6 +34,15 @@ public class LeetCode0001 {
         System.out.println(ints);
     }
 
+    /**
+     * 解题思路
+     * 创建一个map key: target-当前数组值 value的值是 - 当前数组值的下标
+     * 循环数组，判断当前数组的值所对应的key 是否存在
+     * 存在就直接获取到， 不存在就放入map 中
+     * @param nums
+     * @param target
+     * @return
+     */
     public static int[] twoSum(int[] nums, int target) {
         int[] indexs = new int[2];
         Map<Integer,Integer> hash = new HashMap<>();

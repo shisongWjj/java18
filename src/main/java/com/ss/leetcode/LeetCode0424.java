@@ -35,15 +35,24 @@ public class LeetCode0424 {
         if(s.length() < k + 1){
             return s.length();
         }
-        //滑动窗口的大小 其实应该是 k+1
+        //由于只有26个大写字母，所以创建一个数组，用来存放，在滑动窗口中，每个大写字母的出现次数
+        int[] letterArrays = new int[26];
+        // 滑动窗口的大小 只要 左指针指向的字符 出现的次数 + k 比（左指针的下标-右指针的小标 + 1（3-0=3 其实出现4次）） 小
+        // 则滑动窗口扩大，否则 就平移，右指针++，并且减掉原右指针指向的字符 出现次数-1
         int slidingWindow = 0;
-        //初始化
-        char c = s.charAt(0);
-        int head = 0;
-        int tail = 0;
-        for(int i = 0 ; i < s.length(); i++){
-
+        int left = 0;
+        // 左指针 - 右指针 + 1
+        int result = 0;
+        for(int right = 0; right < s.length();right++){
+            //当前字符-'A' 就能获取当前字符在 数组所对应的下标 直接++
+            letterArrays[s.charAt(right) - 'A']++;
+            slidingWindow = Math.max(slidingWindow,letterArrays[s.charAt(right) - 'A']);
+            if(right - left + 1 - slidingWindow > k){
+                letterArrays[s.charAt(left) - 'A']--;
+                left++;
+            }
+            result = Math.max(result,right - left + 1);
         }
-
+        return result;
     }
 }
