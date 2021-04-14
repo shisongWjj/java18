@@ -1,8 +1,5 @@
 package com.ss.leetcode;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * LeetCode0005
  *
