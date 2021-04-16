@@ -22,7 +22,7 @@ public class LeetCode0844 {
 输出：true
 解释：S 和 T 都会变成 “c”。
  示例 4：
-输入：S = "a#c", T = "b"
+输入：S = "a#cc", T = "b"
 输出：false
 解释：S 会变成 “c”，但 T 仍然是 “b”。
  提示：
@@ -37,15 +37,48 @@ public class LeetCode0844 {
 [5,0,0,6,1,6,2,2,4]*/
         int[] nums1 = {4,7,9,7,6,7};
         int[] nums2 = {-1,-2,-3,-4,-5};
-        String s1 = ".L.R...LR..L..";
-        String s2 = "eidbaooo";
+        String s1 = "a#c#b";
+        String s2 = "b";
         boolean area = backspaceCompare(s1,s2);
         System.out.println(area);
 
     }
 
     public static boolean backspaceCompare(String s, String t) {
+        int first = s.length() -1;
+        int second = t.length() -1;
+        int firstCount = 0;
+        int secondCount = 0;
+        while (first >= 0 || second >= 0){
+            first = jump(s,firstCount,first);
+            second = jump(s,secondCount,second);
+            if(first < 0 || second < 0){
+                break;
+            }
+            if(s.charAt(first) == t.charAt(second)){
+                first--;
+                second--;
+                continue;
+            }
+            return false;
+        }
+        return first == second;
 
+    }
+
+    private static int jump(String str, int count, int i) {
+        while (i >= 0){
+            char c = str.charAt(i);
+            if(c == '#'){
+                count ++;
+            }else if(count > 0){
+               count--;
+            }else{
+                break;
+            }
+            i--;
+        }
+        return i;
     }
 
 }
