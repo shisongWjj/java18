@@ -40,30 +40,25 @@ public class LeetCode0930 {
         }
         int left = 0;
         int right = 0;
-        int sum = 0;
-        int leftCount = 1;
-        int rightCount = 1;
         int count = 0;
+        int sum = 0;
         while (right < arr.length){
             sum += arr[right];
-            if(sum == s){
-                while (right < arr.length && arr[right] == 0){
-                    right++;
-                    rightCount++;
-                }
-                count += leftCount * rightCount;
-                leftCount = 1;
-                rightCount = 1;
-            }else if(sum < s){
-                right++;
-            }else {
-                left ++;
-                while (left < arr.length && arr[left] == 0){
-                    left ++;
-                    leftCount++;
-                }
+            while (left < right && sum > s){
+                sum -= arr[left];
+                left++;
             }
+
+            int temp = sum;
+            int leftTemp = left;
+            while (temp == s && leftTemp <= right){
+                temp -= arr[leftTemp];
+                count++;
+                leftTemp++;
+            }
+            right++;
         }
+
         return count;
 
     }

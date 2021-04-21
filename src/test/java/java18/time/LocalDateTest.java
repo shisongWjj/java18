@@ -52,9 +52,11 @@ public class LocalDateTest {
     public void DurationTest() {
         //Duration 2个时间之间的间隔
         LocalDateTime dateTime = LocalDateTime.now();
-        LocalDateTime of = LocalDateTime.of(2018, 5, 10, 0, 0, 01);
-        Duration dur = Duration.between(dateTime, of);
-        System.out.println(dur.toMinutes());
+        LocalDateTime of = LocalDateTime.of(2021, 4, 20, 10, 15, 00);
+        LocalDateTime of2 = LocalDateTime.of(2021, 4, 21, 10, 00, 00);
+        Duration dur = Duration.between(of, of2);
+        System.out.println(dur.toHours());
+
         Duration dur1 = Duration.between(of, dateTime);
         System.out.println(dur1.toMinutes());
     }
