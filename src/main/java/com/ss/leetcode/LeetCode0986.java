@@ -1,6 +1,9 @@
 package com.ss.leetcode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * LeetCode0005
@@ -48,7 +51,37 @@ public class LeetCode0986 {
     }
 
     public static int[][] intervalIntersection(int[][] firstList, int[][] secondList) {
-
+        if(firstList == null || firstList.length == 0){
+            return new int[0][];
+        }
+        if(secondList == null || secondList.length == 0){
+            return new int[0][];
+        }
+        int firstIndex = 0;
+        int secondIndex = 0;
+        List<int[]> result = new ArrayList<>();
+        while (firstIndex < firstList.length && secondIndex < secondList.length){
+            int[] firstArr = firstList[firstIndex];
+            int[] secondArr = secondList[secondIndex];
+            if(firstArr[0] > secondArr[1]){
+                secondIndex ++;
+                continue;
+            }
+            if(secondArr[0] > firstArr[1]){
+                firstIndex ++;
+                continue;
+            }
+            int[] temp = new int[2];
+            temp[0] = Math.max(firstArr[0],secondArr[0]);
+            temp[1] = Math.min(firstArr[1],secondArr[1]);
+            result.add(temp);
+            if(firstArr[1] < secondArr[1]){
+                firstIndex ++;
+            }else {
+                secondIndex ++;
+            }
+        }
+        return result.toArray(new int[result.size()][]);
     }
 
 }
