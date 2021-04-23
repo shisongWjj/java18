@@ -1,9 +1,6 @@
 package com.ss.leetcode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * LeetCode0005
@@ -11,7 +8,7 @@ import java.util.Map;
  * @author shisong
  * @date 2019/10/22
  */
-public class LeetCode1712 {
+public class LeetCode1712Timeout {
     /*我们称一个分割整数数组的方案是 好的 ，当它满足：
      数组被分成三个 非空 连续子数组，从左至右分别命名为 left ， mid ， right 。
      left 中元素和小于等于 mid 中元素和，mid 中元素和小于等于 right 中元素和。
@@ -36,7 +33,7 @@ public class LeetCode1712 {
      0 <= nums[i] <= 104
      Related Topics 双指针 二分查找*/
     public static void main(String[] args) {
-        int[] nums2 = {149,107,1,63,0,1,6867,1325,5611,2581,39,89,46,18,12,20,22,234};
+        int[] nums2 = {3,2,1};
         int area = waysToSplit(nums2);
         System.out.println(area);
 
@@ -45,10 +42,34 @@ public class LeetCode1712 {
     /**
      *
      * @param nums
-     * @param target
      * @return
      */
     public static int waysToSplit(int[] nums) {
-
+        int mod = 1000000007;
+        int sum = Arrays.stream(nums).sum();
+        int avg = sum / 3;
+        int left = 0;
+        int first = 0;
+        long count = 0L;
+        while (left < nums.length - 2){
+            first += nums[left];
+            if(first > avg){
+                break;
+            }
+            int right = left + 1;
+            int second = 0;
+            while (right < nums.length - 1){
+                second += nums[right++];
+                if((sum - first - second) >= second ){
+                    if(second >= first){
+                        count ++;
+                    }
+                }else {
+                    break;
+                }
+            }
+            left++;
+        }
+        return (int)(count % mod);
     }
 }
