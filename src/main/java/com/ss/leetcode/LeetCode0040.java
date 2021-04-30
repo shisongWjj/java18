@@ -68,7 +68,6 @@ public class LeetCode0040 {
             return;
         }
         for (int i = index; i < candidates.length; i++) {
-            System.out.println(temp + ":" + index +":" + i);
             if(target - candidates[i] < 0){
                 return;
             }
