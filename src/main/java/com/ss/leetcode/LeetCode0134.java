@@ -54,12 +54,13 @@ public class LeetCode0134 {
     }
 
     public static int canCompleteCircuit(int[] gas, int[] cost) {
-        for (int i = 0; i < gas.length; i++) {
+        for (int i = 0; i < gas.length;) {
             if(gas[i] < cost[i]){
+                i++;
                 continue;
             }
-            int gasCount = gas[i];
-            int costCount = cost[i];
+            int gasCount = 0;
+            int costCount = 0;
             int index = 0;
             while (index < gas.length){
                 gasCount += gas[(i+index)%gas.length];

@@ -38,7 +38,9 @@ public class LeetCode1839 {
 [5,0,0,6,1,6,2,2,4]*/
         int[] nums1 = {100,10,1};
         int[] nums2 = {7,4,8};
-        String s1 = "uaeio";
+        //String s1 = "aaaaeiiiiouuuooaauuaeiu";
+        //String s1 = "aeiou";
+        String s1 = "eauoiouieaaoueiuaieoeauoiaueoiaeoiuieuaoiaeouiaueo";
         String s2 = "laiden";
         int area = longestBeautifulSubstring(s1);
         System.out.println(area);
@@ -46,6 +48,41 @@ public class LeetCode1839 {
     }
 
     public static int longestBeautifulSubstring(String word) {
+        if(word == null || word.length() < 5){
+            return 0;
+        }
+        int left = 0;
+        int right = 0;
+        int result = 0;
+        while (right < word.length()){
+            while(right < word.length() && word.charAt(right) != 'a'){
+                right ++;
+            }
+            if(word.length() - right < 5){
+                return result;
+            }
+            left = right;
+            Set temp = new HashSet();
+            temp.add(word.charAt(right));
+            while(right < word.length()){
+                if(right == left){
+                    right ++;
+                    continue;
+                }
+                if(word.charAt(right)< word.charAt(right -1)){
+                    break;
+                }
+                temp.add(word.charAt(right));
+                right++;
+            }
+            if(temp.size() == 5){
+                result = Math.max(result,right - left);
+            }
+        }
+        return result;
+    }
+
+    /*public static int longestBeautifulSubstring(String word) {
         if(word.length() < 5){
             return 0;
         }
@@ -83,6 +120,6 @@ public class LeetCode1839 {
             result = Math.max(result,right - left);
         }
         return result;
-    }
+    }*/
 
 }

@@ -1,5 +1,8 @@
 package com.ss.leetcode;
 
+
+import java.util.Stack;
+
 /**
  * LeetCode0005
  *
@@ -22,7 +25,7 @@ public class LeetCode0316 {
      Related Topics 栈 贪心算法 字符串 */
     public static void main(String[] args) {
         int[] nums2 = {2,3,2,1};
-        String area = removeDuplicateLetters("bcabc");
+        String area = removeDuplicateLetters("cbacdcbc");
         System.out.println(area);
 
     }
@@ -30,6 +33,21 @@ public class LeetCode0316 {
 
 
     public static String removeDuplicateLetters(String s) {
-        return "";
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < s.toCharArray().length; i++) {
+            char c = s.charAt(i);
+            if(stack.contains(c)){
+                continue;
+            }
+            while (!stack.isEmpty() && stack.peek() > c && s.indexOf(stack.peek(),i) != -1){
+                stack.pop();
+            }
+            stack.push(c);
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < stack.size(); i++) {
+            sb.append(stack.get(i));
+        }
+        return sb.toString();
     }
 }
