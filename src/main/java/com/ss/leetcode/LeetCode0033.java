@@ -6,7 +6,7 @@ package com.ss.leetcode;
  * @author shisong
  * @date 2019/10/22
  */
-public class LeetCode0033U {
+public class LeetCode0033 {
 
     /*整数数组 nums 按升序排列，数组中的值 互不相同 。
      在传递给函数之前，nums 在预先未知的某个下标 k（0 <= k < nums.length）上进行了 旋转，使数组变为 [nums[k], nums[
@@ -31,14 +31,40 @@ public class LeetCode0033U {
      进阶：你可以设计一个时间复杂度为 O(log n) 的解决方案吗？
      Related Topics 数组 二分查找*/
     public static void main(String[] args) {
+        //int[] num = {4,5,6,7,0,1,2};
         int[] num = {1,3};
-        int ints = search(num, 3);
-        System.out.println("");
+        int ints = search(num, 1);
+        System.out.println(ints);
 
     }
 
     public static int search(int[] nums, int target) {
-        return 0;
+        return search(nums,target,0,nums.length-1);
+    }
+
+    private static int search(int[] nums, int target,int left ,int right){
+        int mid = (left + right)/2;
+        if(nums[mid] == target){
+            return mid;
+        }
+        if(left > right){
+            return -1;
+        }
+        if(nums[left] <= nums[mid]){
+            //说明左侧是升序的，则右侧是无序的
+            if(nums[mid] > target && target >= nums[left]){
+                return search(nums,target,left,mid-1);
+            }else {
+                return search(nums,target,mid+1,right);
+            }
+        }else {
+            //说明右侧是升序的，则左侧是无序的
+            if(nums[mid] < target && target <= nums[right]){
+                return search(nums,target,mid+1,right);
+            }else {
+                return search(nums,target,left,mid-1);
+            }
+        }
     }
 
 }
