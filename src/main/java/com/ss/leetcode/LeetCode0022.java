@@ -29,6 +29,14 @@ public class LeetCode0022 {
     }
 
 
+    /**
+     * 最简单的回溯算法
+     * 当字符串的长度= n*2 那么就放入返回值
+     * 如果“(”的数量“)”的数量少，就返回（枝剪）
+     * 只要“(”和“)”的数量小于n,就递归。
+     * @param n
+     * @return
+     */
     public static List<String> generateParenthesis(int n) {
         List<String> result = new ArrayList<>();
         dfs(result,0,0,n,"");

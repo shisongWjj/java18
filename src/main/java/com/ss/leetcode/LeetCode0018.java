@@ -35,7 +35,7 @@ public class LeetCode0018 {
 
 
     /**
-     *
+     *  在三数之和的基础上，再套一层循环就可以了。
      * @param nums
      * @param target
      * @return

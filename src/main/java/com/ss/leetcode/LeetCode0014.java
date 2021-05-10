@@ -34,6 +34,12 @@ public class LeetCode0014 {
 
     }
 
+    /**
+     * 暴力算法，先取第一个和第二个的公共前缀，然后按照公共前缀去和之后的比
+     * 最后拿到结果。
+     * @param strs
+     * @return
+     */
     public static String longestCommonPrefix(String[] strs) {
         if(strs == null || strs.length  == 0){
             return "";

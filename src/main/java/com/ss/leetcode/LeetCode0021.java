@@ -41,6 +41,14 @@ public class LeetCode0021 {
     }
 
 
+    /**
+     * 创建一个虚拟节点。
+     * 通过双指针来实现，各拿两个链表的头节点，对比值，小的放入，并且小的头节点变为下一个节点
+     * 到循环结束，两个链表只会存在一个链表还存在值，将这个链表放在之后就行了
+     * @param l1
+     * @param l2
+     * @return
+     */
     public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if(l1 == null){
             return l2;

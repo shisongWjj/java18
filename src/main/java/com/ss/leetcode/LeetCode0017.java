@@ -35,7 +35,13 @@ public class LeetCode0017 {
 
     }
 
-
+    /**
+     * 先创建一个map，将数字与字母的关系，组合起来
+     * 根据数字，拿到所以的字母，放到list中
+     * 然后 循环遍历字母的list，进行拼接，通过两个list 互相赋值。
+     * @param digits
+     * @return
+     */
     public static List<String> isPalindrome(String digits) {
         if(digits == null || digits.length() ==0){
             return new ArrayList<>();

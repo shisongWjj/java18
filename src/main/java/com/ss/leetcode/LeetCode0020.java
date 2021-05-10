@@ -40,7 +40,13 @@ public class LeetCode0020 {
 
     }
 
-
+    /**
+     * 通过栈来实现，当([{的时候入栈
+     * 当遇到)]}的时候，出栈，判断出栈的值是否与当前匹配，只要不匹配就返回false
+     * 最后判断栈是否为空，如果是空就返回true，如果不是就返回false
+     * @param s
+     * @return
+     */
     public static boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
         for (int i = 0; i < s.toCharArray().length; i++) {
