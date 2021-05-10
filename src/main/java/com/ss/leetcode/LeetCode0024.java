@@ -40,7 +40,13 @@ public class LeetCode0024 {
 
     }
 
-
+    /**
+     * 通过虚拟节点实现，每次拿2个节点，然后虚拟节点先指向第二个，再指向第一个
+     * 只要当前头节点并且头节点的下一个节点不为null，就一直循环，可能会存在 最后剩余1个节点
+     * 将虚拟节点指向它就可以了
+     * @param head
+     * @return
+     */
     public static ListNode swapPairs(ListNode head) {
         if(head == null){
             return head;

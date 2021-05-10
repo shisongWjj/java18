@@ -47,7 +47,13 @@ public class LeetCode0027 {
     }
 
 
-
+    /**
+     * 双指针实现：
+     * 只要右指针的值和目标值不相等，就右指针的值赋值给左指针，然后左指针自增
+     * @param nums
+     * @param val
+     * @return
+     */
     public static int removeElement(int[] nums, int val) {
         if(nums == null){
             return 0;

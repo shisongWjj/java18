@@ -32,7 +32,15 @@ public class LeetCode0028 {
     }
 
 
-
+    /**
+     * 双指针实现
+     * 在haystack找到needle的头一个字符，然后将left等于当前下标
+     * 之后逐一对比，只要都相等就返回left
+     * 只要有一个不相等，就将计数器重置为0，并将右指针移到左指针处。
+     * @param haystack
+     * @param needle
+     * @return
+     */
     public static int strStr(String haystack, String needle) {
         if(needle == null || needle.equals("")){
             return 0;

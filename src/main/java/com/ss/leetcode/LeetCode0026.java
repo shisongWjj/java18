@@ -1,9 +1,5 @@
 package com.ss.leetcode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * LeetCode0005
  *
@@ -48,7 +44,14 @@ public class LeetCode0026 {
     }
 
 
-
+    /**
+     * 双指针实现：
+     * 左指针默认拿第一个，右指针从第二个开始，循环
+     * 只要左指针指向的数，与右指针指向的数，不相等，那么先将左指针自增，然后将右指针的值赋给左指针
+     * 最后返回左指针的下标+1（长度）
+     * @param nums
+     * @return
+     */
     public static int removeDuplicates(int[] nums) {
         if(nums == null){
             return 0;
