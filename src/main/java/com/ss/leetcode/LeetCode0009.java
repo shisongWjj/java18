@@ -35,7 +35,12 @@ public class LeetCode0009 {
 
     }
 
-
+    /**
+     * 根据题意，负数肯定不是回文数字
+     * 然后按照题7走一遍，判断 反转后的数字和原数字是否相等，相等就是回文
+     * @param x
+     * @return
+     */
     public static boolean isPalindrome(int x) {
         if(x < 0){
             return false;

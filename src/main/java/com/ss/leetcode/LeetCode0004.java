@@ -45,6 +45,14 @@ public class LeetCode0004 {
 
     }
 
+    /**
+     * 由于原本两数组就是 非递减数组，所以将两数组组合成一个非递减数组。
+     * 新数组 如果是奇数，就获取中间那个
+     * 如果是偶数，就两个数 相加 除以2
+     * @param nums1
+     * @param nums2
+     * @return
+     */
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int n = nums1.length;
         int m = nums2.length;

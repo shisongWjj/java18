@@ -36,7 +36,11 @@ public class LeetCode0011 {
 
     }
 
-
+    /**
+     * 左右指针 ，只要哪边小，那边就往另一边靠，然后计算最大值。
+     * @param height
+     * @return
+     */
     public static int maxArea(int[] height) {
         //超时了，尴尬
         /*if(height == null || height.length == 0){

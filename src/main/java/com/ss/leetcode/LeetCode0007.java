@@ -40,7 +40,12 @@ public class LeetCode0007 {
 
     }
 
-
+    /**
+     * 每次都获取数字的个位，然后将返回值*10 + 当前数字，
+     * 然后 对数字 除以10取整，最后对边界进行判断
+     * @param x
+     * @return
+     */
     public static int reverse(int x) {
         long result = 0;
         while(x != 0){

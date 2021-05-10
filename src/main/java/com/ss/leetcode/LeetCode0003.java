@@ -45,14 +45,40 @@ public class LeetCode0003 {
         //String s =" ";
         //String s ="au";
         //String s ="cdd";
-        //String s ="abba";
-        String s ="dvdf";
+        String s ="abba";
+        //String s ="dvdf";
         int i = lengthOfLongestSubstring(s);
         System.out.println(i);
 
     }
 
+    /**
+     * 创建一个map  key为滑动窗口中已出现的字符，value为该字符在字符串中的位置。
+     * 创建左右指针，和滑动窗口的大小，
+     * 当遇到已存在的字符，那么就将左指针移到 上一次出现该字符的位置+1（map中get）
+     * 注意这里会遇到回退的问题：
+     * 比如abba，当执行到第二个b的时候，left = 2,但是执行到第二个a的时候，left 回退到1，
+     * 所以 只有value的值 大于等于 left的时候，才给left进行 重新赋值。
+     * 然后 获取最大的滑动窗口的值（Math.max(result,right - left + 1)）
+     * @param s
+     * @return
+     */
     public static int lengthOfLongestSubstring(String s) {
+        Map<Character,Integer> map = new HashMap<>();
+        int result = 0;
+        int left = 0;
+        for (int right = 0; right < s.toCharArray().length; right++) {
+            if(map.containsKey(s.charAt(right)) && left <= map.get(s.charAt(right))){
+                left = map.get(s.charAt(right)) + 1;
+            }
+            map.put(s.charAt(right),right);
+            result = Math.max(result,right - left + 1);
+
+        }
+        return result;
+    }
+
+    /*public static int lengthOfLongestSubstring(String s) {
         Map<Character,Integer> map = new HashMap<>();
         int max = 0,last = 0;
         char[] chars = s.toCharArray();
@@ -67,7 +93,7 @@ public class LeetCode0003 {
             map.put(chars[i],i);
         }
         return max > size-last ? max : size-last;
-    }
+    }*/
 
     public static Integer aaa(String s){
         List<Character> rs = new ArrayList<>();

@@ -1,6 +1,5 @@
 package com.ss.leetcode;
 
-import org.apache.commons.lang3.StringUtils;
 /**
  * LeetCode0005
  *
@@ -33,7 +32,14 @@ public class LeetCode0005 {
 
     }
 
-
+    /**
+     * 创建一个二维数组,用来记录第i个字符到第j个字符是不是回文字符串。
+     * 首先我们知道，第i,i字符肯定是回文字符串，第i,第i+1，个 只要两个相等就是回文字符串
+     * 第i到j是不是回文字符串，只要判断 第i和第j个字符相等，并且第i+1到第j-1个字符串是回文字符串就可以了。
+     *
+     * @param s
+     * @return
+     */
     public static String longestPalindrome(String s) {
         if(s == null || s.equalsIgnoreCase("")){
             return "";

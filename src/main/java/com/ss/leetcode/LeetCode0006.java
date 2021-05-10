@@ -44,7 +44,14 @@ public class LeetCode0006 {
 
     }
 
-
+    /**
+     * 看示例，发现规则：
+     * 间距 = 2*行数 - 2;  这个是，第一行和最后一行字符的间隔
+     * 中间在间距之间额外加上 次数*gap-行数
+     * @param s
+     * @param numRows
+     * @return
+     */
     public static String convert(String s, int numRows) {
         if(numRows == 1){
             return s;

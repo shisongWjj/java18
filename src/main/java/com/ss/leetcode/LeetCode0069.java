@@ -23,7 +23,7 @@ public class LeetCode0069 {
     public static void main(String[] args) {
         //int[] num = {4,5,6,7,0,1,2};
         int[] num = {1,3};
-        int ints = mySqrt(2147395599);
+        int ints = mySqrt(Integer.MAX_VALUE);
         System.out.println(ints);
 
     }
