@@ -30,6 +30,13 @@ public class LeetCode0035 {
 
     }
 
+    /**
+     * 通过二分法去查找，如果找到就直接返回下标
+     * 如果没找到，left = mid +1   或者 right = mid;
+     * @param nums
+     * @param target
+     * @return
+     */
     public static int search(int[] nums, int target) {
         if(nums == null || nums.length ==0 ){
             return 0;

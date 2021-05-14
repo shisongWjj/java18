@@ -38,6 +38,14 @@ public class LeetCode0033 {
 
     }
 
+    /**
+     * 二分查找实现，先找中间那个数
+     * 然后 对比 头和尾 ，如果 头<中间  则说明 左边升序 右边无序 反之，则说明右边升序 左边无序
+     * 如果 左边升序  那么 将目标值与中间对比 ，只要这个值 大于等于头 小于中间，那么就在这个区间内继续二分，否则就选右边，继续二分
+     * @param nums
+     * @param target
+     * @return
+     */
     public static int search(int[] nums, int target) {
         return search(nums,target,0,nums.length-1);
     }

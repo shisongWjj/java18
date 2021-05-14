@@ -16,3 +16,5 @@ def backward():
                 self.backward() #递归发生，继续向下走一步了。
                 回朔清理     # 该节点下的所有路径都走完了，清理堆栈，准备下一个递归。例如弹出当前节点
 ```
+
+# https://gitee.com/jd-platform-opensource/asyncTool.git

@@ -36,6 +36,14 @@ public class LeetCode0034 {
 
     }
 
+    /**
+     * 先通过二分法 找到 目标值
+     * 如果不存在，就直接返回
+     * 如果存在就通过双指针 一个向左找 一个向右找 ，直到不相等为止。
+     * @param nums
+     * @param target
+     * @return
+     */
     public static int[] searchRange(int[] nums, int target) {
         int[] result = {-1,-1};
         if(nums == null || nums.length ==0){
