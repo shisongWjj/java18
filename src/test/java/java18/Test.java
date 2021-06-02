@@ -396,4 +396,17 @@ public class Test {
 
     }
 
+    @org.junit.Test
+    public void test14(){
+       Integer i = 2;
+       try {
+           i = 1;
+           i = i/0;
+           i = 2;
+       }catch (Exception e){
+           e.printStackTrace();
+       }
+        System.out.println(i);
+    }
+
 }
