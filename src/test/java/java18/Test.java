@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -398,7 +399,7 @@ public class Test {
 
     @org.junit.Test
     public void test14(){
-       Integer i = 2;
+       /*Integer i = 2;
        try {
            i = 1;
            i = i/0;
@@ -406,7 +407,14 @@ public class Test {
        }catch (Exception e){
            e.printStackTrace();
        }
-        System.out.println(i);
+        System.out.println(i);*/
+       int n = 16;
+        n >>>= 1;
+        System.out.println(n);
+        List<Integer> list = Arrays.asList(15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+        PriorityBlockingQueue<Integer> queue = new PriorityBlockingQueue<>(list);
+        System.out.println(queue);
+        /*1 5 2 7 6 3 9 8 12 14 11 4 10 13 15*/
     }
 
 }
