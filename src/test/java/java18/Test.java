@@ -408,13 +408,17 @@ public class Test {
            e.printStackTrace();
        }
         System.out.println(i);*/
-       int n = 16;
+       /*int n = 16;
         n >>>= 1;
         System.out.println(n);
         List<Integer> list = Arrays.asList(15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
         PriorityBlockingQueue<Integer> queue = new PriorityBlockingQueue<>(list);
-        System.out.println(queue);
+        System.out.println(queue);*/
         /*1 5 2 7 6 3 9 8 12 14 11 4 10 13 15*/
+        float f1 = 12.0f;
+        float f2 = 11.9f;
+        float f3 = f1 - f2;
+        System.out.println(String.format("f1:%f f2:%f f3:%f" ,f1,f2,f3));
     }
 
 }
