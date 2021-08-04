@@ -15,7 +15,7 @@ public enum SimpleCrypt {
     INSTANCE;
 
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
-    private static final String KEY = "ejGwSlPHlgPhhe5V";
+    private static final String KEY = "";
 
     /**
      * 加密数据
