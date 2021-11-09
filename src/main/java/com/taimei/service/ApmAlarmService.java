@@ -22,12 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * ApmAlarmService
- *
- * @author shisong
- * @date 2021/11/9
- */
+
 @Service
 public class ApmAlarmService {
 

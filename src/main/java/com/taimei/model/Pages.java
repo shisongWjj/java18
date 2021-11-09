@@ -2,11 +2,6 @@ package com.taimei.model;
 
 import java.util.List;
 
-/**
- * @Author: Colin Feng
- * @Date: 2020/11/10
- * @Description:
- */
 public class Pages<T> {
     private List<T> data;
     private int total;

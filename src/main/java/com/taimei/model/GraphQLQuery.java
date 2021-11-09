@@ -2,12 +2,6 @@ package com.taimei.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * GraphQLQuery
- *
- * @author shisong
- * @date 2021/11/9
- */
 public class GraphQLQuery {
 
     @JsonProperty("query")
